@@ -480,10 +480,15 @@ void C_aplication_txt::EditTree()
 												}
 												else if (ptr == 0 && GetAsyncKeyState(VK_RETURN) != 0)
 												{
-													C_first_name First(data);
-													human.m_get_first_name(First);
-													data.m_clear();
-													goto Add_human;
+													if (data.m_size() > 0)
+													{
+														C_first_name First(data);
+														human.m_get_first_name(First);
+														data.m_clear();
+														goto Add_human;
+													}
+													Sleep(150);
+													break;
 												}
 												else if (ptr == 0)
 												{
@@ -586,10 +591,17 @@ void C_aplication_txt::EditTree()
 												}
 												else if (ptr == 0 && GetAsyncKeyState(VK_RETURN) != 0)
 												{
-													C_last_name Last(data);
-													human.m_get_last_name(Last);
-													data.m_clear();
-
+													if (data.m_size() > 0) {
+														C_last_name Last(data);
+														human.m_get_last_name(Last);
+														data.m_clear();
+														goto Add_human;
+													}
+													else
+													{
+														Sleep(150);
+														break;
+													}
 												}
 												else if (ptr == 0)
 												{
@@ -605,6 +617,7 @@ void C_aplication_txt::EditTree()
 														data.m_clear();
 														goto Add_human;
 													}
+													Sleep(150);
 													break;
 												}
 												Sleep(150);
@@ -783,9 +796,34 @@ void C_aplication_txt::EditTree()
 													}
 													break;
 												}
-												else if (ptr == 0 && GetAsyncKeyState(VK_RETURN) != 0)
+												else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
 												{
-													data.m_pop_back();
+													if (yy.m_size() > 0)
+													{
+														yy.m_pop_back();
+														Sleep(150);
+														break;
+													}
+													else
+													{
+														if (mm.m_size() > 0)
+														{
+															mm.m_pop_back();
+															Sleep(150);
+															break;
+														}
+														else
+														{
+															if (dd.m_size() > 0)
+															{
+																dd.m_pop_back();
+																Sleep(150);
+																break;
+															}
+															Sleep(150);
+															break;
+														}
+													}
 													Sleep(150);
 													break;
 												}
@@ -795,6 +833,7 @@ void C_aplication_txt::EditTree()
 														C = m_get_key();
 														if (C != '\0') {
 															dd.m_push_back(C);
+															break;
 														}
 													}
 													else
@@ -803,27 +842,27 @@ void C_aplication_txt::EditTree()
 															C = m_get_key();
 															if (C != '\0') {
 																mm.m_push_back(C);
+																break;
 															}
 														}
 														else
 														{
-															if (yy.m_size() < 4) {
+															if (yy.m_size() <= 3) {
 																C = m_get_key();
 																if (C != '\0') {
 																	yy.m_push_back(C);
+																	break;
 																}
 															}
-															else
-															{
-																C_date date;
-																date.m_get_day(dd);
-																date.m_get_month(mm);
-																date.m_get_year(yy);
-																human.m_get_date(date);
-																goto Add_human;
-															}
+															C_date date;
+															date.m_get_day(dd);
+															date.m_get_month(mm);
+															date.m_get_year(yy);
+															human.m_get_date(date);
+															goto Add_human;
 														}
 													}
+													Sleep(150);
 													break;
 												}
 												else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
@@ -921,7 +960,9 @@ void C_aplication_txt::EditTree()
 								}
 								else if (ptr == 4 && GetAsyncKeyState(VK_RETURN) != 0)
 								{
+
 									m_new_human(human);
+									m_save_files();
 									break;
 									//if
 								}
@@ -1008,10 +1049,13 @@ void C_aplication_txt::EditTree()
 												}
 												else if (ptr == 0 && GetAsyncKeyState(VK_RETURN) != 0)
 												{
-													C_first_name First(data);
-													human.m_get_first_name(First);
-													data.m_clear();
-													goto Add_human;
+													if (data.m_size() > 0)
+													{
+														C_first_name First(data);
+														human.m_get_first_name(First);
+														data.m_clear();
+														goto Add_human;
+													}
 												}
 												else if (ptr == 0)
 												{
@@ -1109,15 +1153,18 @@ void C_aplication_txt::EditTree()
 												}
 												else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
 												{
-													data.m_pop_back();
-													Sleep(150);
-													break;
+													
+														data.m_pop_back();
+														Sleep(150);
+														break;
 												}
 												else if (ptr == 0 && GetAsyncKeyState(VK_RETURN) != 0)
 												{
-													C_last_name Last(data);
-													human.m_get_last_name(Last);
-													data.m_clear();
+													if (data.m_size() > 0) {
+														C_last_name Last(data);
+														human.m_get_last_name(Last);
+														data.m_clear();
+													}
 
 												}
 												else if (ptr == 0)
@@ -1301,6 +1348,7 @@ void C_aplication_txt::EditTree()
 													{
 														ptr = 1;
 													}
+													Sleep(150);
 													break;
 												}
 												else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
@@ -1310,11 +1358,37 @@ void C_aplication_txt::EditTree()
 													{
 														ptr = 0;
 													}
+													Sleep(150);
 													break;
 												}
-												else if (ptr == 0 && GetAsyncKeyState(VK_RETURN) != 0)
+												else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
 												{
-													data.m_pop_back();
+													if (yy.m_size() > 0)
+													{
+														yy.m_pop_back();
+														Sleep(150);
+														break;
+													}
+													else
+													{
+														if (mm.m_size() > 0)
+														{
+															mm.m_pop_back();
+															Sleep(150);
+															break;
+														}
+														else
+														{
+															if (dd.m_size() > 0)
+															{
+																dd.m_pop_back();
+																Sleep(150);
+																break;
+															}
+															Sleep(150);
+															break;
+														}
+													}
 													Sleep(150);
 													break;
 												}
@@ -1324,6 +1398,7 @@ void C_aplication_txt::EditTree()
 														C = m_get_key();
 														if (C != '\0') {
 															dd.m_push_back(C);
+															break;
 														}
 													}
 													else
@@ -1332,6 +1407,7 @@ void C_aplication_txt::EditTree()
 															C = m_get_key();
 															if (C != '\0') {
 																mm.m_push_back(C);
+																break;
 															}
 														}
 														else
@@ -1340,21 +1416,20 @@ void C_aplication_txt::EditTree()
 																C = m_get_key();
 																if (C != '\0') {
 																	yy.m_push_back(C);
+																	break;
 																}
 															}
-															else
-															{
-																C_date date;
-																date.m_get_day(dd);
-																date.m_get_month(mm);
-																date.m_get_year(yy);
-																human.m_get_date(date);
-																goto Add_human;
-															}
+															C_date date;
+															date.m_get_day(dd);
+															date.m_get_month(mm);
+															date.m_get_year(yy);
+															human.m_get_date(date);
+															goto Add_human;
 														}
 													}
 													break;
 												}
+											
 												else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
 												{
 													if (m_what_return())
