@@ -620,7 +620,7 @@ void C_aplication_txt::EditTree()
 										while (true)
 										{
 											//	b_what = false;
-											N_striing MenuSub_add_last_name[4] = { "Gender:","- Men","-Women", "Return" };
+											N_striing MenuSub_add_last_name[4] = { "Gender:","- Men","- Women", "Return" };
 											N_striing SubSub_add_last_name[4] = { "","","" ,"[Return From Add Person]" };
 											system("cls");
 											CreateLogo();
@@ -851,8 +851,8 @@ void C_aplication_txt::EditTree()
 					{
 						ptr = 0;
 						N_striing MenuSub_add_person[6] = { "1. Add a first name", "2. Add a surname", "3. Add a gender", "4. Add a date","5. Save Person" ,"6. Return" };
-						N_striing SubSub_add_person[6] = { "[You can add a first name to your person]", "[You can add a surname to your person]","[//Napisac cos odnosnie dodania Persona]", "[You can add a gender to your person]",
-							"[You can add a date to your person]", "[Return From Add Person]" };
+						N_striing SubSub_add_person[6] = { "[You can add a first name to your person]", "[You can add a surname to your person]","[You can choose your gender]", "[You can add a date of birth]",
+							"[Save your person]", "[Return From Add Person]" };
 						Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 										// tutaj powinna byc metoda dolaczenia nowej osoby
 						while (true)
@@ -1031,8 +1031,9 @@ void C_aplication_txt::EditTree()
 												}
 												Sleep(150);
 											}
-											//	Sleep(150);
+											Sleep(150);
 										}
+										Sleep(150);
 									}
 									case 1: {
 										ptr = 0;
@@ -1148,7 +1149,7 @@ void C_aplication_txt::EditTree()
 										while (true)
 										{
 											//	b_what = false;
-											N_striing MenuSub_add_last_name[4] = { "Gender:","- Men","-Women", "Return" };
+											N_striing MenuSub_add_last_name[4] = { "Gender:","- Men","- Women", "Return" };
 											N_striing SubSub_add_last_name[4] = { "","","" ,"[Return From Add Person]" };
 											system("cls");
 											CreateLogo();
@@ -1235,7 +1236,7 @@ void C_aplication_txt::EditTree()
 											//	Sleep(150);
 										}
 										break;
-										break; }//Dodawanie pluci
+										break; }//Dodawanie plci
 									case 3: {
 										ptr = 0;
 										N_striing dd, mm, yy;
@@ -1360,6 +1361,7 @@ void C_aplication_txt::EditTree()
 													{
 														data.m_clear();
 														goto Add_human;
+														//EditTree();
 													}
 													break;
 												}
@@ -1375,6 +1377,7 @@ void C_aplication_txt::EditTree()
 							}
 							Sleep(150);
 						}
+						Sleep(150);
 					}
 					//	Sleep(150);
 				case 1: {
@@ -1391,7 +1394,8 @@ void C_aplication_txt::EditTree()
 				}
 				case 4:
 				{
-					exit(1);
+					//EditTree();
+					//exit(1);
 					break;
 				}
 				default:
@@ -1402,9 +1406,11 @@ void C_aplication_txt::EditTree()
 				}
 				Sleep(150);     // szybkosc poruszania sie po menu
 			}
-			//	Sleep(150);
+			Sleep(150);
 		}
+		Sleep(150);
 	}
+	Sleep(150);
 }
 /*	case 1:
 {
@@ -1905,8 +1911,8 @@ char C_aplication_txt::m_get_key() {
 	}
 }
 bool C_aplication_txt::m_what_return() {
-	N_striing MenuSub1[4] = { "Czy chcesz wrucic do poprzedniego menu?","1. Yes","2. No", "3. Anuluj" }; //przetłumacz i zmien na sensowne
-	N_striing SubSub1[4] = { "","[Wszystkie wprowadone dane teraz zostana utracone]","[//cos tam odnosnie ze niechce moze byc nic:p]" ,"[Anuluj i powruc do dodawanie danych]" }; //przetłumacz i zmien na sensowne
+	N_striing MenuSub1[4] = { "Do you want back to the menu?","1. Yes","2. No", "3. Cancel" }; 
+	N_striing SubSub1[4] = { "","[All data will be deleted]","[Continue]" ,"[Cancel and return to adding data]" };
 	int ptr = 1, p = 0;
 
 	while (true)
