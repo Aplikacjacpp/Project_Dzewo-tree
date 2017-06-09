@@ -37,9 +37,9 @@ void C_human::m_shift_id(N_striing &id) { C_id I(id,1); Id = I; }
 void C_human::m_shift_id(int id) { C_id I(id); Id = I; }
 void C_human::m_shift_id(C_id &id) { Id = id; }
 void C_human::m_get_date(C_date date) {
-	std::cout << "dodanie\n"<<date.m_set_DD_MM_YYYY()<<"\n";
+//	std::cout << "dodanie\n"<<date.m_set_DD_MM_YYYY()<<"\n";
 	V_date.m_push_back(date); 
-	std::cout << V_date[0].m_set_DD_MM_YYYY() << "\n";
+	//std::cout << V_date[0].m_set_DD_MM_YYYY() << "\n";
 }
 void C_human::m_delete_first_name() { N_striing data = ""; First.m_get_contens(data); }
 void C_human::m_delete_last_name(int value) { V_last.m_erase(value); }

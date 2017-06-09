@@ -93,6 +93,7 @@ void C_sl_personalys::m_add_new_personaly(C_id id, C_first_name first, N_vektor<
 	data += ">";
 	C_goverment_personaly Gover;
 	Gover.m_get_contens(data);
+	V_goverment_personaly.m_push_back(Gover); //tego bakowalo!!!
 	if (m_what(Gover.m_set_value_id()))
 	{
 		int i;

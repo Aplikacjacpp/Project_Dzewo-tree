@@ -59,7 +59,7 @@ void C_enginer::m_save_files() {
 	m_load_file_relation(false);
 }
 void C_enginer::m_new_human(C_human &human) {
-	if(human.m_set_id().m_set_contens().m_atoi(0, human.m_set_id().m_set_contens().m_size())<=1)
+	if(human.m_set_id().m_set_contens().m_atoi(0, human.m_set_id().m_set_contens().m_size())==0)
 		m_add_new_personaly(++i_index,human.m_set_first_name(),human.m_set_V_last_name(),human.m_set_gender());
 	else
 		m_add_new_personaly(human.m_set_id(), human.m_set_first_name(), human.m_set_V_last_name(), human.m_set_gender());
