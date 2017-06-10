@@ -1481,6 +1481,7 @@ void C_aplication_txt::EditTree()
 				default:
 					break;
 				}
+				//menu do tetetetetete
 
 						Sleep(150);     // szybkosc poruszania sie po menu
 				}
@@ -2257,380 +2258,22 @@ void C_aplication_txt::m_menu_add_human() {
 						Sleep(1500);
 						switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
 						{
-						case 0: {
-							human = m_menu_add_first_name();
-							break;
-						}
-						case 1: {
-							ptr = 0;
-							//WH_KEYBOARD_LL;//hak do klawiatury
-							//bool b_what;
-
-							Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-											// tutaj powinna byc metoda dolaczenia nowej osoby
-							while (true)
-							{
-								//	b_what = false;
-								N_striing MenuSub_add_last_name[2] = { "Last name:", "Return" };
-								N_striing SubSub_add_last_name[2] = { data ,"[Return From Add Person]" };
-								system("cls");
-								CreateLogo();
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-
-								for (i = 0; i < 2; ++i)
-								{
-									if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-										cout << "\t\t\t\t" << "--> " << MenuSub_add_last_name[i] << " \n\t\t " << SubSub_add_last_name[i] << endl;
-									}
-									else                // niewybrane opcje sa biale
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-										cout << "\t\t\t\t" << MenuSub_add_last_name[i] << endl;
-									}
-								}
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-								cout << "\n\n\n\n Use the arrows to navigate the menu ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << char(24) << " " << char(25);        // kody ASCII strzalek
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << ". Confirm your choice with ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ENTER.";
-
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << "\n Click ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ESCAPE";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << " if you want back to main menu.";
-								while (true)
-								{
-									if (GetAsyncKeyState(VK_ESCAPE)) {
-										if (m_what_menu())
-											MainMenu();
-										break;
-									}
-									if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
-																		//naprawione:)
-									{
-										ptr -= 1;
-										if (ptr == -1)      // gdy wykracza wraca na koniec
-										{
-											ptr = 1;
-										}
-										Sleep(150);
-										break;
-									}
-									else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
-									{
-										ptr += 1;
-										if (ptr == 2)       // gdy wykracza poza menu, znow wraca na poczatek
-										{
-											ptr = 0;
-										}
-										Sleep(150);
-										break;
-									}
-									else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
-									{
-										data.m_pop_back();
-										Sleep(150);
-										break;
-									}
-									else if (ptr == 0 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										if (data.m_size() > 0) {
-											C_last_name Last(data);
-											human.m_get_last_name(Last);
-											data.m_clear();
-											goto Add_human;
-										}
-										else
-										{
-											Sleep(150);
-											break;
-										}
-									}
-									else if (ptr == 0)
-									{
-										C = m_get_key();
-										if (C != '\0') {
-											data.m_push_back(C);
-										}
-										break;
-									}
-									else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										if (m_what_return()) {
-											data.m_clear();
-											goto Add_human;
-										}
-										Sleep(150);
-										break;
-									}
-									Sleep(150);
-								}
-								//	Sleep(150);
+							case 0: {
+								human = m_menu_add_first_name();
+								break;
 							}
-							break;
-						}
-						case 2: {
-							ptr = 1;
-							Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-											// tutaj powinna byc metoda dolaczenia nowej osoby
-							while (true)
-							{
-								//	b_what = false;
-								N_striing MenuSub_add_last_name[4] = { "Gender:","- Men","- Women", "Return" };
-								N_striing SubSub_add_last_name[4] = { "","","" ,"[Return From Add Person]" };
-								system("cls");
-								CreateLogo();
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-
-								for (i = 0; i < 4; ++i)
-								{
-									if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-										cout << "\t\t\t\t" << "--> " << MenuSub_add_last_name[i] << " \n\t\t " << SubSub_add_last_name[i] << endl;
-									}
-									else                // niewybrane opcje sa biale
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-										cout << "\t\t\t\t" << MenuSub_add_last_name[i] << endl;
-									}
-								}
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-								cout << "\n\n\n\n Use the arrows to navigate the menu ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << char(24) << " " << char(25);        // kody ASCII strzalek
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << ". Confirm your choice with ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ENTER.";
-
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << "\n Click ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ESCAPE";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << " if you want back to main menu.";
-								while (true)
-								{
-									if (GetAsyncKeyState(VK_ESCAPE)) {
-										if (m_what_menu())
-											MainMenu();
-										break;
-									}
-									if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
-																		//naprawione:)
-									{
-										ptr -= 1;
-										if (ptr == 0)      // gdy wykracza wraca na koniec
-										{
-											ptr = 3;
-										}
-										break;
-									}
-									else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
-									{
-										ptr += 1;
-										if (ptr == 4)       // gdy wykracza poza menu, znow wraca na poczatek
-										{
-											ptr = 1;
-										}
-										break;
-									}
-									else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										human.m_get_gender(true);
-										Sleep(150);
-										break;
-									}
-									else if (ptr == 2 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										human.m_get_gender(false);
-										Sleep(150);
-										break;
-									}
-									else if (ptr == 3 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										if (m_what_return()) {
-											data.m_clear();
-											goto Add_human;
-										}
-										break;
-									}
-									Sleep(150);
-								}
-								//	Sleep(150);
+							case 1: {
+								human = m_menu_add_last_name();
+								break;
 							}
-							break;
-							break; }//Dodawanie pluci
-						case 3: {
-							ptr = 0;
-							N_striing dd, mm, yy;
-							Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-											// tutaj powinna byc metoda dolaczenia nowej osoby
-							while (true)
-							{
-								//	b_what = false;
-								data = dd;
-								data += '-';
-								data += mm;
-								data += '-';
-								data += yy;
-								N_striing MenuSub_add_last_name[2] = { "Date:", "Return" };
-								N_striing SubSub_add_last_name[2] = { data ,"[Return From Add Person]" };
-								system("cls");
-								CreateLogo();
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-
-								for (i = 0; i < 2; ++i)
-								{
-									if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-										cout << "\t\t\t\t" << "--> " << MenuSub_add_last_name[i] << " \n\t\t " << SubSub_add_last_name[i] << endl;
-									}
-									else                // niewybrane opcje sa biale
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-										cout << "\t\t\t\t" << MenuSub_add_last_name[i] << endl;
-									}
-								}
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-								cout << "\n\n\n\n Use the arrows to navigate the menu ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << char(24) << " " << char(25);        // kody ASCII strzalek
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << ". Confirm your choice with ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ENTER.";
-
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << "\n Click ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ESCAPE";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << " if you want back to main menu.";
-								while (true)
-								{
-									if (GetAsyncKeyState(VK_ESCAPE)) {
-										if (m_what_menu())
-											MainMenu();
-										break;
-									}
-									if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
-																		//naprawione:)
-									{
-										ptr -= 1;
-										if (ptr == -1)      // gdy wykracza wraca na koniec
-										{
-											ptr = 1;
-										}
-										break;
-									}
-									else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
-									{
-										ptr += 1;
-										if (ptr == 2)       // gdy wykracza poza menu, znow wraca na poczatek
-										{
-											ptr = 0;
-										}
-										break;
-									}
-									else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
-									{
-										if (yy.m_size() > 0)
-										{
-											yy.m_pop_back();
-											Sleep(150);
-											break;
-										}
-										else
-										{
-											if (mm.m_size() > 0)
-											{
-												mm.m_pop_back();
-												Sleep(150);
-												break;
-											}
-											else
-											{
-												if (dd.m_size() > 0)
-												{
-													dd.m_pop_back();
-													Sleep(150);
-													break;
-												}
-												Sleep(150);
-												break;
-											}
-										}
-										Sleep(150);
-										break;
-									}
-									else if (ptr == 0)
-									{
-										if (dd.m_size() < 2) {
-											C = m_get_key();
-											if (C != '\0') {
-												dd.m_push_back(C);
-												break;
-											}
-										}
-										else
-										{
-											if (mm.m_size() < 2) {
-												C = m_get_key();
-												if (C != '\0') {
-													mm.m_push_back(C);
-													break;
-												}
-											}
-											else
-											{
-												if (yy.m_size() <= 3) {
-													C = m_get_key();
-													if (C != '\0') {
-														yy.m_push_back(C);
-														break;
-													}
-												}
-												C_date date;
-												date.m_get_day(dd);
-												date.m_get_month(mm);
-												date.m_get_year(yy);
-												human.m_get_date(date);
-												goto Add_human;
-											}
-										}
-										Sleep(150);
-										break;
-									}
-									else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										if (m_what_return()) {
-											data.m_clear();
-											goto Add_human;
-										}
-										break;
-									}
-									Sleep(150);
-								}
-								//	Sleep(150);
+							case 2: {
+								human = m_menu_add_gender();
+								break;
 							}
-							break; //Dodawanie daty
-						}
+							case 3: {
+								human = m_menu_add_date();
+								break;
+							}
 						}
 					}
 					Sleep(150);
@@ -2723,377 +2366,22 @@ void C_aplication_txt::m_menu_add_human() {
 						Sleep(1500);
 						switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
 						{
-						case 0: {
-							human = m_menu_add_first_name();
-							break;
-						}
-						case 1: {
-							ptr = 0;
-							//WH_KEYBOARD_LL;//hak do klawiatury
-							//bool b_what;
-
-							Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-											// tutaj powinna byc metoda dolaczenia nowej osoby
-							while (true)
-							{
-								//	b_what = false;
-								N_striing MenuSub_add_last_name[2] = { "Last name:", "Return" };
-								N_striing SubSub_add_last_name[2] = { data ,"[Return From Add Person]" };
-								system("cls");
-								CreateLogo();
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-
-								for (i = 0; i < 2; ++i)
-								{
-									if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-										cout << "\t\t\t\t" << "--> " << MenuSub_add_last_name[i] << " \n\t\t " << SubSub_add_last_name[i] << endl;
-									}
-									else                // niewybrane opcje sa biale
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-										cout << "\t\t\t\t" << MenuSub_add_last_name[i] << endl;
-									}
-								}
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-								cout << "\n\n\n\n Use the arrows to navigate the menu ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << char(24) << " " << char(25);        // kody ASCII strzalek
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << ". Confirm your choice with ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ENTER.";
-
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << "\n Click ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ESCAPE";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << " if you want back to main menu.";
-								while (true)
-								{
-									if (GetAsyncKeyState(VK_ESCAPE)) {
-										if (m_what_menu())
-											MainMenu();
-										break;
-									}
-									if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
-																		//naprawione:)
-									{
-										ptr -= 1;
-										if (ptr == -1)      // gdy wykracza wraca na koniec
-										{
-											ptr = 1;
-										}
-										break;
-									}
-									else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
-									{
-										ptr += 1;
-										if (ptr == 2)       // gdy wykracza poza menu, znow wraca na poczatek
-										{
-											ptr = 0;
-										}
-										break;
-									}
-									else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
-									{
-
-										data.m_pop_back();
-										Sleep(150);
-										break;
-									}
-									else if (ptr == 0 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										if (data.m_size() > 0) {
-											C_last_name Last(data);
-											human.m_get_last_name(Last);
-											data.m_clear();
-										}
-
-									}
-									else if (ptr == 0)
-									{
-										C = m_get_key();
-										if (C != '\0') {
-											data.m_push_back(C);
-										}
-										break;
-									}
-									else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										if (m_what_return()) {
-											data.m_clear();
-											goto Add_human;
-										}
-										break;
-									}
-									Sleep(150);
-								}
-								//	Sleep(150);
+							case 0: {
+								human = m_menu_add_first_name();
+								break;
 							}
-							break;
-						}
-						case 2: {
-							ptr = 1;
-							Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-											// tutaj powinna byc metoda dolaczenia nowej osoby
-							while (true)
-							{
-								//	b_what = false;
-								N_striing MenuSub_add_last_name[4] = { "Gender:","- Men","- Women", "Return" };
-								N_striing SubSub_add_last_name[4] = { "","","" ,"[Return From Add Person]" };
-								system("cls");
-								CreateLogo();
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-
-								for (i = 0; i < 4; ++i)
-								{
-									if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-										cout << "\t\t\t\t" << "--> " << MenuSub_add_last_name[i] << " \n\t\t " << SubSub_add_last_name[i] << endl;
-									}
-									else                // niewybrane opcje sa biale
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-										cout << "\t\t\t\t" << MenuSub_add_last_name[i] << endl;
-									}
-								}
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-								cout << "\n\n\n\n Use the arrows to navigate the menu ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << char(24) << " " << char(25);        // kody ASCII strzalek
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << ". Confirm your choice with ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ENTER.";
-
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << "\n Click ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ESCAPE";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << " if you want back to main menu.";
-								while (true)
-								{
-									if (GetAsyncKeyState(VK_ESCAPE)) {
-										if (m_what_menu())
-											MainMenu();
-										break;
-									}
-									if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
-																		//naprawione:)
-									{
-										ptr -= 1;
-										if (ptr == 0)      // gdy wykracza wraca na koniec
-										{
-											ptr = 3;
-										}
-										break;
-									}
-									else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
-									{
-										ptr += 1;
-										if (ptr == 4)       // gdy wykracza poza menu, znow wraca na poczatek
-										{
-											ptr = 1;
-										}
-										break;
-									}
-									else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										human.m_get_gender(true);
-										Sleep(150);
-										break;
-									}
-									else if (ptr == 2 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										human.m_get_gender(false);
-										Sleep(150);
-										break;
-									}
-									else if (ptr == 3 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										if (m_what_return()) {
-											data.m_clear();
-											goto Add_human;
-										}
-										break;
-									}
-									Sleep(150);
-								}
-								//	Sleep(150);
+							case 1: {
+								human = m_menu_add_last_name();
+								break;
 							}
-							break;
-							break; }//Dodawanie plci
-						case 3: {
-							ptr = 0;
-							N_striing dd, mm, yy;
-							Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-											// tutaj powinna byc metoda dolaczenia nowej osoby
-							while (true)
-							{
-								//	b_what = false;
-								data = dd;
-								data += '-';
-								data += mm;
-								data += '-';
-								data += yy;
-								N_striing MenuSub_add_last_name[2] = { "Date:", "Return" };
-								N_striing SubSub_add_last_name[2] = { data ,"[Return From Add Person]" };
-								system("cls");
-								CreateLogo();
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-
-								for (i = 0; i < 2; ++i)
-								{
-									if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-										cout << "\t\t\t\t" << "--> " << MenuSub_add_last_name[i] << " \n\t\t " << SubSub_add_last_name[i] << endl;
-									}
-									else                // niewybrane opcje sa biale
-									{
-										SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-										cout << "\t\t\t\t" << MenuSub_add_last_name[i] << endl;
-									}
-								}
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-								cout << "\n\n\n\n Use the arrows to navigate the menu ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << char(24) << " " << char(25);        // kody ASCII strzalek
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << ". Confirm your choice with ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ENTER.";
-
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << "\n Click ";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "ESCAPE";
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << " if you want back to main menu.";
-								while (true)
-								{
-									if (GetAsyncKeyState(VK_ESCAPE)) {
-										if (m_what_menu())
-											MainMenu();
-										break;
-									}
-									if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
-																		//naprawione:)
-									{
-										ptr -= 1;
-										if (ptr == -1)      // gdy wykracza wraca na koniec
-										{
-											ptr = 1;
-										}
-										Sleep(150);
-										break;
-									}
-									else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
-									{
-										ptr += 1;
-										if (ptr == 2)       // gdy wykracza poza menu, znow wraca na poczatek
-										{
-											ptr = 0;
-										}
-										Sleep(150);
-										break;
-									}
-									else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
-									{
-										if (yy.m_size() > 0)
-										{
-											yy.m_pop_back();
-											Sleep(150);
-											break;
-										}
-										else
-										{
-											if (mm.m_size() > 0)
-											{
-												mm.m_pop_back();
-												Sleep(150);
-												break;
-											}
-											else
-											{
-												if (dd.m_size() > 0)
-												{
-													dd.m_pop_back();
-													Sleep(150);
-													break;
-												}
-												Sleep(150);
-												break;
-											}
-										}
-										Sleep(150);
-										break;
-									}
-									else if (ptr == 0)
-									{
-										if (dd.m_size() < 2) {
-											C = m_get_key();
-											if (C != '\0') {
-												dd.m_push_back(C);
-												break;
-											}
-										}
-										else
-										{
-											if (mm.m_size() < 2) {
-												C = m_get_key();
-												if (C != '\0') {
-													mm.m_push_back(C);
-													break;
-												}
-											}
-											else
-											{
-												if (yy.m_size() < 4) {
-													C = m_get_key();
-													if (C != '\0') {
-														yy.m_push_back(C);
-														break;
-													}
-												}
-												C_date date;
-												date.m_get_day(dd);
-												date.m_get_month(mm);
-												date.m_get_year(yy);
-												human.m_get_date(date);
-												goto Add_human;
-											}
-										}
-										break;
-									}
-
-									else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										if (m_what_return())
-										{
-											data.m_clear();
-											goto Add_human;
-											//EditTree();
-										}
-										break;
-									}
-									Sleep(150);
-								}
-								//	Sleep(150);
+							case 2: {
+								human = m_menu_add_gender();
+								break;
 							}
-							break; //Dodawanie daty
-						}
+							case 3: {
+								human = m_menu_add_date();
+								break;
+							}
 						}
 					}
 					Sleep(150);
@@ -3102,29 +2390,6 @@ void C_aplication_txt::m_menu_add_human() {
 			}
 			Sleep(150);
 		}
-		//	Sleep(150);
-	case 1: {
-		m_lista();
-		break;
-	}
-	case 2:
-	{
-		m_lista();
-		break;
-	}
-	case 3:
-	{
-		m_lista();
-		break;
-	}
-	case 4:
-	{
-		//EditTree();
-		//exit(1);
-		break;
-	}
-	default:
-		break;
 }
 C_human C_aplication_txt::m_menu_add_first_name() {
 	int ptr = 0;
@@ -3213,7 +2478,7 @@ C_human C_aplication_txt::m_menu_add_first_name() {
 					C_first_name First(data);
 					human.m_get_first_name(First);
 					data.m_clear();
-					//przeskok do dodawania humana
+					return human;
 				}
 			}
 			else if (ptr == 0)
@@ -3228,7 +2493,7 @@ C_human C_aplication_txt::m_menu_add_first_name() {
 			{
 				if (m_what_return()) {
 					data.m_clear();
-					//przeskok do dodawania humana
+					return human;
 				}
 				break;
 			}
@@ -3351,10 +2616,263 @@ C_human C_aplication_txt::m_menu_add_last_name() {
 		}
 }
 C_human C_aplication_txt::m_menu_add_gender() {
+	int ptr = 1,i;
+	char C;
+	N_striing data;
+	C_human human;
+	Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+					// tutaj powinna byc metoda dolaczenia nowej osoby
+	while (true)
+	{
+		//	b_what = false;
+		N_striing MenuSub_add_last_name[4] = { "Gender:","- Men","- Women", "Return" };
+		N_striing SubSub_add_last_name[4] = { "","","" ,"[Return From Add Person]" };
+		system("cls");
+		CreateLogo();
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
+
+		for (i = 0; i < 4; ++i)
+		{
+			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+				cout << "\t\t\t\t" << "--> " << MenuSub_add_last_name[i] << " \n\t\t " << SubSub_add_last_name[i] << endl;
+			}
+			else                // niewybrane opcje sa biale
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				cout << "\t\t\t\t" << MenuSub_add_last_name[i] << endl;
+			}
+		}
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+		cout << "\n\n\n\n Use the arrows to navigate the menu ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		cout << char(24) << " " << char(25);        // kody ASCII strzalek
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		cout << ". Confirm your choice with ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		cout << "ENTER.";
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		cout << "\n Click ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		cout << "ESCAPE";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		cout << " if you want back to main menu.";
+		while (true)
+		{
+			if (GetAsyncKeyState(VK_ESCAPE)) {
+				if (m_what_menu())
+					MainMenu();
+				break;
+			}
+			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
+												//naprawione:)
+			{
+				ptr -= 1;
+				if (ptr == 0)      // gdy wykracza wraca na koniec
+				{
+					ptr = 3;
+				}
+				break;
+			}
+			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
+			{
+				ptr += 1;
+				if (ptr == 4)       // gdy wykracza poza menu, znow wraca na poczatek
+				{
+					ptr = 1;
+				}
+				break;
+			}
+			else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
+			{
+				human.m_get_gender(true);
+				Sleep(150);
+				return human;
+			}
+			else if (ptr == 2 && GetAsyncKeyState(VK_RETURN) != 0)
+			{
+				human.m_get_gender(false);
+				Sleep(150);
+				return human;
+			}
+			else if (ptr == 3 && GetAsyncKeyState(VK_RETURN) != 0)
+			{
+				if (m_what_return()) {
+					return human;
+				}
+				break;
+			}
+			Sleep(150);
+		}
+	Sleep(150);
+	}
 }
 C_human C_aplication_txt::m_menu_add_date() {
+	int ptr = 1, i;
+	char C;
+	N_striing data;
+	C_human human;
+	N_striing dd, mm, yy;
+	Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+					// tutaj powinna byc metoda dolaczenia nowej osoby
+	while (true)
+	{
+		//	b_what = false;
+		data = dd;
+		data += '-';
+		data += mm;
+		data += '-';
+		data += yy;
+		N_striing MenuSub_add_last_name[2] = { "Date:", "Return" };
+		N_striing SubSub_add_last_name[2] = { data ,"[Return From Add Person]" };
+		system("cls");
+		CreateLogo();
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
+
+		for (i = 0; i < 2; ++i)
+		{
+			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+				cout << "\t\t\t\t" << "--> " << MenuSub_add_last_name[i] << " \n\t\t " << SubSub_add_last_name[i] << endl;
+			}
+			else                // niewybrane opcje sa biale
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				cout << "\t\t\t\t" << MenuSub_add_last_name[i] << endl;
+			}
+		}
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+		cout << "\n\n\n\n Use the arrows to navigate the menu ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		cout << char(24) << " " << char(25);        // kody ASCII strzalek
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		cout << ". Confirm your choice with ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		cout << "ENTER.";
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		cout << "\n Click ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		cout << "ESCAPE";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		cout << " if you want back to main menu.";
+		while (true)
+		{
+			if (GetAsyncKeyState(VK_ESCAPE)) {
+				if (m_what_menu())
+					MainMenu();
+				break;
+			}
+			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
+												//naprawione:)
+			{
+				ptr -= 1;
+				if (ptr == -1)      // gdy wykracza wraca na koniec
+				{
+					ptr = 1;
+				}
+				Sleep(150);
+				break;
+			}
+			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
+			{
+				ptr += 1;
+				if (ptr == 2)       // gdy wykracza poza menu, znow wraca na poczatek
+				{
+					ptr = 0;
+				}
+				Sleep(150);
+				break;
+			}
+			else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
+			{
+				if (yy.m_size() > 0)
+				{
+					yy.m_pop_back();
+					Sleep(150);
+					break;
+				}
+				else
+				{
+					if (mm.m_size() > 0)
+					{
+						mm.m_pop_back();
+						Sleep(150);
+						break;
+					}
+					else
+					{
+						if (dd.m_size() > 0)
+						{
+							dd.m_pop_back();
+							Sleep(150);
+							break;
+						}
+						Sleep(150);
+						break;
+					}
+				}
+				Sleep(150);
+				break;
+			}
+			else if (ptr == 0)
+			{
+				if (dd.m_size() < 2) {
+					C = m_get_key();
+					if (C != '\0') {
+						dd.m_push_back(C);
+						break;
+					}
+				}
+				else
+				{
+					if (mm.m_size() < 2) {
+						C = m_get_key();
+						if (C != '\0') {
+							mm.m_push_back(C);
+							break;
+						}
+					}
+					else
+					{
+						if (yy.m_size() < 4) {
+							C = m_get_key();
+							if (C != '\0') {
+								yy.m_push_back(C);
+								break;
+							}
+						}
+						C_date date;
+						date.m_get_day(dd);
+						date.m_get_month(mm);
+						date.m_get_year(yy);
+						human.m_get_date(date);
+						return human;
+					}
+				}
+				break;
+			}
+
+			else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
+			{
+				if (m_what_return())
+				{
+					data.m_clear();
+					return human;
+				}
+				break;
+			}
+			Sleep(150);
+		}
+	Sleep(150);
+	}
 }
 //void C_aplication_txt::m_menu_edit_human() {
 
