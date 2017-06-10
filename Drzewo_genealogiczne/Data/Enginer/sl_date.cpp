@@ -23,7 +23,7 @@ void C_sl_date::m_file_date(bool what, N_striing Data) {
 	int i,i_start, i_stop;
 	if (what)
 	{
-	//	Data += "\\";
+		Data += "\\";
 		Data += f_save_date;
 		N_striing s_inline;
 		C_goverment_date Gover;
@@ -64,7 +64,7 @@ void C_sl_date::m_file_date(bool what, N_striing Data) {
 	else
 	{
 		s_data.m_clear();
-	//	Data += "\\";
+		Data += "\\";
 		Data += f_save_date;
 		std::ofstream File;
 		File.open(Data.m_c_str());

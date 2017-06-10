@@ -23,7 +23,7 @@ void C_sl_personalys::m_load_file_personaly(bool what, N_striing Data) {
 	int i_multiple, i, i_start, i_stop;
 	if (what)
 	{
-	//	Data += "\\";
+		Data += "\\";
 		Data += f_save_data;
 		C_goverment_personaly Gover;
 		std::ifstream File;
@@ -38,7 +38,7 @@ void C_sl_personalys::m_load_file_personaly(bool what, N_striing Data) {
 			} while (1);
 			File.close();
 		}
-		//s_data = m_cypher_on(s_data);
+		s_data = m_cypher_on(s_data);
 		i_start = 0;
 		for (i = 0; i < s_data.m_size(); i++)
 		{
@@ -55,7 +55,7 @@ void C_sl_personalys::m_load_file_personaly(bool what, N_striing Data) {
 	}
 	else
 	{
-	//	Data += "\\";
+		Data += "\\";
 		Data += f_save_data;
 		s_data.m_clear();
 		std::ofstream File;

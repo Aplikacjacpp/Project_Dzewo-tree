@@ -24,7 +24,7 @@ int C_enginer::i_index = NULL;
 void C_enginer::m_file_init(bool b_what, N_striing Data) {
 	if (b_what)
 	{
-	//	Data += "\\";
+		Data += "\\";
 		Data += f_init_file;
 		std::ifstream file;
 		file.open(Data.m_c_str());
@@ -38,6 +38,7 @@ void C_enginer::m_file_init(bool b_what, N_striing Data) {
 	}
 	else
 	{
+		Data += "\\";
 		Data += f_init_file;
 		std::ofstream File;
 		File.open(Data.m_c_str());
@@ -313,6 +314,9 @@ void C_enginer::m_create_file_operation(N_striing Data) {
 	}
 }
 void C_enginer::m_get_index_value_tree(N_striing data) {
+	//test
+//	std::cout << data;
+//	Sleep(10000);
 	index_value_tree = data;
 	m_load_files(true);
 }

@@ -23,7 +23,7 @@ void C_sl_relations::m_load_file_relation(bool what, N_striing Data) {
 	int i_multiple, i, i_start, i_stop;
 	if (what)
 	{
-	//	Data += "\\";
+		Data += "\\";
 		Data += f_save_relation;
 		C_goverment_relation Gover;
 		std::ifstream File;
@@ -56,7 +56,7 @@ void C_sl_relations::m_load_file_relation(bool what, N_striing Data) {
 	else
 	{
 		s_data.m_clear();
-//		Data += "\\";
+		Data += "\\";
 		Data += f_save_relation;
 		std::ofstream File;
 		File.open(Data.m_c_str());
