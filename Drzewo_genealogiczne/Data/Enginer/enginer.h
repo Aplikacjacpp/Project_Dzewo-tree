@@ -28,8 +28,8 @@ public:
 	bool operator!=(const C_enginer &enginer);
 	virtual ~C_enginer();
 	int m_set_index();
-	void m_load_files();
-	void m_save_files();
+	void m_load_files(bool what);
+	void m_save_files(bool what);
 	void m_new_human(C_human &human);
 	void m_new_element(C_element &element, bool b_what);
 	C_element m_create_element(C_id id_finter);
@@ -40,7 +40,7 @@ public:
 private:
 	void m_printer(int i);
 	void m_get_index(int value);
-	void m_file_init(bool b_what);
+	void m_file_init(bool b_what, N_striing Data);
 	bool m_add_to_operation(N_striing Data);
 	void m_create_file_operation(N_striing Data);
 	N_vektor<C_tree> V_tree;

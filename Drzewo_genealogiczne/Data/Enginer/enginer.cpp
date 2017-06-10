@@ -1,5 +1,5 @@
 #include "enginer.h"
-C_enginer::C_enginer() :C_sl_date(), C_sl_personalys(), C_sl_relations() { m_load_files(); }
+C_enginer::C_enginer() :C_sl_date(), C_sl_personalys(), C_sl_relations() { m_load_files(false); }
 C_enginer::C_enginer(const C_enginer &enginer) : C_sl_date(enginer), C_sl_personalys(enginer), C_sl_relations(enginer) { if (this != &enginer) *this = enginer; }
 C_enginer& C_enginer::operator=(const C_enginer &enginer) {
 	if (this == &enginer) return *this;
@@ -21,11 +21,13 @@ int C_enginer::m_set_index() { return i_index; }
 void C_enginer::m_get_index(int value) { i_index = value; }
 C_enginer::~C_enginer() {}
 int C_enginer::i_index = NULL;
-void C_enginer::m_file_init(bool b_what) {
+void C_enginer::m_file_init(bool b_what, N_striing Data) {
 	if (b_what)
 	{
+	//	Data += "\\";
+		Data += f_init_file;
 		std::ifstream file;
-		file.open(f_init_file);
+		file.open(Data.m_c_str());
 		if (file.good())
 		{
 			int value;
@@ -36,8 +38,9 @@ void C_enginer::m_file_init(bool b_what) {
 	}
 	else
 	{
+		Data += f_init_file;
 		std::ofstream File;
-		File.open(f_init_file);
+		File.open(Data.m_c_str());
 		if (File.good())
 		{
 			File << m_set_index();
@@ -45,19 +48,40 @@ void C_enginer::m_file_init(bool b_what) {
 		}
 	}
 }
-void C_enginer::m_load_files(N_striing data) {
-	m_printer(1);
-	m_file_init(true,N_striing data);
-	m_file_date(true, N_striing data);
-	m_load_file_personaly(true, N_striing data);
-	m_load_file_relation(true, N_striing data);
+void C_enginer::m_load_files(bool what) {
+	if (what)
+	{
+		m_printer(1);
+		m_file_init(true, index_value_tree);
+		m_file_date(true, index_value_tree);
+		m_load_file_personaly(true, index_value_tree);
+		m_load_file_relation(true, index_value_tree);
+	}
+	else
+	{
+		m_printer(1);
+		m_file_init(true, "");
+		m_file_date(true, "");
+		m_load_file_personaly(true, "");
+		m_load_file_relation(true, "");
+	}
 }
-void C_enginer::m_save_files() {
-	m_printer(2);
-	m_file_init(false, N_striing data);
-	m_file_date(false, N_striing data);
-	m_load_file_personaly(false, N_striing data);
-	m_load_file_relation(false, N_striing data);
+void C_enginer::m_save_files(bool what) {
+	if (what) {
+		m_printer(2);
+		m_file_init(false, index_value_tree);
+		m_file_date(false, index_value_tree);
+		m_load_file_personaly(false, index_value_tree);
+		m_load_file_relation(false, index_value_tree);
+	}
+	else
+	{
+		m_printer(2);
+		m_file_init(false, "");
+		m_file_date(false, "");
+		m_load_file_personaly(false, "");
+		m_load_file_relation(false, "");
+	}
 }
 void C_enginer::m_new_human(C_human &human) {
 	if(human.m_set_id().m_set_contens().m_atoi(0, human.m_set_id().m_set_contens().m_size())==0)
@@ -290,5 +314,5 @@ void C_enginer::m_create_file_operation(N_striing Data) {
 }
 void C_enginer::m_get_index_value_tree(N_striing data) {
 	index_value_tree = data;
-	m_load_files();
+	m_load_files(true);
 }

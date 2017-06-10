@@ -59,7 +59,7 @@ public:
 private:
 	N_vektor<N_striing> Lista;
 	N_vektor<C_id> V_ID;
-//	N_striing index_value_tree;
+	N_striing name_user_profile;
 	void m_load_lista();
 	void m_lista();
 	bool m_what_files();

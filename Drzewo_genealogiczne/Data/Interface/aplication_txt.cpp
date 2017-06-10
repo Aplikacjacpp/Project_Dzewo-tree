@@ -4,15 +4,37 @@
 #include <Windows.h>
 
 C_aplication_txt::C_aplication_txt() {
-	if (!m_what_files())
+	system("echo %USERPROFILE%>>operation.ope");
+	std::ifstream file;
+	file.open("operation.ope");
+	if (file.good())
 	{
-		system("md %USERPROFILE%\\.tree&&dir>>%USERPROFILE%\\.tree\\init.&&cd %USERPROFILE%\\.tree\\&&ATTRIB -A +H init."); //dziala
+		name_user_profile.m_getline(file);
+		//name_user_profile.m_push_back("\\");
+		std::cout << name_user_profile << "\n";
+		file.close();
+	}
+	if (m_what_files())
+	{	
+		system("attrib -a +h +r +s operation.ope");
+		system("md %USERPROFILE%\\.tree&&%USERPROFILE%>>echo  >>%USERPROFILE%\\.tree\\init.&&cd %USERPROFILE%\\.tree\\&&ATTRIB -A +H init."); //dziala
 	}
 }
 C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
-	if (!m_what_files())
+	system("echo %USERPROFILE%>>operation.ope");
+	std::ifstream file;
+	file.open("operation.ope");
+	if (file.good())
 	{
-		system("md %USERPROFILE%\\.tree&&dir>>%USERPROFILE%\\.tree\\init.&&cd %USERPROFILE%\\.tree\\&&ATTRIB -A +H init."); //dziala
+		name_user_profile.m_getline(file);
+		//name_user_profile.m_push_back("\\");
+		std::cout << name_user_profile << "\n";
+		file.close();
+	}
+	if (m_what_files())
+	{
+		system("attrib -a +h +r +s operation.ope");
+		system("md %USERPROFILE%\\.tree&&%USERPROFILE%>>echo  >>%USERPROFILE%\\.tree\\init.&&cd %USERPROFILE%\\.tree\\&&ATTRIB -A +H init."); //dziala
 	}
 }
 C_aplication_txt& C_aplication_txt::operator=(const C_aplication_txt& aplication_txt) {
@@ -20,27 +42,39 @@ C_aplication_txt& C_aplication_txt::operator=(const C_aplication_txt& aplication
 	if (*this == aplication_txt) return *this;
 	Lista = aplication_txt.Lista;
 	V_ID = aplication_txt.V_ID;
-//	index_value_tree = aplication_txt.index_value_tree;
+	name_user_profile = aplication_txt.name_user_profile;
 	return *this;
 }
 bool C_aplication_txt::operator==(const C_aplication_txt& aplication_txt) {
-	if (Lista==aplication_txt.Lista&&V_ID==aplication_txt.V_ID) return true;
+	if (Lista==aplication_txt.Lista&&V_ID==aplication_txt.V_ID&&name_user_profile == aplication_txt.name_user_profile) return true;
 	return false;
 }
 bool C_aplication_txt::operator!=(const C_aplication_txt& aplication_txt) {
-	if (Lista != aplication_txt.Lista&&V_ID != aplication_txt.V_ID) return true;
+	if (Lista != aplication_txt.Lista&&V_ID != aplication_txt.V_ID&&name_user_profile != aplication_txt.name_user_profile) return true;
 	return false;
 }
 C_aplication_txt::~C_aplication_txt() {}
 bool C_aplication_txt::m_what_files() {
+	N_striing data;
+	int i;
 	std::ifstream file;
-	file.open("%USERPROFILE%\\.tree\\init.");
+	data = "cd ";
+	data += name_user_profile;
+	data += "\\.tree\\&&attrib +A -H init.";
+	system(data.m_c_str());
+	data = name_user_profile;
+	data += "\\.tree\\init.";
+	file.open(data.m_c_str());
 	if (file.good())
 	{
 		file.close();
-		return true;
+		data = "cd ";
+		data += name_user_profile;
+		data += "\\.tree\\&&attrib +A -H init.";
+		system(data.m_c_str());
+		return false;
 	}
-	return false;
+	return true;
 }
 
 void C_aplication_txt::SetWindow(int Width, int Height)
@@ -2202,7 +2236,7 @@ void C_aplication_txt::m_menu_add_human() {
 				CreateLogo();
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
-				for (i = 0; i < 6; ++i)
+				for (i = 0; i < 7; ++i)
 				{
 					if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 					{
@@ -2264,7 +2298,7 @@ void C_aplication_txt::m_menu_add_human() {
 					{
 
 						m_new_human(human);
-						m_save_files();
+						m_save_files(true);
 						break;
 						//if
 					}
@@ -2303,7 +2337,6 @@ void C_aplication_txt::m_menu_add_human() {
 				}
 				Sleep(150);
 			}
-			Sleep(150);
 		}
 }
 C_human C_aplication_txt::m_menu_add_first_name() {
@@ -2416,7 +2449,6 @@ C_human C_aplication_txt::m_menu_add_first_name() {
 		}
 		Sleep(150);
 	}
-	Sleep(150);
 }
 C_human C_aplication_txt::m_menu_add_last_name() {
 	int ptr = 0,i;
@@ -2935,7 +2967,7 @@ void C_aplication_txt::m_menu_name_tree() {
 					Sleep(1500);
 					if (GetAsyncKeyState(VK_RETURN) != 0)
 					{
-						index_value_tree = data;
+						m_get_index_value_tree(name_user_profile + "\\" + data);
 						m_create_new_location(data);
 						m_menu_add_human();
 						//przeskok do edycji w wczytanu tej lokalizacji

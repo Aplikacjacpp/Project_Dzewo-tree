@@ -142,7 +142,7 @@ C_last_name L1, L2;
 	C_aplication_txt AP;		// test menu w aplikacji - dzia³a!!!
 	AP.SetWindow(100, 45);
 	AP.CreateLogo();
-	AP.MainMenu();
+	AP.MainMenu();//*/
 
 					//test na dzialanie C_date
 	C_date date13('/');
@@ -267,7 +267,7 @@ C_last_name L1, L2;
 	system("type plik.txt");
 	main_odszyfrowywanie("plik.txt", "dom", 5);*/
 	
-	Engin.m_save_files();
+	Engin.m_save_files(false);
 	std::cout << "pliki:\n\n";
 	system("type data.save");
 	std::cout << "\n";

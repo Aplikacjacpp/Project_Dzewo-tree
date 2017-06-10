@@ -18,14 +18,16 @@ bool C_sl_relations::operator!=(const C_sl_relations& sl_relations) {
 	return false;
 }
 C_sl_relations::~C_sl_relations() {}
-void C_sl_relations::m_load_file_relation(bool what) {
+void C_sl_relations::m_load_file_relation(bool what, N_striing Data) {
 	N_striing s_data,s_inline;
 	int i_multiple, i, i_start, i_stop;
 	if (what)
 	{
+	//	Data += "\\";
+		Data += f_save_relation;
 		C_goverment_relation Gover;
 		std::ifstream File;
-		File.open(f_save_relation);
+		File.open(Data.m_c_str());
 		if (File.good())
 		{
 			do {
@@ -54,8 +56,10 @@ void C_sl_relations::m_load_file_relation(bool what) {
 	else
 	{
 		s_data.m_clear();
+//		Data += "\\";
+		Data += f_save_relation;
 		std::ofstream File;
-		File.open(f_save_relation);
+		File.open(Data.m_c_str());
 		if (File.good())
 		{
 		//	std::cout <<"zawartosc: "<< V_goverment_relation[0].m_set_contens()<<"\n";

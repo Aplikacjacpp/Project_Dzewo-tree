@@ -18,14 +18,16 @@ bool C_sl_personalys::operator!=(const C_sl_personalys& sl_personalys) {
 	return false;
 }
 C_sl_personalys::~C_sl_personalys() {}
-void C_sl_personalys::m_load_file_personaly(bool what) {
+void C_sl_personalys::m_load_file_personaly(bool what, N_striing Data) {
 	N_striing s_data,s_inline;
 	int i_multiple, i, i_start, i_stop;
 	if (what)
 	{
+	//	Data += "\\";
+		Data += f_save_data;
 		C_goverment_personaly Gover;
 		std::ifstream File;
-		File.open(f_save_data);
+		File.open(Data.m_c_str());
 		if (File.good())
 		{
 			do {
@@ -53,9 +55,11 @@ void C_sl_personalys::m_load_file_personaly(bool what) {
 	}
 	else
 	{
+	//	Data += "\\";
+		Data += f_save_data;
 		s_data.m_clear();
 		std::ofstream File;
-		File.open(f_save_data);
+		File.open(Data.m_c_str());
 		if (File.good())
 		{
 	//		std::cout <<"\nrozmiar zapisywanego:"<< V_goverment_personaly.m_size() << "\n";

@@ -18,15 +18,17 @@ bool C_sl_date::operator!=(const C_sl_date& sl_date) {
 	return false;
 }
 C_sl_date::~C_sl_date() {}
-void C_sl_date::m_file_date(bool what) {
+void C_sl_date::m_file_date(bool what, N_striing Data) {
 	N_striing s_data;
 	int i,i_start, i_stop;
 	if (what)
 	{
+	//	Data += "\\";
+		Data += f_save_date;
 		N_striing s_inline;
 		C_goverment_date Gover;
 		std::ifstream File;
-		File.open(f_save_date);
+		File.open(Data.m_c_str());
 		if (File.good())
 		{
 			do{
@@ -62,8 +64,10 @@ void C_sl_date::m_file_date(bool what) {
 	else
 	{
 		s_data.m_clear();
+	//	Data += "\\";
+		Data += f_save_date;
 		std::ofstream File;
-		File.open(f_save_date);
+		File.open(Data.m_c_str());
 		if (File.good())
 		{
 			for (i = 0; i < V_goverment_date.m_size(); i++)

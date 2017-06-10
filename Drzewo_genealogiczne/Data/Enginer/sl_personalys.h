@@ -29,7 +29,7 @@ public:
 	virtual ~C_sl_personalys(); //destruktor virtualny
 protected:
 	bool m_what(int value);
-	void m_load_file_personaly(bool what); //czytanie z pliku
+	void m_load_file_personaly(bool what, N_striing Data); //czytanie z pliku
 	virtual N_striing m_cypher_on(N_striing data); //odszyfrowywanie
 	virtual N_striing m_cypher_off(N_striing data); //zaszyfrowywanie
 	void m_add_new_personaly(C_id id, C_first_name first, N_vektor<C_last_name> Last, C_gender gender); //dodawanie nowych danych personalnych

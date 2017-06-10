@@ -27,7 +27,7 @@ public:
 	bool operator!=(const C_sl_relations& sl_relations); //operator porownania !=
 	virtual ~C_sl_relations(); //wirtualny destruktor
 protected:
-	void m_load_file_relation(bool what); //czytanie z pliku
+	void m_load_file_relation(bool what, N_striing Data); //czytanie z pliku
 	virtual N_striing m_cypher_on(N_striing data); //odszyfrowywanie
 	virtual N_striing m_cypher_off(N_striing data); //zaszyfrowywanie
 	void m_add_new_relations(C_id id,N_vektor<C_children> V_children, 
