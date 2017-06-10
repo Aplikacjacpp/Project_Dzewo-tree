@@ -1,0 +1,16 @@
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\ClassDiagram.cd
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\ClassDiagram1.cd
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\ClassDiagram11.cd
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\ClassDiagram2.cd
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\data.save
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\date.save
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\djggoj2j.oc5~
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\Drzewo_genealogiczne.vcxproj
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\Drzewo_genealogiczne.vcxproj.filters
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\file
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\init
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\Main.cpp
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\Nowy dokument tekstowy.txt
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\plik.bat
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\plik_atrib.txt
+A            C:\Users\Lukasz\Documents\Visual Studio 2015\Projects\Studia_\Semestr_IV_\Project_Krys\Project_Dzewo-tree\Drzewo_genealogiczne\relation.save

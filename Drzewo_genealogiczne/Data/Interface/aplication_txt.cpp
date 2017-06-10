@@ -20,6 +20,7 @@ C_aplication_txt& C_aplication_txt::operator=(const C_aplication_txt& aplication
 	if (*this == aplication_txt) return *this;
 	Lista = aplication_txt.Lista;
 	V_ID = aplication_txt.V_ID;
+//	index_value_tree = aplication_txt.index_value_tree;
 	return *this;
 }
 bool C_aplication_txt::operator==(const C_aplication_txt& aplication_txt) {
@@ -2926,17 +2927,20 @@ void C_aplication_txt::m_menu_name_tree() {
 				}
 				else
 				{
-					if (GetAsyncKeyState(VK_RETURN) != 0)
-					{
-						Sleep(1500);
-						m_create_new_location(data);
-						//przeskok do edycji w wczytanu tej lokalizacji
-					}
 					c = m_get_key();
 					if (c != '\0') {
 						data.m_push_back(c);
 						break;
 					}
+					Sleep(1500);
+					if (GetAsyncKeyState(VK_RETURN) != 0)
+					{
+						index_value_tree = data;
+						m_create_new_location(data);
+						m_menu_add_human();
+						//przeskok do edycji w wczytanu tej lokalizacji
+					}
+					
 				}
 				
 			}

@@ -6,14 +6,15 @@ C_enginer& C_enginer::operator=(const C_enginer &enginer) {
 	if (*this == enginer) return *this;
 	V_tree = enginer.V_tree;
 	i_index = enginer.i_index;
+	index_value_tree = enginer.index_value_tree;
 	return *this;
 }
 bool C_enginer::operator==(const C_enginer &enginer) {
-	if (V_tree == enginer.V_tree&&i_index==enginer.i_index) return true;
+	if (V_tree == enginer.V_tree&&i_index==enginer.i_index&&index_value_tree==enginer.index_value_tree) return true;
 	return false;
 }
 bool C_enginer::operator!=(const C_enginer &enginer) {
-	if (V_tree != enginer.V_tree&&i_index!=enginer.i_index) return true;
+	if (V_tree != enginer.V_tree&&i_index!=enginer.i_index&&index_value_tree!=enginer.index_value_tree) return true;
 	return false;
 }
 int C_enginer::m_set_index() { return i_index; }
@@ -44,19 +45,19 @@ void C_enginer::m_file_init(bool b_what) {
 		}
 	}
 }
-void C_enginer::m_load_files() {
+void C_enginer::m_load_files(N_striing data) {
 	m_printer(1);
-	m_file_init(true);
-	m_file_date(true);
-	m_load_file_personaly(true);
-	m_load_file_relation(true);
+	m_file_init(true,N_striing data);
+	m_file_date(true, N_striing data);
+	m_load_file_personaly(true, N_striing data);
+	m_load_file_relation(true, N_striing data);
 }
 void C_enginer::m_save_files() {
 	m_printer(2);
-	m_file_init(false);
-	m_file_date(false);
-	m_load_file_personaly(false);
-	m_load_file_relation(false);
+	m_file_init(false, N_striing data);
+	m_file_date(false, N_striing data);
+	m_load_file_personaly(false, N_striing data);
+	m_load_file_relation(false, N_striing data);
 }
 void C_enginer::m_new_human(C_human &human) {
 	if(human.m_set_id().m_set_contens().m_atoi(0, human.m_set_id().m_set_contens().m_size())==0)
@@ -220,14 +221,17 @@ C_tree C_enginer::m_create_tree(C_id id_pointer) {
 	//teraz tylko przetestowac
 }
 void C_enginer::m_create_new_location(N_striing Data) {
-	m_add_to_operation(Data);
-
-
+	if(m_add_to_operation(Data));
+	{
+		m_create_file_operation(Data);
+		system(op_name_bat);
+	}
 }
-void C_enginer::m_add_to_operation(N_striing Data) {
+bool C_enginer::m_add_to_operation(N_striing Data) {
 	N_vektor<N_striing> Lista_tree;
 	N_striing data;
 	int i;
+	bool bwhat=true;
 	//wczytywanie
 	std::fstream file;
 	file.open(op_list_tree);
@@ -238,9 +242,15 @@ void C_enginer::m_add_to_operation(N_striing Data) {
 			file >> data;
 			if (data == f_end_file)
 				break;
-			Lista_tree.m_push_back(data);
 		} while (true);
 		file.close();
+		for (i = 0; i < Lista_tree.m_size(); i++)
+		{
+			if (Lista_tree[i] == Data)
+				bwhat = false;
+		}
+		if (bwhat)
+			Lista_tree.m_push_back(Data);
 	}
 	Lista_tree.m_push_back(Data);
 	//zapisywanie
@@ -256,14 +266,29 @@ void C_enginer::m_add_to_operation(N_striing Data) {
 		files << f_end_file;
 		files.close();
 	}
+	return bwhat;
 }
 void C_enginer::m_create_file_operation(N_striing Data) {
-	std::fstream file;
-	file.open(op_list_tree);
+	int i;
+	std::ofstream file;
+	file.open(op_name_bat);
 	if (file.good())
 	{
+		for (i = 0; i < Data.m_size(); i++)
+		{
+			if (Data[i] == ' ')
+			{
+				file << "@echo off\ncd %USERPROFILE%\\.tree\n md \"" << Data << "\" \n";
+				file.close();
+				return;
+			}
+		}
 		file << "@echo off\ncd %USERPROFILE%\\.tree\n md " << Data << " \n";
-		file << f_end_file;
 		file.close();
+		return;
 	}
+}
+void C_enginer::m_get_index_value_tree(N_striing data) {
+	index_value_tree = data;
+	m_load_files();
 }
