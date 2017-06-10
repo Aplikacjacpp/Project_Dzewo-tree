@@ -94,5 +94,7 @@
 #define p_grandchildren_2 2
 #define p_grandchildren_3 4
 #define p_grandchildren_4 8
-
+//Dane operacyjne:
+#define op_name_bat "operation.bat"
+#define op_list_tree "Lista.ope"
 #endif // !DEFINITON_H

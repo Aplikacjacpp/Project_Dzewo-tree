@@ -3,8 +3,18 @@
 #include <cstdlib>
 #include <Windows.h>
 
-C_aplication_txt::C_aplication_txt() {}
-C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {}
+C_aplication_txt::C_aplication_txt() {
+	if (!m_what_files())
+	{
+		system("md %USERPROFILE%\\.tree&&dir>>%USERPROFILE%\\.tree\\init.&&cd %USERPROFILE%\\.tree\\&&ATTRIB -A +H init."); //dziala
+	}
+}
+C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
+	if (!m_what_files())
+	{
+		system("md %USERPROFILE%\\.tree&&dir>>%USERPROFILE%\\.tree\\init.&&cd %USERPROFILE%\\.tree\\&&ATTRIB -A +H init."); //dziala
+	}
+}
 C_aplication_txt& C_aplication_txt::operator=(const C_aplication_txt& aplication_txt) {
 	if (this == &aplication_txt) return *this;
 	if (*this == aplication_txt) return *this;
@@ -21,7 +31,16 @@ bool C_aplication_txt::operator!=(const C_aplication_txt& aplication_txt) {
 	return false;
 }
 C_aplication_txt::~C_aplication_txt() {}
-
+bool C_aplication_txt::m_what_files() {
+	std::ifstream file;
+	file.open("%USERPROFILE%\\.tree\\init.");
+	if (file.good())
+	{
+		file.close();
+		return true;
+	}
+	return false;
+}
 
 void C_aplication_txt::SetWindow(int Width, int Height)
 {
@@ -326,8 +345,9 @@ void C_aplication_txt::EditTree()
 				Sleep(1500);
 				switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
 				{
-				case 0: {
-
+				case 0: 
+					m_menu_add_human();
+					/*{
 				Add_human:
 					if (human == HHuman){
 						ptr = 0;
@@ -1480,7 +1500,8 @@ void C_aplication_txt::EditTree()
 				}
 				default:
 					break;
-				}
+				}*/
+
 				//menu do tetetetetete
 
 						Sleep(150);     // szybkosc poruszania sie po menu
@@ -2058,137 +2079,14 @@ bool C_aplication_txt::m_what_return() {
 bool C_aplication_txt::m_what_menu() {
 	return true; //do dokonczenia
 }
-void C_aplication_txt::m_load_lista() {
-	C_human human;
-	N_striing s_Data;
-	int i,end = m_return_index();
-	for (i = 0; i <end ; i++)
-	{
-		s_Data.m_clear();
-		human = m_create_human(i);
-		s_Data += human.m_set_first_name().m_set_contens();
-		s_Data += ' ';
-		s_Data += human.m_set_last_name().m_set_contens();
-		s_Data += '\n';
-		s_Data += human.m_set_date().m_set_DD_MM_YYYY();
-		Lista.m_push_back(s_Data);
-		V_ID.m_push_back(human.m_set_id());
-	}
-}
-void C_aplication_txt::m_lista() {
-	m_load_lista();
-	system("cls");
-	int ptr = 1, p = 0,i;
-	int cykl = 0,pentla=0;
-	for (i = 0; i < 100; i++)
-		std::cout << "*";
-	std::cout << '\n';
-	while (true)
-	{
-		system("cls");
-		CreateLogo();
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-		if(cykl+5<=Lista.m_size())
-			cykl +=5;
-		else
-		{
-			cykl = Lista.m_size() - cykl;
-		}
-		for (i=5*pentla; i < pentla; ++i)
-		{
-			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
-			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-				cout << ptr<<"\t" << Lista[i] << endl;
-			}
-			else                // niewybrane opcje sa biale
-			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				cout << ptr << "\t " << Lista[i] << endl;
-			}
-			pentla++;
-		}
-		while (true)
-		{
-			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
-			{
-				ptr -= 1;
-				if (ptr == 0)      // gdy wykracza wraca na koniec
-				{
-					ptr = Lista.m_size()-1;
-				}
-				break;
-			}
-			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
-			{
-				ptr += 1;
-				if (ptr == Lista.m_size() - 1)       // gdy wykracza poza menu, znow wraca na poczatek
-				{
-					ptr = 0;
-				}
-				break;
-			}
-			else if (GetAsyncKeyState(VK_RETURN) != 0)
-			{
-				m_create_human(V_ID[ptr]);
-				break;
-				//przejscie do edycji danych
-			}
-		
-		}
-
-		Sleep(150);     // szybkosc poruszania sie po menu
-	}
-	//	return false;
-}
-void C_aplication_txt::m_menu_name_tree() {
-	int ptr = 0, p = 0;
-	char c;
-	N_striing data;
-	while (true)
-	{
-		N_striing MenuSub1[2] = { "Podaj nazwe drzewa:", "Powrot: " };
-		N_striing SubSub1[2] = { data, "[Powrot do Menu glownego]" }; //dal Mateusza
-		system("cls");
-		CreateLogo();
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-		for (int i = 0; i < 3; ++i)
-		{
-			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
-			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-				cout << "\t\t" << "--> " << MenuSub1[i] << "  " << SubSub1[i] << endl;
-			}
-			else                // niewybrane opcje sa biale
-			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				cout << "\t\t" << MenuSub1[i] << endl;
-			}
-
-			while (true) {
-				Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-				if (GetAsyncKeyState(VK_RETURN) != 0)
-				{
-					m_create_new_location(data);
-					//przeskok do edycji w wczytanu tej lokalizacji
-				}
-				c = m_get_key();
-				if (c != '\0') {
-					data.m_push_back(c);
-				}
-			}
-		}
-	}
-}
 void C_aplication_txt::m_menu_add_human() {
 	C_human human, HHuman;
 	int ptr,i;
 	if (human == HHuman) {
 			ptr = 0;
-			N_striing MenuSub_add_person[5] = { "1. Add a first name", "2. Add a surname", "3. Add a gender", "4. Add a date", "5. Return" };
-			N_striing SubSub_add_person[5] = { "[You can add a first name to your person]", "[You can add a surname to your person]", "[You can add a gender to your person]",
-				"[You can add a date to your person]", "[Return From Add Person]" };
+			N_striing MenuSub_add_person[6] = { "1. Add a first name", "2. Add a surname", "3. Add a gender", "4. Add a date","5. Save person", "6. Return" };
+			N_striing SubSub_add_person[6] = { "[You can add a first name to your person]", "[You can add a surname to your person]", "[You can add a gender to your person]",
+				"[You can add a date to your person]", "[Save person..]","[Return From Add Person]" }; //dla Mateusza
 			Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 							// tutaj powinna byc metoda dolaczenia nowej osoby
 			while (true)
@@ -2273,6 +2171,14 @@ void C_aplication_txt::m_menu_add_human() {
 							case 3: {
 								human = m_menu_add_date();
 								break;
+							}
+							case 4: {
+								m_new_human(human);
+								//czy chcesz kontynulowac??
+								break;
+							}
+							case 5: {
+								return;
 							}
 						}
 					}
@@ -2366,22 +2272,30 @@ void C_aplication_txt::m_menu_add_human() {
 						Sleep(1500);
 						switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
 						{
-							case 0: {
-								human = m_menu_add_first_name();
-								break;
-							}
-							case 1: {
-								human = m_menu_add_last_name();
-								break;
-							}
-							case 2: {
-								human = m_menu_add_gender();
-								break;
-							}
-							case 3: {
-								human = m_menu_add_date();
-								break;
-							}
+						case 0: {
+							human = m_menu_add_first_name();
+							break;
+						}
+						case 1: {
+							human = m_menu_add_last_name();
+							break;
+						}
+						case 2: {
+							human = m_menu_add_gender();
+							break;
+						}
+						case 3: {
+							human = m_menu_add_date();
+							break;
+						}
+						case 4: {
+							m_new_human(human);
+							//czy chcesz kontynulowac??
+							break;
+						}
+						case 5: {
+							return;
+						}
 						}
 					}
 					Sleep(150);
@@ -2873,6 +2787,160 @@ C_human C_aplication_txt::m_menu_add_date() {
 		}
 	Sleep(150);
 	}
+}
+void C_aplication_txt::m_load_lista() {
+	C_human human;
+	N_striing s_Data;
+	int i, end = m_return_index();
+	for (i = 0; i <end; i++)
+	{
+		s_Data.m_clear();
+		human = m_create_human(i);
+		s_Data += human.m_set_first_name().m_set_contens();
+		s_Data += ' ';
+		s_Data += human.m_set_last_name().m_set_contens();
+		s_Data += '\n';
+		s_Data += human.m_set_date().m_set_DD_MM_YYYY();
+		Lista.m_push_back(s_Data);
+		V_ID.m_push_back(human.m_set_id());
+	}
+}
+void C_aplication_txt::m_lista() {
+	m_load_lista();
+	system("cls");
+	int ptr = 1, p = 0, i;
+	int cykl = 0, pentla = 0;
+	for (i = 0; i < 100; i++)
+		std::cout << "*";
+	std::cout << '\n';
+	while (true)
+	{
+		system("cls");
+		CreateLogo();
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		if (cykl + 5 <= Lista.m_size())
+			cykl += 5;
+		else
+		{
+			cykl = Lista.m_size() - cykl;
+		}
+		for (i = 5 * pentla; i < pentla; ++i)
+		{
+			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+				cout << ptr << "\t" << Lista[i] << endl;
+			}
+			else                // niewybrane opcje sa biale
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				cout << ptr << "\t " << Lista[i] << endl;
+			}
+			pentla++;
+		}
+		while (true)
+		{
+			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
+			{
+				ptr -= 1;
+				if (ptr == 0)      // gdy wykracza wraca na koniec
+				{
+					ptr = Lista.m_size() - 1;
+				}
+				break;
+			}
+			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
+			{
+				ptr += 1;
+				if (ptr == Lista.m_size() - 1)       // gdy wykracza poza menu, znow wraca na poczatek
+				{
+					ptr = 0;
+				}
+				break;
+			}
+			else if (GetAsyncKeyState(VK_RETURN) != 0)
+			{
+				m_create_human(V_ID[ptr]);
+				break;
+				//przejscie do edycji danych
+			}
+
+		}
+
+		Sleep(150);     // szybkosc poruszania sie po menu
+	}
+	//	return false;
+}
+void C_aplication_txt::m_menu_name_tree() {
+	int ptr = 0, p = 0;
+	char c;
+	N_striing data;
+	while (true)
+	{
+		N_striing MenuSub1[2] = { "Podaj nazwe drzewa:", "Powrot: " };
+		N_striing SubSub1[2] = { data, "[Powrot do Menu glownego]" }; //dal Mateusza
+		system("cls");
+		CreateLogo();
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+		for (int i = 0; i < 2; ++i)
+		{
+			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+				cout << "\t\t\t\t" << "--> " << MenuSub1[i] << "  " << SubSub1[i] << endl;
+			}
+			else                // niewybrane opcje sa biale
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				cout << "\t\t\t\t" << MenuSub1[i] << endl;
+			}
+		}
+			while (true) {
+				    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+				if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
+				{
+					Sleep(1500);
+					ptr -= 1;
+					if (ptr == 0)      // gdy wykracza wraca na koniec
+					{
+						ptr = 2;
+					}
+					break;
+				}
+				else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
+				{
+					Sleep(1500);
+					ptr += 1;
+					if (ptr == 2)       // gdy wykracza poza menu, znow wraca na poczatek
+					{
+						ptr = 0;
+					}
+					break;
+				}
+				else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
+				{
+					Sleep(1500);
+					data.m_pop_back();
+					break;
+				}
+				else
+				{
+					if (GetAsyncKeyState(VK_RETURN) != 0)
+					{
+						Sleep(1500);
+						m_create_new_location(data);
+						//przeskok do edycji w wczytanu tej lokalizacji
+					}
+					c = m_get_key();
+					if (c != '\0') {
+						data.m_push_back(c);
+						break;
+					}
+				}
+				
+			}
+		}
 }
 //void C_aplication_txt::m_menu_edit_human() {
 

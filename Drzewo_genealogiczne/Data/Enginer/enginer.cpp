@@ -219,7 +219,51 @@ C_tree C_enginer::m_create_tree(C_id id_pointer) {
 	return Tree;
 	//teraz tylko przetestowac
 }
-void C_enginer::m_create_new_location(N_striing) {
+void C_enginer::m_create_new_location(N_striing Data) {
+	m_add_to_operation(Data);
 
 
+}
+void C_enginer::m_add_to_operation(N_striing Data) {
+	N_vektor<N_striing> Lista_tree;
+	N_striing data;
+	int i;
+	//wczytywanie
+	std::fstream file;
+	file.open(op_list_tree);
+	if (file.good())
+	{
+		do
+		{
+			file >> data;
+			if (data == f_end_file)
+				break;
+			Lista_tree.m_push_back(data);
+		} while (true);
+		file.close();
+	}
+	Lista_tree.m_push_back(Data);
+	//zapisywanie
+	std::fstream files; //zmienic na prawidlowy
+	files.open(op_list_tree);
+	if (files.good())
+	{
+		for (i = 0; i < Lista_tree.m_size(); i++)
+		{
+			files << Lista_tree[i];
+			files << '\n';
+		}
+		files << f_end_file;
+		files.close();
+	}
+}
+void C_enginer::m_create_file_operation(N_striing Data) {
+	std::fstream file;
+	file.open(op_list_tree);
+	if (file.good())
+	{
+		file << "@echo off\ncd %USERPROFILE%\\.tree\n md " << Data << " \n";
+		file << f_end_file;
+		file.close();
+	}
 }

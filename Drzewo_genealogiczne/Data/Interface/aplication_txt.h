@@ -61,5 +61,6 @@ private:
 	N_vektor<C_id> V_ID;
 	void m_load_lista();
 	void m_lista();
+	bool m_what_files();
 };
 #endif // !APLICATION_TXT_H
