@@ -25,6 +25,8 @@ public:
 	bool operator!=(const C_aplication& aplication);
 	//void m_add_human(C_human human);
 	virtual ~C_aplication();
+protected:
+	int m_return_index();
 };
 #endif // !APLICATION_H
 

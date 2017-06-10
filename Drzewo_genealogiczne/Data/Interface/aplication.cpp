@@ -17,6 +17,9 @@ bool C_aplication::operator!=(const C_aplication& aplication) {
 	if (true) return true;
 	return false;
 }
+int C_aplication::m_return_index() {
+	return i_index;
+}
 /*void C_aplication::m_add_human(C_human human) {
 	this->m_new_human(human);
 }*/

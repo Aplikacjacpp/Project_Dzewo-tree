@@ -35,11 +35,13 @@ public:
 	C_element m_create_element(C_id id_finter);
 	C_human m_create_human(C_id id_finter);
 	C_tree m_create_tree(C_id id_pointer);
+	void m_create_new_location(N_striing);
 private:
 	void m_printer(int i);
 	void m_get_index(int value);
 	void m_file_init(bool b_what);
 	N_vektor<C_tree> V_tree;
+protected:
 	static int i_index;
 };
 #endif // !ENGINER_H

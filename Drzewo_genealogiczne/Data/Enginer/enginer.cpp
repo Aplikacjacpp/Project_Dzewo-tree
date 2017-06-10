@@ -219,3 +219,7 @@ C_tree C_enginer::m_create_tree(C_id id_pointer) {
 	return Tree;
 	//teraz tylko przetestowac
 }
+void C_enginer::m_create_new_location(N_striing) {
+
+
+}

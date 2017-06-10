@@ -10,11 +10,12 @@
 *HISTORY:
 *version   Date Changes																	 	Author/Programmer
 *1.0     06.05.2017  Orginal design													  Lukasz Witek vel Witkowski
-*1.01    09.05.2017  Adding methods for menu										  Mateusz Marchelewicz
-*1.1     15.05.2017  Windows size changed										      Mateusz Marchelewicz
-*1.1     17.05.2017  Font size changed										          Mateusz Marchelewicz
-*1.2     21.05.2017  Menu modified, new methods added								  Mateusz Marchelewicz
-*1.2     22.05.2017  Menu modified								                      Mateusz Marchelewicz
+*1.1     09.05.2017  Adding methods for menu										  Mateusz Marchelewicz
+*1.2     15.05.2017  Windows size changed										      Mateusz Marchelewicz
+*1.3     17.05.2017  Font size changed										          Mateusz Marchelewicz
+*1.4     21.05.2017  Menu modified, new methods added								  Mateusz Marchelewicz
+*1.5     22.05.2017  Menu modified								                      Mateusz Marchelewicz
+*1.6	 10.06.2017	 Add valuue to dystryct private									  Lukasz Witek vel Witkowski
 ****************************************************************************************************************/
 #ifndef APLICATION_TXT_H
 #define APLICATION_TXT_H
@@ -47,5 +48,18 @@ public:
 	char m_get_key();
 	bool m_what_return();
 	bool m_what_menu();
+	//Poszczegolne menu:
+	void m_menu_name_tree();
+	C_human m_menu_add_first_name();
+	void m_menu_add_human();
+	C_human m_menu_add_last_name();
+	C_human m_menu_add_gender();
+	C_human m_menu_add_date();
+	C_human m_menu_edit_human();
+private:
+	N_vektor<N_striing> Lista;
+	N_vektor<C_id> V_ID;
+	void m_load_lista();
+	void m_lista();
 };
 #endif // !APLICATION_TXT_H
