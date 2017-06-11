@@ -44,11 +44,8 @@ void C_sl_date::m_file_date(bool what, N_striing Data) {
 		i_start = 0;
 		for (i = 0; i < s_data.m_size(); i++)
 		{
-		
-			
 			if (s_data[i] == '>')
-			{
-			
+			{	
 				//std::cout << "wartosc" << s_data << "\n";
 				i_stop = i;
 				N_striing s_help_data = s_data.m_cut(i_start, i_stop);
@@ -73,6 +70,8 @@ void C_sl_date::m_file_date(bool what, N_striing Data) {
 			for (i = 0; i < V_goverment_date.m_size(); i++)
 			{
 				s_data+=V_goverment_date[i].m_set_contens();
+				if (s_data.m_size() < 5)
+					continue;
 			/*	if (s_data.m_pop_back() != '>'&&s_data.m_pop_back()!='\n')
 					s_data += '>';*/
 				//std::cout << s_data << "\n";
@@ -93,22 +92,22 @@ void C_sl_date::m_get_new_date(C_id id,N_vektor<C_date> V_date) {
 	C_date date;
 	C_goverment_date Gover;
 	N_striing data;
-	for (i = 0; i < V_date.m_size(); i++)
-	{
-		date = V_date[i];
-		data = "<";
-		data += id.m_what_type();
-		data += id.m_set_contens();
-		data += date.m_what_type_date();
-		data += date.m_set_day().m_what_type();
-		data += date.m_day_set();
-		data += date.m_set_month().m_what_type();
-		data += date.m_month_set();
-		data += date.m_set_year().m_what_type();
-		data += date.m_year_set();
-		if (i == V_date.m_size() - 1)
-			data += ">";
-	}
+		for (i = 0; i < V_date.m_size(); i++)
+		{
+			date = V_date[i];
+			data = "<";
+			data += id.m_what_type();
+			data += id.m_set_contens();
+			data += date.m_what_type_date();
+			data += date.m_set_day().m_what_type();
+			data += date.m_day_set();
+			data += date.m_set_month().m_what_type();
+			data += date.m_month_set();
+			data += date.m_set_year().m_what_type();
+			data += date.m_year_set();
+			if (i == V_date.m_size() - 1)
+				data += ">";
+		}
 	Gover.m_get_contens(data);
 	V_goverment_date.m_push_back(Gover);
 	if (m_what(Gover.m_set_value_id()))

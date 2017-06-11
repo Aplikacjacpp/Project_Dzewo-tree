@@ -52,8 +52,8 @@ N_striing C_goverment_date::m_is_there_contens(N_striing &Word) {//naprawione!
 			break;
 		}
 	}
-	if (value >= 2) return Word;
-	std::cout << "Problem z plikiem data.save!\n";
+	if (value >= 3) return Word;
+	std::cout << "Problem z plikiem date.save!\n";
 	return "";
 }
 int C_goverment_date::m_id_value() {

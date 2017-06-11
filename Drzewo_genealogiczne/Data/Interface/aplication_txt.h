@@ -57,7 +57,7 @@ public:
 	C_human m_menu_add_date();
 	C_human m_menu_edit_human();
 private:
-	N_vektor<N_striing> Lista;
+	N_vektor<N_striing> Lista; //do wykorzysatnia przy liscie ludzi i dystryktow:)
 	N_vektor<C_id> V_ID;
 	N_striing name_user_profile;
 	void m_load_lista();

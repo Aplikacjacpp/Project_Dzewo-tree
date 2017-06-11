@@ -49,7 +49,7 @@ N_striing C_last_name::m_is_there_contens(N_striing &Word) {
 		{
 			if (Word[y] == TCh[i])y++;
 		}
-		if ((Word[y] >= 'A' && Word[y] <= 'Z') || (Word[y] >= 'a' && Word[y] <= 'z')) y++;
+		if ((Word[y] >= 'A' && Word[y] <= 'Z') || (Word[y] >= 'a' && Word[y] <= 'z')||Word[y]==' '||Word[y]=='-') y++;
 		else
 			return "";
 	} while (y != Word.m_size());
@@ -59,7 +59,7 @@ N_striing C_last_name::m_is_there_contens(N_striing &Word) {
 
 std::ostream& operator<<(std::ostream& is, C_last_name &last)
 {
-	is << last.m_set_contens();
+	is << "nazwisko: " << last.m_set_contens() << "\n";
 	return is;
 }
 int C_last_name::m_set_variable() {

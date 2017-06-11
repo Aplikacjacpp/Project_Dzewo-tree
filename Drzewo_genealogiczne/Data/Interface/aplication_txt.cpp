@@ -953,9 +953,9 @@ void C_aplication_txt::m_menu_add_human() {
 	int ptr=0,i;
 	while (true) {
 		if (human == HHuman) {
-			N_striing MenuSub_add_person[6] = { "1. Add a first name", "2. Add a surname", "3. Add a gender", "4. Add a date","5. Save person", "6. Return" };
-			N_striing SubSub_add_person[6] = { "[You can add a first name to your person]", "[You can add a surname to your person]", "[You can add a gender to your person]",
-				"[You can add a date to your person]", "[Save person..]","[Return From Add Person]" }; //dla Mateusza
+			N_striing MenuSub_add_person[5] = { "1. Add a first name", "2. Add a surname", "3. Add a gender", "4. Add a date", "6. Return" };
+			N_striing SubSub_add_person[5] = { "[You can add a first name to your person]", "[You can add a surname to your person]", "[You can add a gender to your person]",
+				"[You can add a date to your person]","[Return From Add Person]" }; //dla Mateusza
 			Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 							// tutaj powinna byc metoda dolaczenia nowej osoby
 			while (true)
@@ -964,7 +964,7 @@ void C_aplication_txt::m_menu_add_human() {
 				CreateLogo();
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
-				for (i = 0; i < 6; ++i)
+				for (i = 0; i < 5; ++i)
 				{
 					if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 					{
@@ -1047,13 +1047,6 @@ void C_aplication_txt::m_menu_add_human() {
 							break;
 						}
 						case 4: {
-							Sleep(150);
-							m_new_human(human);
-							m_save_files(true);
-							//czy chcesz kontynulowac??
-							break;
-						}
-						case 5: {
 							return;
 						}
 					//	break;
@@ -1499,14 +1492,14 @@ C_human C_aplication_txt::m_menu_add_gender() {
 			}
 			else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
 			{
-				Sleep(150);
+			//	Sleep(150);
 				human.m_get_gender(true);
 				Sleep(150);
 				return human;
 			}
 			else if (ptr == 2 && GetAsyncKeyState(VK_RETURN) != 0)
 			{
-				Sleep(150);
+				//Sleep(150);
 				human.m_get_gender(false);
 				Sleep(150);
 				return human;
@@ -1833,6 +1826,7 @@ void C_aplication_txt::m_menu_name_tree() {
 					if (GetAsyncKeyState(VK_RETURN) != 0&& data.m_size()>0)
 					{
 						Sleep(1500);
+						//stworzyc zabezpieczenie przed ponownym stworzeniem tego samego dystryktu
 						m_get_index_value_tree(name_user_profile + "\\.tree\\" + data);
 						m_create_new_location(data);
 						m_menu_add_human();

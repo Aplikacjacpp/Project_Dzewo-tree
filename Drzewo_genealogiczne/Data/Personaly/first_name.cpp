@@ -54,7 +54,7 @@ N_striing C_first_name::m_is_there_contens(N_striing &Word) {
 
 std::ostream& operator<<(std::ostream& is,const C_first_name &first)
 {
-	is << first.s_data_first_name << "\n";
+	is <<"imie: "<< first.s_data_first_name << "\n";
 	return is;
 }
 int C_first_name::m_set_variable() {

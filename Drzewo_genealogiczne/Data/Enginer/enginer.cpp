@@ -246,7 +246,7 @@ C_tree C_enginer::m_create_tree(C_id id_pointer) {
 	//teraz tylko przetestowac
 }
 void C_enginer::m_create_new_location(N_striing Data) {
-	if(m_add_to_operation(Data));
+	if(m_add_to_operation(Data))
 	{
 		m_create_file_operation(Data);
 		system(op_name_bat);

@@ -55,7 +55,7 @@ N_striing C_goverment_personaly::m_is_there_contens(N_striing &Word) { //naprawi
 			break;
 		}
 	}
-	if (value >= 2) return Word; 
+	if (value >= 3) return Word; 
 	std::cout << "Problem z plikiem personaly.save!";
 	return "";
 }
