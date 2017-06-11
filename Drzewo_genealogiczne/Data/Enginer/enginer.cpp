@@ -246,52 +246,61 @@ C_tree C_enginer::m_create_tree(C_id id_pointer) {
 	//teraz tylko przetestowac
 }
 void C_enginer::m_create_new_location(N_striing Data) {
-	if(m_add_to_operation(Data))
-	{
 		m_create_file_operation(Data);
 		system(op_name_bat);
-	}
 }
-bool C_enginer::m_add_to_operation(N_striing Data) {
-	N_vektor<N_striing> Lista_tree;
+N_vektor<N_striing> C_enginer::m_add_to_operation(bool b_what, N_vektor<N_striing> Lista_tree) {
+	//N_vektor<N_striing> Lista_tree;
 	N_striing data;
 	int i;
-	bool bwhat=true;
-	//wczytywanie
-	std::fstream file;
-	file.open(op_list_tree);
-	if (file.good())
+	bool bwhat = true;
+	if (b_what)
 	{
-		do
+		N_striing data;
+		int i;
+	
+		//wczytywanie
+		std::ifstream file;
+		file.open(op_list_tree);
+		if (file.good())
 		{
-			file >> data;
-			if (data == f_end_file)
-				break;
-		} while (true);
-		file.close();
-		for (i = 0; i < Lista_tree.m_size(); i++)
-		{
-			if (Lista_tree[i] == Data)
-				bwhat = false;
+			do
+			{
+				data.m_clear();
+				data.m_getline(file);
+				if (data == f_end_file)
+					return Lista_tree;
+				Lista_tree.m_push_back(data);
+			} while (true);
+			file.close();
+			//for (i = 0; i < Lista_tree.m_size(); i++)
+			//{
+			//	if (Lista_tree[i] == Data)
+			//		bwhat = false;
+			//}
+			//if (bwhat)
+			//	Lista_tree.m_push_back(Data);
 		}
-		if (bwhat)
-			Lista_tree.m_push_back(Data);
+		return Lista_tree;
 	}
-	Lista_tree.m_push_back(Data);
+	//Lista_tree.m_push_back(Data);
 	//zapisywanie
-	std::fstream files; //zmienic na prawidlowy
-	files.open(op_list_tree);
-	if (files.good())
+	else
 	{
-		for (i = 0; i < Lista_tree.m_size(); i++)
+		std::ofstream files; //zmienic na prawidlowy
+		files.open(op_list_tree);
+		if (files.good())
 		{
-			files << Lista_tree[i];
-			files << '\n';
+			for (i = 0; i < Lista_tree.m_size(); i++)
+			{
+				files << Lista_tree[i];
+				files << std::endl;
+			}
+			files << f_end_file;
+			files.close();
 		}
-		files << f_end_file;
-		files.close();
+		return Lista_tree;
 	}
-	return bwhat;
 }
 void C_enginer::m_create_file_operation(N_striing Data) {
 	int i;

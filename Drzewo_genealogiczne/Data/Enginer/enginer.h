@@ -41,12 +41,12 @@ private:
 	void m_printer(int i);
 	void m_get_index(int value);
 	void m_file_init(bool b_what, N_striing Data);
-	bool m_add_to_operation(N_striing Data);
 	void m_create_file_operation(N_striing Data);
 	N_vektor<C_tree> V_tree;
 	N_striing index_value_tree;
 protected:
 	static int i_index;
+	N_vektor<N_striing> m_add_to_operation(bool b_what, N_vektor<N_striing> Lista_tree);
 };
 #endif // !ENGINER_H
 

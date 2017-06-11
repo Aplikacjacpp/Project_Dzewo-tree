@@ -14,6 +14,7 @@ C_aplication_txt::C_aplication_txt() {
 		std::cout << name_user_profile << "\n";
 		file.close();
 	}
+	Lista=m_add_to_operation(true, Lista);
 	if (m_what_files())
 	{	
 		system("attrib -a +h +r +s operation.ope");
@@ -31,6 +32,7 @@ C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
 		std::cout << name_user_profile << "\n";
 		file.close();
 	}
+	Lista = m_add_to_operation(true, Lista);
 	if (m_what_files())
 	{
 		system("attrib -a +h +r +s operation.ope");
@@ -1767,29 +1769,32 @@ void C_aplication_txt::m_menu_name_tree() {
 	int ptr = 0, p = 0;
 	char c;
 	N_striing data;
+	bool b_pointer = true;
 	while (true)
 	{
-		N_striing MenuSub1[2] = { "Podaj nazwe drzewa:", "Powrot: " };
-		N_striing SubSub1[2] = { data, "[Powrot do Menu glownego]" }; //dal Mateusza
-		system("cls");
-		CreateLogo();
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-		for (int i = 0; i < 2; ++i)
+		if (b_pointer)
 		{
-			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
+			N_striing MenuSub1[2] = { "Podaj nazwe drzewa:", "Powrot: " };
+			N_striing SubSub1[2] = { data, "[Powrot do Menu glownego]" }; //dal Mateusza
+			system("cls");
+			CreateLogo();
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+			for (int i = 0; i < 2; ++i)
 			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-				cout << "\t\t\t\t" << "--> " << MenuSub1[i] << "  " << SubSub1[i] << endl;
+				if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+					cout << "\t\t\t\t" << "--> " << MenuSub1[i] << "  " << SubSub1[i] << endl;
+				}
+				else                // niewybrane opcje sa biale
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					cout << "\t\t\t\t" << MenuSub1[i] << endl;
+				}
 			}
-			else                // niewybrane opcje sa biale
-			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				cout << "\t\t\t\t" << MenuSub1[i] << endl;
-			}
-		}
 			while (true) {
-				    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+				// sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 				if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 				{
 					Sleep(1500);
@@ -1823,19 +1828,119 @@ void C_aplication_txt::m_menu_name_tree() {
 						data.m_push_back(c);
 						break;
 					}
-					if (GetAsyncKeyState(VK_RETURN) != 0&& data.m_size()>0)
+					if (GetAsyncKeyState(VK_RETURN) != 0 && data.m_size() > 0)
 					{
 						Sleep(1500);
 						//stworzyc zabezpieczenie przed ponownym stworzeniem tego samego dystryktu
 						m_get_index_value_tree(name_user_profile + "\\.tree\\" + data);
-						m_create_new_location(data);
-						m_menu_add_human();
+						int value;
+						for (value = 0; value < Lista.m_size(); value++)
+						{
+							if (Lista[value] == data) {
+								b_pointer = false;
+								break;
+							}
+						}
+						if (b_pointer)
+						{
+							Lista.m_push_back(data);
+							Lista = m_add_to_operation(false, Lista);
+							m_create_new_location(data);
+							m_menu_add_human();
+						}
+						break;
 						//przeskok do edycji w wczytanu tej lokalizacji
 					}
-					
+
 				}
-				
+
 			}
+		}
+		else
+		{
+			N_striing MenuSub1[3] = { "Podaj nazwe drzewa:", "Powrot: ","Drzewo o podanej nazwie już instnieje" };
+			N_striing SubSub1[3] = { data, "[Powrot do Menu glownego]","" }; //dal Mateusza
+			system("cls");
+			CreateLogo();
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+			for (int i = 0; i < 3; ++i)
+			{
+				if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+					cout << "\t\t\t\t" << "--> " << MenuSub1[i] << "  " << SubSub1[i] << endl;
+				}
+				else                // niewybrane opcje sa biale
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					cout << "\t\t\t\t" << MenuSub1[i] << endl;
+				}
+			}
+			while (true) {
+				// sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+				if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
+				{
+					Sleep(1500);
+					ptr -= 1;
+					if (ptr == 0)      // gdy wykracza wraca na koniec
+					{
+						ptr = 2;
+					}
+					break;
+				}
+				else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
+				{
+					Sleep(1500);
+					ptr += 1;
+					if (ptr == 2)       // gdy wykracza poza menu, znow wraca na poczatek
+					{
+						ptr = 0;
+					}
+					break;
+				}
+				else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
+				{
+					Sleep(1500);
+					data.m_pop_back();
+					break;
+				}
+				else
+				{
+					c = m_get_key();
+					if (c != '\0') {
+						data.m_push_back(c);
+						break;
+					}
+					if (GetAsyncKeyState(VK_RETURN) != 0 && data.m_size() > 0)
+					{
+						Sleep(1500);
+						//stworzyc zabezpieczenie przed ponownym stworzeniem tego samego dystryktu
+						m_get_index_value_tree(name_user_profile + "\\.tree\\" + data);
+						int value;
+						b_pointer = true;
+						for (value = 0; value < Lista.m_size(); value++)
+						{
+							if (Lista[value] == data) {
+								b_pointer = false;
+								break;
+							}
+						}
+						if (b_pointer)
+						{
+							Lista.m_push_back(data);
+							Lista = m_add_to_operation(false, Lista);
+							m_create_new_location(data);
+							m_menu_add_human();
+						}
+						break;
+						//przeskok do edycji w wczytanu tej lokalizacji
+					}
+
+				}
+
+			}
+		}
 		}
 }
 //void C_aplication_txt::m_menu_edit_human() {
