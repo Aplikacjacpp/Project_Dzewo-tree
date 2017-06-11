@@ -1707,6 +1707,14 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 	{
 		m_load_lista();
 	}
+	if (Lista.m_size() == 0)
+	{
+		system("cls");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		std::cout << "\t\t\t\t" <<"Brak drzew!" << "\n";
+			Sleep(2000);
+		return;
+	}
 	system("cls");
 	int ptr = 0, p = 0, i;
 	int cykl = 0, pentla = 0;
@@ -1749,51 +1757,60 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 		}
 		while (true)
 		{
-			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
-			{
-				ptr -= 1;
-				//cykl -= 2;
-				if (ptr < 0)      // gdy wykracza wraca na koniec
+			//if (Lista.m_size() > 1) {
+				if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 				{
-					cykl = Lista.m_size();
-					pentla = Lista.m_size() - 5;
-					ptr = Lista.m_size();
-					continue;
+					ptr -= 1;
+					//cykl -= 2;
+					if (ptr < 0)      // gdy wykracza wraca na koniec
+					{
+						cykl = Lista.m_size();
+						if (Lista.m_size() > 5)
+							pentla = Lista.m_size() - 5;
+						else
+							pentla = 0;
+						ptr = Lista.m_size();
+						continue;
+					}
+					if (pentla > 0 && ptr < Lista.m_size() - 3)
+					{
+						pentla--;
+					}
+					if (cykl > 5 && ptr < Lista.m_size() - 3)
+					{
+						if (cykl > 6)
+							cykl -= 2;
+						else
+							cykl -= 1;
+					}
+
+					//if (pentla>0&&ptr<Lista.m_size() -3)
+
+					break;
 				}
-				if (pentla > 0 && ptr < Lista.m_size() - 3)
+				else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 				{
-					pentla--;
+					ptr += 1;
+					if (ptr > 2 && ptr < Lista.m_size() - 2)
+						pentla++;
+					if (ptr > Lista.m_size() - 1)       // gdy wykracza poza menu, znow wraca na poczatek
+					{
+						pentla = 0;
+						if (Lista.m_size() > 5)
+							cykl = 5;
+						else
+							cykl = Lista.m_size();
+						ptr = 0;
+					}
+					break;
 				}
-				if (cykl > 5 && ptr < Lista.m_size() - 3)
-				{
-					if (cykl > 6)
-						cykl -= 2;
-					else
-						cykl -= 1;
-				}
-					
-				//if (pentla>0&&ptr<Lista.m_size() -3)
-				
-				break;
-			}
-			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
-			{
-				ptr += 1;
-				if (ptr>2&&ptr<Lista.m_size() - 2)
-					pentla++;
-				if (ptr > Lista.m_size()-1)       // gdy wykracza poza menu, znow wraca na poczatek
-				{
-					pentla = 0;
-					cykl = 5;
-					ptr = 0;
-				}
-				break;
-			}
+			//}
 			else if (GetAsyncKeyState(VK_RETURN) != 0)
 			{
-				m_create_human(V_ID[ptr]);
-				break;
+			//	m_create_human(V_ID[ptr]);
+			//	break;
 				//przejscie do edycji danych
+				return;
 			}
 
 		}
