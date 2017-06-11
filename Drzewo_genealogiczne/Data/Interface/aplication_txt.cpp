@@ -618,6 +618,8 @@ void C_aplication_txt::DisplayTree()
 
 void C_aplication_txt::SubMenu2()
 {
+	//moim zadniem lista z wczytanymi drzewami do wyboru:P
+	m_lista(false); //lista drzew
 	N_striing Menu2[4] = { "1. Display Tree", "2. Edit Tree", "3. Export Tree", "4. Exit" };
 	N_striing SubMenu2[4] = { "[Display Your Created Trees]", "[Edit Your Created Trees]", "[Export Your Created Trees]", "[Exit From Program]" };
 	int pt = 0;
@@ -1683,6 +1685,7 @@ C_human C_aplication_txt::m_menu_add_date() {
 	}
 }
 void C_aplication_txt::m_load_lista() {
+	Lista.m_close();
 	C_human human;
 	N_striing s_Data;
 	int i, end = m_return_index();
@@ -1699,55 +1702,89 @@ void C_aplication_txt::m_load_lista() {
 		V_ID.m_push_back(human.m_set_id());
 	}
 }
-void C_aplication_txt::m_lista() {
-	m_load_lista();
+void C_aplication_txt::m_lista(bool b_pointer) {
+	if (b_pointer)
+	{
+		m_load_lista();
+	}
 	system("cls");
-	int ptr = 1, p = 0, i;
+	int ptr = 0, p = 0, i;
 	int cykl = 0, pentla = 0;
-	for (i = 0; i < 100; i++)
-		std::cout << "*";
-	std::cout << '\n';
+	//for (i = 0; i < 100; i++)
+	//	std::cout << "*";
+	//std::cout << '\n';
+	if (Lista.m_size() < 5)
+	{
+		cykl = Lista.m_size(); //- cykl;
+	}
+	else
+	{
+		cykl = 5;
+	}
 	while (true)
 	{
 		system("cls");
 		CreateLogo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-		if (cykl + 5 <= Lista.m_size())
-			cykl += 5;
-		else
-		{
-			cykl = Lista.m_size() - cykl;
+		if (ptr > 2) {
+			if (cykl + 1 <= Lista.m_size())
+				cykl += 1;
+			else
+			{
+				cykl = Lista.m_size(); //- cykl;
+			}
 		}
-		for (i = 5 * pentla; i < pentla; ++i)
+		for (i = pentla; i < cykl; ++i)
 		{
 			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 			{
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-				cout << ptr << "\t" << Lista[i] << endl;
+				cout << "\t\t\t\t" << i+1 << "\t" << Lista[i] << endl;
 			}
 			else                // niewybrane opcje sa biale
 			{
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				cout << ptr << "\t " << Lista[i] << endl;
+				cout << "\t\t\t\t" << i+1 << "\t" << Lista[i] << endl;
 			}
-			pentla++;
 		}
 		while (true)
 		{
 			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 			{
 				ptr -= 1;
-				if (ptr == 0)      // gdy wykracza wraca na koniec
+				//cykl -= 2;
+				if (ptr < 0)      // gdy wykracza wraca na koniec
 				{
-					ptr = Lista.m_size() - 1;
+					cykl = Lista.m_size();
+					pentla = Lista.m_size() - 5;
+					ptr = Lista.m_size();
+					continue;
 				}
+				if (pentla > 0 && ptr < Lista.m_size() - 3)
+				{
+					pentla--;
+				}
+				if (cykl > 5 && ptr < Lista.m_size() - 3)
+				{
+					if (cykl > 6)
+						cykl -= 2;
+					else
+						cykl -= 1;
+				}
+					
+				//if (pentla>0&&ptr<Lista.m_size() -3)
+				
 				break;
 			}
 			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 			{
 				ptr += 1;
-				if (ptr == Lista.m_size() - 1)       // gdy wykracza poza menu, znow wraca na poczatek
+				if (ptr>2&&ptr<Lista.m_size() - 2)
+					pentla++;
+				if (ptr > Lista.m_size()-1)       // gdy wykracza poza menu, znow wraca na poczatek
 				{
+					pentla = 0;
+					cykl = 5;
 					ptr = 0;
 				}
 				break;

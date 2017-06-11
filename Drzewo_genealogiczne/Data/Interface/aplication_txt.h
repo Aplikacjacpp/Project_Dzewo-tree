@@ -61,7 +61,7 @@ private:
 	N_vektor<C_id> V_ID;
 	N_striing name_user_profile;
 	void m_load_lista();
-	void m_lista();
+	void m_lista(bool b_pointer);
 	bool m_what_files();
 };
 #endif // !APLICATION_TXT_H
