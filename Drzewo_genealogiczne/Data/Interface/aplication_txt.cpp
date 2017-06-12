@@ -1144,6 +1144,7 @@ void C_aplication_txt::m_menu_add_human() {
 						Sleep(150);
 						m_new_human(human);
 						m_save_files(true);
+						m_load_files(true);
 						break;
 						//if
 					}
@@ -1176,6 +1177,7 @@ void C_aplication_txt::m_menu_add_human() {
 							Sleep(150);
 							m_new_human(human);
 							m_save_files(true);
+							m_load_files(true);
 							//czy chcesz kontynulowac??
 							break;
 						}
@@ -1818,11 +1820,14 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 			//	m_create_human(V_ID[ptr]);
 			//	break;
 				//przejscie do edycji danych
+				Sleep(150);
 				N_striing data = m_return_value_tree() + "\\";
 				data += Lista[ptr];
 				m_get_index_value_tree(data);
 				m_load_files(true);
-				m_lista(true);
+				m_menu_tree();
+				
+				
 				return;
 			}
 
@@ -1913,7 +1918,8 @@ void C_aplication_txt::m_menu_name_tree() {
 							Lista.m_push_back(data);
 							Lista = m_add_to_operation(false, Lista);
 							m_create_new_location(data);
-							m_menu_add_human();
+						//	m_menu_add_human();
+							m_menu_tree();
 						}
 						break;
 						//przeskok do edycji w wczytanu tej lokalizacji
@@ -2013,3 +2019,96 @@ void C_aplication_txt::m_menu_name_tree() {
 //void C_aplication_txt::m_menu_edit_human() {
 
 //}
+void C_aplication_txt::m_menu_tree() {
+	N_striing Menu[4] = { "1. Wyświetl", "2. Edition Tree","3. Eksportuj", "4. Exit" };
+	N_striing SubMenu[4] = { "[Wyświetl drzewo]", "[Edytuj zawartosc drzewa]","[Eksportuj drzewo]", "[Exit From Program]" };
+	int ptr = 0, p = 0;
+
+	while (true)
+	{
+		system("cls");
+		CreateLogo();
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+		for (int i = 0; i < 4; ++i)
+		{
+			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+				cout << "\t\t\t\t" << "--> " << Menu[i] << "\n" << SubMenu[i] << endl;
+
+
+			}
+			else                // niewybrane opcje sa biale
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				cout << "\t\t\t\t" << Menu[i] <<"\n"<< endl;
+			}
+		}
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+		cout << "\n\n\n\n Use the arrows to navigate the menu ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		cout << char(24) << " " << char(25);        // kody ASCII strzalek
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		cout << ". Confirm your choice with ";
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+
+		cout << "ENTER.";
+
+		while (true)
+		{
+			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
+			{
+				ptr -= 1;
+				if (ptr < 0 )      // gdy wykracza wraca na koniec
+				{
+					ptr = 3;
+				}
+				break;
+			}
+			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
+			{
+				ptr += 1;
+				if (ptr >= 4)       // gdy wykracza poza menu, znow wraca na poczatek
+				{
+					ptr = 0;
+				}
+				break;
+			}
+			else if (GetAsyncKeyState(VK_RETURN) != 0)
+			{
+				switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
+				{
+
+				case 0:
+				{
+					Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+					m_lista(true);
+				} break;
+
+				case 1:
+				{
+					Sleep(1500);
+					EditTree();
+				} break;
+
+				case 2:
+				{
+					//eksportuj
+					//exit(1);
+				} break;
+				case 3:
+				{
+					exit(1);
+				}
+				}
+				break;
+			}
+		}
+
+		Sleep(150);     // szybkosc poruszania sie po menu
+	}
+}

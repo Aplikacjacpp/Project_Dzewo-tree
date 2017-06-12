@@ -56,6 +56,7 @@ public:
 	C_human m_menu_add_gender();
 	C_human m_menu_add_date();
 	C_human m_menu_edit_human();
+	void m_menu_tree();
 private:
 	N_vektor<N_striing> Lista; //do wykorzysatnia przy liscie ludzi i dystryktow:)
 	N_vektor<C_id> V_ID;
