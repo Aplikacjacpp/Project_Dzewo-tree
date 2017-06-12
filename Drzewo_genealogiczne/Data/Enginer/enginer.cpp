@@ -1,5 +1,5 @@
 #include "enginer.h"
-C_enginer::C_enginer() :C_sl_date(), C_sl_personalys(), C_sl_relations() { m_load_files(false); }
+C_enginer::C_enginer() :C_sl_date(), C_sl_personalys(), C_sl_relations() {}// m_load_files(false); }
 C_enginer::C_enginer(const C_enginer &enginer) : C_sl_date(enginer), C_sl_personalys(enginer), C_sl_relations(enginer) { if (this != &enginer) *this = enginer; }
 C_enginer& C_enginer::operator=(const C_enginer &enginer) {
 	if (this == &enginer) return *this;
@@ -328,4 +328,7 @@ void C_enginer::m_get_index_value_tree(N_striing data) {
 //	Sleep(10000);
 	index_value_tree = data;
 	m_load_files(true);
+}
+N_striing C_enginer::m_return_value_tree() {
+	return index_value_tree;
 }

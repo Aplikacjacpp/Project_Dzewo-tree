@@ -11,7 +11,8 @@ C_aplication_txt::C_aplication_txt() {
 	{
 		name_user_profile.m_getline(file);
 		//name_user_profile.m_push_back("\\");
-		std::cout << name_user_profile << "\n";
+		//std::cout << name_user_profile << "\n";
+		m_get_index_value_tree(name_user_profile+"\\"+op_name_catalog);
 		file.close();
 	}
 	Lista=m_add_to_operation(true, Lista);
@@ -29,7 +30,8 @@ C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
 	{
 		name_user_profile.m_getline(file);
 		//name_user_profile.m_push_back("\\");
-		std::cout << name_user_profile << "\n";
+	//	std::cout << name_user_profile << "\n";
+		m_get_index_value_tree(name_user_profile + "\\" + op_name_catalog);
 		file.close();
 	}
 	Lista = m_add_to_operation(true, Lista);
@@ -312,7 +314,7 @@ void C_aplication_txt::EditTree()
 	char C;
 	C_human human,HHuman; //id dodaje sie dopiero w silniku
 	N_striing data;
-	N_striing MenuSub1[5] = { "1. Add a person", "2. Edit a person", "3. Add a relation", "4. Edit a relation", "5. Exit" };
+	N_striing MenuSub1[5] = { "1. Add a person", "2. Edit a person", "3. Add a relation", "4. Edit a relation", "5. Exit" }; //do rozbudowy
 	N_striing SubSub1[5] = { "[You can add a person to your tree]", "[You can edit a person]", "[You can add a relation to a person]",
 		"[You can edit a relation to a person]", "[Exit From Program]" };
 	int ptr = 0, p = 0;
@@ -384,7 +386,8 @@ void C_aplication_txt::EditTree()
 				{
 				case 0: 
 					m_menu_add_human();
-
+				case 1:
+					m_lista(true);
 				//menu do tetetetetete
 
 						Sleep(150);     // szybkosc poruszania sie po menu
@@ -620,6 +623,7 @@ void C_aplication_txt::SubMenu2()
 {
 	//moim zadniem lista z wczytanymi drzewami do wyboru:P
 	m_lista(false); //lista drzew
+//	m_lista(true);
 	N_striing Menu2[4] = { "1. Display Tree", "2. Edit Tree", "3. Export Tree", "4. Exit" };
 	N_striing SubMenu2[4] = { "[Display Your Created Trees]", "[Edit Your Created Trees]", "[Export Your Created Trees]", "[Exit From Program]" };
 	int pt = 0;
@@ -1694,10 +1698,14 @@ void C_aplication_txt::m_load_lista() {
 		s_Data.m_clear();
 		human = m_create_human(i);
 		s_Data += human.m_set_first_name().m_set_contens();
-		s_Data += ' ';
+		s_Data += '  ';
 		s_Data += human.m_set_last_name().m_set_contens();
 		s_Data += '\n';
-		s_Data += human.m_set_date().m_set_DD_MM_YYYY();
+		s_Data += human.m_set_date().m_day_set();
+		s_Data += '-';
+		s_Data += human.m_set_date().m_month_set();
+		s_Data += '-';
+		s_Data += human.m_set_date().m_year_set();
 		Lista.m_push_back(s_Data);
 		V_ID.m_push_back(human.m_set_id());
 	}
@@ -1810,6 +1818,11 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 			//	m_create_human(V_ID[ptr]);
 			//	break;
 				//przejscie do edycji danych
+				N_striing data = m_return_value_tree() + "\\";
+				data += Lista[ptr];
+				m_get_index_value_tree(data);
+				m_load_files(true);
+				m_lista(true);
 				return;
 			}
 

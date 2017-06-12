@@ -97,4 +97,5 @@
 //Dane operacyjne:
 #define op_name_bat "operation.bat"
 #define op_list_tree "Lista.ope"
+#define op_name_catalog ".tree"
 #endif // !DEFINITON_H

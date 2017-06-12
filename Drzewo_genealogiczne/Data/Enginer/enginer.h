@@ -45,6 +45,7 @@ private:
 	N_vektor<C_tree> V_tree;
 	N_striing index_value_tree;
 protected:
+	N_striing m_return_value_tree();
 	static int i_index;
 	N_vektor<N_striing> m_add_to_operation(bool b_what, N_vektor<N_striing> Lista_tree);
 };
