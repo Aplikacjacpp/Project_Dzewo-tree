@@ -1,6 +1,6 @@
 #include "date.h"
-C_date::C_date():C_day(),C_month(),C_year() {}
-C_date::C_date(char value):C_day(),C_month(),C_year() { c_value = value; }
+C_date::C_date():C_day(0),C_month(0),C_year(0) {}
+C_date::C_date(char value):C_day(0),C_month(0),C_year(0) { c_value = value; }
 C_date::C_date(const C_date &d) : C_day(d.i_data_day), C_month(d.i_data_month), C_year(d.i_data_year) { if (this != &d) *this = d; }
 C_date& C_date::operator=(const C_date &d) {
 	if (this == &d) return *this;

@@ -490,7 +490,7 @@ std::ostream& operator<<(std::ostream &is,const C_human &h) {
 	N_vektor<C_last_name> Last = h.V_last;
 	N_vektor<C_date> date = h.V_date;
 	for (i = 0; i < Last.m_size(); i++) {
-		is <<"i: "<<i<<"   "<< Last[i] << "\t";
+		is <<i<<"   "<< Last[i] << "\t";
 	}
 	is << "\n"<<h.Gender << "\n";
 	for (i = 0; i < date.m_size(); i++) {

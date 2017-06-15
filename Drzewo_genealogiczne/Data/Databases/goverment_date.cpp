@@ -27,6 +27,8 @@ bool C_goverment_date::m_wchat_is() {
 	return false;
 }
 void C_goverment_date::m_get_contens(N_striing &contens) { 
+	if (contens.m_size() == 0)
+		return;
 	this->s_goverment_data = m_is_there_contens(contens);
 	i_value_id = m_id_value();
 }

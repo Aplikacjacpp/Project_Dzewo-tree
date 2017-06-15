@@ -115,17 +115,19 @@ C_human C_enginer::m_create_human(C_id id_finter) {
 	i = id_finter.m_set_contens().m_atoi(0, id_finter.m_set_contens().m_size() - 1);
 	if (i > 0) i--;
 	C_human human(id_finter);
-	if (i > V_goverment_personaly.m_size() && i > V_goverment_date.m_size() && i > V_goverment_relation.m_size()) {
-		return human;
-	}
+//	if (i > V_goverment_personaly.m_size() || i > V_goverment_date.m_size() || i > V_goverment_relation.m_size()) {
+//		return human;
+//	}
 	human.m_get_first_name(V_goverment_personaly[i].m_set_value_first_name());
 	human.m_get_gender(V_goverment_personaly[i].m_set_value_gender());
 		N_vektor<C_last_name> V_last = V_goverment_personaly[i].m_set_value_last_name();
 		for (j = 0; j < V_last.m_size(); j++)
 				human.m_get_last_name(V_last[j]);
-		N_vektor<C_date> V_date = V_goverment_date[i].m_set_value_V_date();
-	for (j = 0; j<V_date.m_size(); j++)
-		human.m_get_date(V_date[j]);
+		if (i > 0 && i < V_goverment_date.m_size()) {
+			N_vektor<C_date> V_date = V_goverment_date[i].m_set_value_V_date();
+			for (j = 0; j < V_date.m_size(); j++)
+				human.m_get_date(V_date[j]);
+		}
 	return human;
 }
 void C_enginer::m_new_element(C_element &element, bool b_what) {
@@ -327,7 +329,8 @@ void C_enginer::m_get_index_value_tree(N_striing data) {
 //	std::cout << data;
 //	Sleep(10000);
 	index_value_tree = data;
-	m_load_files(true);
+	//m_load_files(true);
+	m_file_init(true, index_value_tree);
 }
 N_striing C_enginer::m_return_value_tree() {
 	return index_value_tree;

@@ -18,9 +18,10 @@ bool C_sl_date::operator!=(const C_sl_date& sl_date) {
 	return false;
 }
 C_sl_date::~C_sl_date() {}
-void C_sl_date::m_file_date(bool what, N_striing Data) {
+void C_sl_date::m_file_date(bool what, N_striing Data)
+{
 	N_striing s_data;
-	int i,i_start, i_stop;
+	int i, i_start, i_stop;
 	if (what)
 	{
 		Data += "\\";
@@ -31,7 +32,7 @@ void C_sl_date::m_file_date(bool what, N_striing Data) {
 		File.open(Data.m_c_str());
 		if (File.good())
 		{
-			do{
+			do {
 				s_inline.m_getline(File); //nie wiem czy bedzie dzialac
 				if (s_inline == f_end_file) break;
 				s_data += s_inline;
@@ -45,7 +46,7 @@ void C_sl_date::m_file_date(bool what, N_striing Data) {
 		for (i = 0; i < s_data.m_size(); i++)
 		{
 			if (s_data[i] == '>')
-			{	
+			{
 				//std::cout << "wartosc" << s_data << "\n";
 				i_stop = i;
 				N_striing s_help_data = s_data.m_cut(i_start, i_stop);
@@ -54,7 +55,7 @@ void C_sl_date::m_file_date(bool what, N_striing Data) {
 				Gover.m_get_contens(s_help_data);
 				V_goverment_date.m_push_back(Gover);
 				//std::cout <<"rozmiar: "<< V_goverment_date.m_size() << "\n"<< s_data.m_cut(i_start, i_stop);
-				i_start = i_stop+1;
+				i_start = i_stop + 1;
 			}
 		}
 	}
@@ -67,13 +68,18 @@ void C_sl_date::m_file_date(bool what, N_striing Data) {
 		File.open(Data.m_c_str());
 		if (File.good())
 		{
+			if (V_goverment_date.m_size() == 0)
+			{
+				File.close();
+					return;
+			}
 			for (i = 0; i < V_goverment_date.m_size(); i++)
 			{
-				s_data+=V_goverment_date[i].m_set_contens();
-				if (s_data.m_size() < 5)
-					continue;
-			/*	if (s_data.m_pop_back() != '>'&&s_data.m_pop_back()!='\n')
-					s_data += '>';*/
+				s_data += V_goverment_date[i].m_set_contens();
+				//	if (s_data.m_size() < 5)
+				//	continue;
+				/*	if (s_data.m_pop_back() != '>'&&s_data.m_pop_back()!='\n')
+				s_data += '>';*/
 				//std::cout << s_data << "\n";
 				s_data += "\n";
 			}

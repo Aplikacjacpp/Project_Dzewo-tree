@@ -281,13 +281,13 @@ C_last_name L1, L2;
 	system("type plik.txt");
 	main_odszyfrowywanie("plik.txt", "dom", 5);*/
 	
-	Engin.m_save_files(false);
-	std::cout << "pliki:\n\n";
-	system("type data.save");
-	std::cout << "\n";
-	system("type date.save");
-	std::cout << "\n";
-	system("type relation.save");
+//	Engin.m_save_files(false);
+//	std::cout << "pliki:\n\n";
+//	system("type data.save");
+//	std::cout << "\n";
+//	system("type date.save");
+//	std::cout << "\n";
+//	system("type relation.save");
 
 	//system("call plik.bat");
 

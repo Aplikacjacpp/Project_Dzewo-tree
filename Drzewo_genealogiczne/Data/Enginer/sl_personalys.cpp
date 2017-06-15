@@ -52,6 +52,7 @@ void C_sl_personalys::m_load_file_personaly(bool what, N_striing Data) {
 				i_start = i_stop+1;
 			}
 		}
+		return;
 	}
 	else
 	{

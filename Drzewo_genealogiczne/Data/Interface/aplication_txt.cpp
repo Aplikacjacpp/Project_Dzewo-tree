@@ -23,6 +23,7 @@ C_aplication_txt::C_aplication_txt() {
 	}
 }
 C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
+	if (this != &aplication_txt) *this = aplication_txt;
 	system("echo %USERPROFILE%>>operation.ope");
 	std::ifstream file;
 	file.open("operation.ope");
@@ -121,7 +122,7 @@ void C_aplication_txt::CreateLogo()       // metoda tworzy logo (atrape "drzewka
 	cout << "\n\n" << "\t\t\t" << "DRZEWO GENEALOGICZNE - FAMILY TREE\n\n";
 }
 
-void C_aplication_txt::MainMenu()
+void C_aplication_txt::MainMenu() //start
 {
 	N_striing Menu[3] = { "1. New Tree", "2. Load Tree", "3. Exit" };
 	N_striing SubMenu[3] = { "[Create New Tree]", "[Import Your Created Trees]", "[Exit From Program]" };
@@ -200,7 +201,7 @@ void C_aplication_txt::MainMenu()
 
 				case 2:
 				{
-					exit(1);
+					return;
 				} break;
 
 				}
@@ -286,6 +287,7 @@ void C_aplication_txt::Sub1()
 						case 0:
 						{
 							m_menu_name_tree();
+							return;
 							break;
 						}
 
@@ -297,7 +299,7 @@ void C_aplication_txt::Sub1()
 
 						case 2:
 						{
-							exit(1);
+							return;
 							break;
 						}
 					}
@@ -386,19 +388,21 @@ void C_aplication_txt::EditTree()
 				{
 				case 0: 
 					m_menu_add_human();
+					return;
 				case 1:
 					m_lista(true);
+					return;
 				//menu do tetetetetete
 
 						Sleep(150);     // szybkosc poruszania sie po menu
 				}
 				Sleep(150);     // szybkosc poruszania sie po menu
 			}
-			Sleep(150);
+			//Sleep(150);
 		}
-		Sleep(150);
+		//Sleep(150);
 	}
-	Sleep(150);
+	//Sleep(150);
 }
 /*	case 1:
 {
@@ -417,7 +421,7 @@ case 3:
 
 case 4:
 {
-exit(1);
+return;
 } break;
 default:
 break;*/
@@ -508,7 +512,7 @@ void C_aplication_txt::SearchTree()
 
 				case 2:
 				{
-					exit(1);
+					return;
 				} break;
 
 				}
@@ -605,7 +609,7 @@ void C_aplication_txt::DisplayTree()
 
 				case 2:
 				{
-					exit(1);
+					return;
 				} break;
 
 				}
@@ -623,6 +627,7 @@ void C_aplication_txt::SubMenu2()
 {
 	//moim zadniem lista z wczytanymi drzewami do wyboru:P
 	m_lista(false); //lista drzew
+	return;
 //	m_lista(true);
 	N_striing Menu2[4] = { "1. Display Tree", "2. Edit Tree", "3. Export Tree", "4. Exit" };
 	N_striing SubMenu2[4] = { "[Display Your Created Trees]", "[Edit Your Created Trees]", "[Export Your Created Trees]", "[Exit From Program]" };
@@ -721,7 +726,7 @@ void C_aplication_txt::SubMenu2()
 
 				case 3:
 				{
-					exit(1);
+					return;
 				} break;
 
 				}
@@ -813,8 +818,8 @@ void C_aplication_txt::ImportTree()
 
 				case 1:
 				{
-					exit(1);
-				} break;
+					return;
+				}
 				}
 				break;
 			}
@@ -957,8 +962,10 @@ bool C_aplication_txt::m_what_menu() {
 	return true; //do dokonczenia
 }
 void C_aplication_txt::m_menu_add_human() {
+//	m_load_files(true);
 	C_human human, HHuman;
 	int ptr=0,i;
+	bool b_what = false;
 	while (true) {
 		if (human == HHuman) {
 			N_striing MenuSub_add_person[5] = { "1. Add a first name", "2. Add a surname", "3. Add a gender", "4. Add a date", "6. Return" };
@@ -1051,6 +1058,7 @@ void C_aplication_txt::m_menu_add_human() {
 						}
 						case 3: {
 							Sleep(150);
+							b_what = true;
 							human.m_get_date(m_menu_add_date().m_set_date());
 							break;
 						}
@@ -1139,15 +1147,15 @@ void C_aplication_txt::m_menu_add_human() {
 						}
 						break;
 					}
-					else if (ptr == 4 && GetAsyncKeyState(VK_RETURN) != 0)
-					{
-						Sleep(150);
-						m_new_human(human);
-						m_save_files(true);
-						m_load_files(true);
-						break;
-						//if
-					}
+					//else if (ptr == 4 && GetAsyncKeyState(VK_RETURN) != 0)
+					//{
+					//	Sleep(150);
+					//	m_new_human(human);
+					//	m_save_files(true);
+					//
+					//	break;
+					//	//if
+					//}
 					else if (GetAsyncKeyState(VK_RETURN) != 0)
 					{
 						//Sleep(1500);
@@ -1170,16 +1178,26 @@ void C_aplication_txt::m_menu_add_human() {
 						}
 						case 3: {
 							Sleep(150);
+							b_what = true;
 							human.m_get_date(m_menu_add_date().m_set_date());
 							break;
 						}
 						case 4: {
 							Sleep(150);
+							if (!b_what)
+							{
+								C_date date;
+								human.m_get_date(date);
+							}
 							m_new_human(human);
 							m_save_files(true);
-							m_load_files(true);
+							//Sleep(150000);
+					//		int x;
+					//		std::cin >> x;
+							m_what_menu();
+							return;
 							//czy chcesz kontynulowac??
-							break;
+							//break;
 						}
 						case 5: {
 							Sleep(150);
@@ -1695,7 +1713,7 @@ void C_aplication_txt::m_load_lista() {
 	C_human human;
 	N_striing s_Data;
 	int i, end = m_return_index();
-	for (i = 0; i <end; i++)
+	for (i = 1; i <=end; i++)
 	{
 		s_Data.m_clear();
 		human = m_create_human(i);
@@ -1716,6 +1734,14 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 	if (b_pointer)
 	{
 		m_load_lista();
+		if (Lista.m_size() == 0)
+		{
+			system("cls");
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+			std::cout << "\t\t\t\t" << "Brak Ludzi!" << "\n";
+			Sleep(2000);
+			return;
+		}
 	}
 	if (Lista.m_size() == 0)
 	{
@@ -2020,8 +2046,8 @@ void C_aplication_txt::m_menu_name_tree() {
 
 //}
 void C_aplication_txt::m_menu_tree() {
-	N_striing Menu[4] = { "1. Wyświetl", "2. Edition Tree","3. Eksportuj", "4. Exit" };
-	N_striing SubMenu[4] = { "[Wyświetl drzewo]", "[Edytuj zawartosc drzewa]","[Eksportuj drzewo]", "[Exit From Program]" };
+	N_striing Menu[4] = { "1. Wyswietl", "2. Edition Tree","3. Eksportuj", "4. Exit" };
+	N_striing SubMenu[4] = { "[Wyswietl drzewo]", "[Edytuj zawartosc drzewa]","[Eksportuj drzewo]", "[Exit From Program]" };
 	int ptr = 0, p = 0;
 
 	while (true)
@@ -2098,11 +2124,11 @@ void C_aplication_txt::m_menu_tree() {
 				case 2:
 				{
 					//eksportuj
-					//exit(1);
+					//return;
 				} break;
 				case 3:
 				{
-					exit(1);
+					return;
 				}
 				}
 				break;

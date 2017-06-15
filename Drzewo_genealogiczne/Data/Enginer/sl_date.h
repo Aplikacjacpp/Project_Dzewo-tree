@@ -27,7 +27,7 @@ public:
 	bool operator!=(const C_sl_date& sl_date); //operator porownania !=
 	virtual ~C_sl_date(); //wirtualny destruktor
 protected:
-	void m_file_date(bool what, N_striing Data); //czytanie z pliku
+	void m_file_date(bool what, N_striing Data); //czytanie z pliku bez
 	bool m_what(int value);
 	virtual N_striing m_cypher_on(N_striing data); //odszyfrowywanie
 	virtual N_striing m_cypher_off(N_striing data); //zaszyfrowywanie
