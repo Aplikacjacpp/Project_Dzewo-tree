@@ -53,6 +53,9 @@ void C_enginer::m_file_init(bool b_what, N_striing Data) {
 void C_enginer::m_load_files(bool what) {
 	if (what)
 	{
+		V_goverment_date.m_close();
+		V_goverment_personaly.m_close();
+		V_goverment_relation.m_close();
 		m_printer(1);
 		m_file_init(true, index_value_tree);
 		m_file_date(true, index_value_tree);

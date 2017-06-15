@@ -1866,9 +1866,9 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 				Sleep(150);
 				N_striing data = m_return_value_tree() + "\\";
 				data += Lista[ptr];
-				m_get_index_value_tree(data);
-				m_load_files(true);
-				Lista.m_close();
+			//	m_get_index_value_tree(data);
+			//	Lista.m_close();
+			//	m_load_files(true);
 				m_menu_tree();
 				return;
 			}
@@ -1962,9 +1962,9 @@ void C_aplication_txt::m_menu_name_tree() {
 							Lista.m_push_back(data);
 							Lista = m_add_to_operation(false, Lista);
 							m_create_new_location(data);
-							Lista.m_close();
+							//Lista.m_close();
 							m_get_index_value_tree(data);
-							m_load_files(true);
+					//		m_load_files(true);
 						//	m_menu_add_human();
 							m_menu_tree();
 							return;
@@ -2052,9 +2052,9 @@ void C_aplication_txt::m_menu_name_tree() {
 							Lista.m_push_back(data);
 							Lista = m_add_to_operation(false, Lista);
 							m_create_new_location(data);
-							Lista.m_close();
+							//Lista.m_close();
 							m_get_index_value_tree(data);
-							m_load_files(true);
+						//	m_load_files(true);
 							m_menu_add_human();
 						}
 						break;
@@ -2138,8 +2138,7 @@ void C_aplication_txt::m_menu_tree() {
 				case 0:
 				{
 					Sleep(1500); 
-					Lista.m_close();// sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-					this->m_clea
+				//	Lista.m_close();// sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 					m_lista(true);
 				} break;
 
@@ -2147,7 +2146,7 @@ void C_aplication_txt::m_menu_tree() {
 				{
 					Sleep(1500);
 					EditTree();
-					return;
+					//return;
 				} break;
 
 				case 2:
