@@ -35,6 +35,7 @@ protected:
 	C_goverment_date& operator[](int i);
 	C_goverment_date m_set_gover_date(int i);
 	N_vektor<C_goverment_date> V_goverment_date;
+	//trzeba dodac czyszcenie govermentow
 };
 #endif // !C_SL_DATE_H
 

@@ -44,6 +44,7 @@ void C_enginer::m_file_init(bool b_what, N_striing Data) {
 		File.open(Data.m_c_str());
 		if (File.good())
 		{
+			Sleep(200);
 			File << m_set_index();
 			File.close();
 		}
@@ -71,8 +72,11 @@ void C_enginer::m_save_files(bool what) {
 	if (what) {
 		m_printer(2);
 		m_file_init(false, index_value_tree);
+		Sleep(100);
 		m_file_date(false, index_value_tree);
+		Sleep(100);
 		m_load_file_personaly(false, index_value_tree);
+		Sleep(100);
 		m_load_file_relation(false, index_value_tree);
 	}
 	else
@@ -123,11 +127,15 @@ C_human C_enginer::m_create_human(C_id id_finter) {
 		N_vektor<C_last_name> V_last = V_goverment_personaly[i].m_set_value_last_name();
 		for (j = 0; j < V_last.m_size(); j++)
 				human.m_get_last_name(V_last[j]);
-		if (i > 0 && i < V_goverment_date.m_size()) {
+		if (i >= 0 && i < V_goverment_date.m_size()) {
 			N_vektor<C_date> V_date = V_goverment_date[i].m_set_value_V_date();
 			for (j = 0; j < V_date.m_size(); j++)
 				human.m_get_date(V_date[j]);
+			//std::cout << V_date[0];
+			//std::cout<< V_date.m_size()<<" = "<<V_goverment_date[i].m_set_value_V_date()[0]<<"\n";
+		//	Sleep(2000);
 		}
+		//std::cout << human << "\n";
 	return human;
 }
 void C_enginer::m_new_element(C_element &element, bool b_what) {

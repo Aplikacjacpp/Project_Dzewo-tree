@@ -31,10 +31,16 @@ N_striing C_month::m_is_there_contens(N_striing &Word) {
 		} while (y != Word.m_size() && Word.m_size() <= 2);
 		if (Word.m_atoi(0, Word.m_size() - 1) <= 12)
 			return Word;
-		return "";
+		return "1";
 }
 N_striing C_month::m_month_set() { return m_set_contens(); }
 void C_month::m_get_month(N_striing &contens) {
+	int value = contens.m_atoi(0, contens.m_size() - 1);
+	if (value > 12)
+	{
+		contens.m_clear();
+		contens = "12";
+	}
 	i_data_month = m_is_there_contens(contens).m_atoi(0, contens.m_size() - 1);
 }
 int C_month::m_set_variable() {
@@ -45,5 +51,7 @@ int C_month::m_set_value_month() {
 }
 void C_month::m_get_value_month(int value)
 {
+	if (value > 12)
+		value = 12;
 	i_data_month = value;
 }

@@ -215,6 +215,7 @@ void C_aplication_txt::MainMenu() //start
 
 void C_aplication_txt::Sub1()
 {
+
 	N_striing MenuSub1[3] = { "1. Create New Tree", "2. Import Tree" ,"3. Exit" };
 	N_striing SubSub1[3] = { "[Create Your New Tree]", "[Import Your Created Trees]", "[Exit From Program]" };
 	int ptr = 0, p = 0;
@@ -261,11 +262,11 @@ void C_aplication_txt::Sub1()
 
 		while (true)
 		{
-			if (GetAsyncKeyState(VK_SPACE)) MainMenu();
+			if (GetAsyncKeyState(VK_SPACE) !=0) MainMenu();
 			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 			{
 				ptr -= 1;
-				if (ptr == -1)      // gdy wykracza wraca na koniec
+				if (ptr <= -1)      // gdy wykracza wraca na koniec
 				{
 					ptr = 2;
 				}
@@ -274,7 +275,7 @@ void C_aplication_txt::Sub1()
 			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 			{
 				ptr += 1;
-				if (ptr == 3)       // gdy wykracza poza menu, znow wraca na poczatek
+				if (ptr >= 3)       // gdy wykracza poza menu, znow wraca na poczatek
 				{
 					ptr = 0;
 				}
@@ -323,6 +324,7 @@ void C_aplication_txt::EditTree()
 	int i;
 	while (true)
 	{
+		Sleep(150);
 		system("cls");
 		CreateLogo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -971,7 +973,7 @@ void C_aplication_txt::m_menu_add_human() {
 			N_striing MenuSub_add_person[5] = { "1. Add a first name", "2. Add a surname", "3. Add a gender", "4. Add a date", "6. Return" };
 			N_striing SubSub_add_person[5] = { "[You can add a first name to your person]", "[You can add a surname to your person]", "[You can add a gender to your person]",
 				"[You can add a date to your person]","[Return From Add Person]" }; //dla Mateusza
-			Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+			Sleep(150);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 							// tutaj powinna byc metoda dolaczenia nowej osoby
 			while (true)
 			{
@@ -1011,14 +1013,14 @@ void C_aplication_txt::m_menu_add_human() {
 				while (true)
 				{
 					if (GetAsyncKeyState(VK_SPACE)) {
-						Sleep(150);
+						//Sleep(150);
 						if (m_what_menu())
 							MainMenu();
 						break;
 					}
 					if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 					{
-						Sleep(150);
+						//Sleep(150);
 						ptr -= 1;
 						if (ptr == -1)      // gdy wykracza wraca na koniec
 						{
@@ -1028,7 +1030,7 @@ void C_aplication_txt::m_menu_add_human() {
 					}
 					else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 					{
-						Sleep(150);
+						//Sleep(150);
 						ptr += 1;
 						if (ptr == 5)       // gdy wykracza poza menu, znow wraca na poczatek
 						{
@@ -1038,7 +1040,7 @@ void C_aplication_txt::m_menu_add_human() {
 					}
 					else if (GetAsyncKeyState(VK_RETURN) != 0)
 					{
-						Sleep(1500);
+						//Sleep(1500);
 						switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
 						{
 						case 0: {
@@ -1069,7 +1071,7 @@ void C_aplication_txt::m_menu_add_human() {
 						}
 						break;
 					}
-				//	Sleep(150);
+					//Sleep(150);
 				}
 				break;
 			}
@@ -1122,14 +1124,14 @@ void C_aplication_txt::m_menu_add_human() {
 				while (true)
 				{
 					if (GetAsyncKeyState(VK_SPACE)) {
-						Sleep(150);
+					//	Sleep(150);
 						if (m_what_menu())
 							MainMenu();
 						break;
 					}
 					if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 					{
-						Sleep(150);
+					//	Sleep(150);
 						ptr -= 1;
 						if (ptr == -1)      // gdy wykracza wraca na koniec
 						{
@@ -1139,7 +1141,7 @@ void C_aplication_txt::m_menu_add_human() {
 					}
 					else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 					{
-						Sleep(150);
+					//	Sleep(150);
 						ptr += 1;
 						if (ptr == 5)       // gdy wykracza poza menu, znow wraca na poczatek
 						{
@@ -1190,11 +1192,12 @@ void C_aplication_txt::m_menu_add_human() {
 								human.m_get_date(date);
 							}
 							m_new_human(human);
+							Sleep(150);
 							m_save_files(true);
 							//Sleep(150000);
 					//		int x;
 					//		std::cin >> x;
-							m_what_menu();
+							//m_what_menu();
 							return;
 							//czy chcesz kontynulowac??
 							//break;
@@ -1334,7 +1337,7 @@ C_human C_aplication_txt::m_menu_add_last_name() {
 	C_human human;
 	N_striing data;
 	char C;
-	WH_KEYBOARD_LL;//hak do klawiatury
+	//WH_KEYBOARD_LL;//hak do klawiatury
 	bool b_what;
 
 	Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
@@ -1414,36 +1417,35 @@ C_human C_aplication_txt::m_menu_add_last_name() {
 				}
 				else if (ptr == 0 && GetAsyncKeyState(VK_RETURN) != 0)
 				{
-					Sleep(150);
-					if (data.m_size() > 0) {
-						C_last_name Last(data);
-						human.m_get_last_name(Last);
-						data.m_clear();
-					}
-
+						if (data.m_size() > 0) {
+							C_last_name Last(data);
+							human.m_get_last_name(Last);
+							data.m_clear();
+							return human;
+						}
 				}
 				else if (ptr == 0)
 				{
-					C = m_get_key();
-					if (C != '\0') {
-						data.m_push_back(C);
-					}
+						C = m_get_key();
+						if (C != '\0') {
+							data.m_push_back(C);
+						}
 					break;
 				}
 				else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
-				{
-					Sleep(150);
-					if (m_what_return()) {
-						data.m_clear();
+					{
+					//Sleep(150);
+						if (m_what_return()) {
+							data.m_clear();
 						return human;
+						}
 					}
-					break;
 				}
-				//Sleep(150);
-			}
+		//	Sleep(150);
+				}
+			
 			//Sleep(150);
 		}
-}
 C_human C_aplication_txt::m_menu_add_gender() {
 	int ptr = 1,i;
 	char C;
@@ -1546,7 +1548,7 @@ C_human C_aplication_txt::m_menu_add_gender() {
 	}
 }
 C_human C_aplication_txt::m_menu_add_date() {
-	int ptr = 1, i;
+	int ptr = 0, i;
 	char C;
 	N_striing data;
 	C_human human;
@@ -1608,7 +1610,7 @@ C_human C_aplication_txt::m_menu_add_date() {
 												//naprawione:)
 			{
 				ptr -= 1;
-				if (ptr == -1)      // gdy wykracza wraca na koniec
+				if (ptr <= -1)      // gdy wykracza wraca na koniec
 				{
 					ptr = 1;
 				}
@@ -1618,7 +1620,7 @@ C_human C_aplication_txt::m_menu_add_date() {
 			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 			{
 				ptr += 1;
-				if (ptr == 2)       // gdy wykracza poza menu, znow wraca na poczatek
+				if (ptr >= 2)       // gdy wykracza poza menu, znow wraca na poczatek
 				{
 					ptr = 0;
 				}
@@ -1710,22 +1712,32 @@ C_human C_aplication_txt::m_menu_add_date() {
 }
 void C_aplication_txt::m_load_lista() {
 	Lista.m_close();
-	C_human human;
 	N_striing s_Data;
 	int i, end = m_return_index();
 	for (i = 1; i <=end; i++)
 	{
 		s_Data.m_clear();
+		C_human human;
 		human = m_create_human(i);
 		s_Data += human.m_set_first_name().m_set_contens();
 		s_Data += '  ';
 		s_Data += human.m_set_last_name().m_set_contens();
-		s_Data += '\n';
-		s_Data += human.m_set_date().m_day_set();
-		s_Data += '-';
-		s_Data += human.m_set_date().m_month_set();
-		s_Data += '-';
-		s_Data += human.m_set_date().m_year_set();
+		s_Data += "\n\t\t\t\t";
+		if (human.m_set_date(0).m_day_set() == '0'||human.m_set_date(0).m_month_set() == '0') {
+			s_Data += " - - ";
+		}
+		else
+		{
+			s_Data += human.m_set_date(0).m_day_set();
+			//std::cout << s_Data << "\n";
+			s_Data += '-';
+			s_Data += human.m_set_date(0).m_month_set();
+			//std::cout << s_Data << "\n";
+			s_Data += '-';
+			s_Data += human.m_set_date(0).m_year_set();
+			//std::cout << s_Data << "\n";
+			//Sleep(2000);
+		}
 		Lista.m_push_back(s_Data);
 		V_ID.m_push_back(human.m_set_id());
 	}
@@ -1733,7 +1745,7 @@ void C_aplication_txt::m_load_lista() {
 void C_aplication_txt::m_lista(bool b_pointer) {
 	if (b_pointer)
 	{
-		m_load_lista();
+		m_load_lista(); //bagi z nadpisywaniem sie listy
 		if (Lista.m_size() == 0)
 		{
 			system("cls");
@@ -1742,6 +1754,11 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 			Sleep(2000);
 			return;
 		}
+	}
+	else
+	{
+		Lista.m_close();
+		Lista = m_add_to_operation(true, Lista);
 	}
 	if (Lista.m_size() == 0)
 	{
@@ -1851,9 +1868,8 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 				data += Lista[ptr];
 				m_get_index_value_tree(data);
 				m_load_files(true);
+				Lista.m_close();
 				m_menu_tree();
-				
-				
 				return;
 			}
 
@@ -1864,6 +1880,8 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 	//	return false;
 }
 void C_aplication_txt::m_menu_name_tree() {
+	Lista.m_close();
+	Lista = m_add_to_operation(true, Lista);
 	int ptr = 0, p = 0;
 	char c;
 	N_striing data;
@@ -1944,8 +1962,12 @@ void C_aplication_txt::m_menu_name_tree() {
 							Lista.m_push_back(data);
 							Lista = m_add_to_operation(false, Lista);
 							m_create_new_location(data);
+							Lista.m_close();
+							m_get_index_value_tree(data);
+							m_load_files(true);
 						//	m_menu_add_human();
 							m_menu_tree();
+							return;
 						}
 						break;
 						//przeskok do edycji w wczytanu tej lokalizacji
@@ -2030,6 +2052,9 @@ void C_aplication_txt::m_menu_name_tree() {
 							Lista.m_push_back(data);
 							Lista = m_add_to_operation(false, Lista);
 							m_create_new_location(data);
+							Lista.m_close();
+							m_get_index_value_tree(data);
+							m_load_files(true);
 							m_menu_add_human();
 						}
 						break;
@@ -2046,6 +2071,7 @@ void C_aplication_txt::m_menu_name_tree() {
 
 //}
 void C_aplication_txt::m_menu_tree() {
+	
 	N_striing Menu[4] = { "1. Wyswietl", "2. Edition Tree","3. Eksportuj", "4. Exit" };
 	N_striing SubMenu[4] = { "[Wyswietl drzewo]", "[Edytuj zawartosc drzewa]","[Eksportuj drzewo]", "[Exit From Program]" };
 	int ptr = 0, p = 0;
@@ -2111,7 +2137,9 @@ void C_aplication_txt::m_menu_tree() {
 
 				case 0:
 				{
-					Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+					Sleep(1500); 
+					Lista.m_close();// sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+					this->m_clea
 					m_lista(true);
 				} break;
 
@@ -2119,6 +2147,7 @@ void C_aplication_txt::m_menu_tree() {
 				{
 					Sleep(1500);
 					EditTree();
+					return;
 				} break;
 
 				case 2:
