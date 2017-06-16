@@ -1908,8 +1908,8 @@ void C_aplication_txt::m_menu_name_tree() {
 	{
 		if (b_pointer)
 		{
-			N_striing MenuSub1[2] = { "Podaj nazwe drzewa:", "Powrot: " };
-			N_striing SubSub1[2] = { data, "[Powrot do Menu glownego]" }; //dal Mateusza
+			N_striing MenuSub1[2] = { "Give your tree name:", "Back: " };
+			N_striing SubSub1[2] = { data, "[Back To Main Menu]" }; 
 			system("cls");
 			CreateLogo();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -2007,8 +2007,8 @@ void C_aplication_txt::m_menu_name_tree() {
 		}
 		else
 		{
-			N_striing MenuSub1[3] = { "Podaj nazwe drzewa:", "Powrot: ","Drzewo o podanej nazwie już instnieje" };
-			N_striing SubSub1[3] = { data, "[Powrot do Menu glownego]","" }; //dal Mateusza
+			N_striing MenuSub1[3] = { "Give your tree name:", "Back: ","This name already exists" };
+			N_striing SubSub1[3] = { data, "[Back To Main Menu]","" }; 
 			system("cls");
 			CreateLogo();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -2100,8 +2100,8 @@ void C_aplication_txt::m_menu_name_tree() {
 //}
 void C_aplication_txt::m_menu_tree() {
 	
-	N_striing Menu[4] = { "1. Wyswietl", "2. Edition Tree","3. Eksportuj", "4. Exit" };
-	N_striing SubMenu[4] = { "[Wyswietl drzewo]", "[Edytuj zawartosc drzewa]","[Eksportuj drzewo]", "[Exit From Program]" };
+	N_striing Menu[4] = { "1. Display", "2. Edit Tree","3. Export", "4. Exit" };
+	N_striing SubMenu[4] = { "[Display Tree]", "[Edit your tree content]","[Export your tree]", "[Exit From Program]" };
 	int ptr = 0, p = 0;
 
 	while (true)
