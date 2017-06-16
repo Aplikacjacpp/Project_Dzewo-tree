@@ -154,9 +154,9 @@ C_last_name L1, L2;
 
 
 	C_aplication_txt AP;		// test menu w aplikacji - dzia³a!!!
-	AP.SetWindow(100, 45);
-	AP.CreateLogo();
-	AP.MainMenu();//*/
+	//AP.SetWindow(100, 45);
+	//AP.CreateLogo();
+	//AP.MainMenu();//*/
 
 					//test na dzialanie C_date
 	C_date date13('/');

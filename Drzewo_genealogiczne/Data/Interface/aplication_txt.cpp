@@ -12,7 +12,10 @@ C_aplication_txt::C_aplication_txt() {
 		name_user_profile.m_getline(file);
 		//name_user_profile.m_push_back("\\");
 		//std::cout << name_user_profile << "\n";
-		m_get_index_value_tree(name_user_profile+"\\"+op_name_catalog);
+		N_striing s_data = name_user_profile;
+		s_data += "\\";
+		s_data += op_name_catalog;
+		m_get_index_value_tree(s_data);
 		file.close();
 	}
 	Lista=m_add_to_operation(true, Lista);
@@ -21,6 +24,8 @@ C_aplication_txt::C_aplication_txt() {
 		system("attrib -a +h +r +s operation.ope");
 		system("md %USERPROFILE%\\.tree&&%USERPROFILE%>>echo  >>%USERPROFILE%\\.tree\\init.&&cd %USERPROFILE%\\.tree\\&&ATTRIB -A +H init."); //dziala
 	}
+	SetWindow(150, 70);
+	MainMenu();
 }
 C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
 	if (this != &aplication_txt) *this = aplication_txt;
@@ -32,7 +37,10 @@ C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
 		name_user_profile.m_getline(file);
 		//name_user_profile.m_push_back("\\");
 	//	std::cout << name_user_profile << "\n";
-		m_get_index_value_tree(name_user_profile + "\\" + op_name_catalog);
+		N_striing s_data = name_user_profile;
+		s_data += "\\";
+		s_data += op_name_catalog;
+		m_get_index_value_tree(s_data);
 		file.close();
 	}
 	Lista = m_add_to_operation(true, Lista);
@@ -41,6 +49,8 @@ C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
 		system("attrib -a +h +r +s operation.ope");
 		system("md %USERPROFILE%\\.tree&&%USERPROFILE%>>echo  >>%USERPROFILE%\\.tree\\init.&&cd %USERPROFILE%\\.tree\\&&ATTRIB -A +H init."); //dziala
 	}
+	SetWindow(150, 70);
+	MainMenu();
 }
 C_aplication_txt& C_aplication_txt::operator=(const C_aplication_txt& aplication_txt) {
 	if (this == &aplication_txt) return *this;
@@ -130,6 +140,8 @@ void C_aplication_txt::MainMenu() //start
 
 	while (true)
 	{
+		Lista.m_close();
+		Lista = m_add_to_operation(true, Lista);
 		system("cls");
 		CreateLogo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -1712,8 +1724,9 @@ C_human C_aplication_txt::m_menu_add_date() {
 }
 void C_aplication_txt::m_load_lista() {
 	Lista.m_close();
+	m_load_files(true);
 	N_striing s_Data;
-	int i, end = m_return_index();
+	int i, end = V_goverment_personaly.m_size(); //mam nadzieje ze sluszna poprawa
 	for (i = 1; i <=end; i++)
 	{
 		s_Data.m_clear();
@@ -1743,6 +1756,7 @@ void C_aplication_txt::m_load_lista() {
 	}
 }
 void C_aplication_txt::m_lista(bool b_pointer) {
+	bool b_where = false;
 	if (b_pointer)
 	{
 		m_load_lista(); //bagi z nadpisywaniem sie listy
@@ -1759,6 +1773,7 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 	{
 		Lista.m_close();
 		Lista = m_add_to_operation(true, Lista);
+		b_where = true;
 	}
 	if (Lista.m_size() == 0)
 	{
@@ -1864,11 +1879,14 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 			//	break;
 				//przejscie do edycji danych
 				Sleep(150);
-				N_striing data = m_return_value_tree() + "\\";
-				data += Lista[ptr];
-			//	m_get_index_value_tree(data);
+				if (b_where) {
+					N_striing s_data = name_user_profile;
+					s_data += "\\"; s_data += op_name_catalog; s_data += "\\"; //poprawa mam nadzieje ze na lepsze
+					s_data += Lista[ptr];
+					m_get_index_value_tree(s_data);
+				}
 			//	Lista.m_close();
-			//	m_load_files(true);
+				
 				m_menu_tree();
 				return;
 			}
@@ -1880,8 +1898,8 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 	//	return false;
 }
 void C_aplication_txt::m_menu_name_tree() {
-	Lista.m_close();
-	Lista = m_add_to_operation(true, Lista);
+	//Lista.m_close();
+	//Lista = m_add_to_operation(true, Lista);
 	int ptr = 0, p = 0;
 	char c;
 	N_striing data;
@@ -1948,7 +1966,11 @@ void C_aplication_txt::m_menu_name_tree() {
 					{
 						Sleep(1500);
 						//stworzyc zabezpieczenie przed ponownym stworzeniem tego samego dystryktu
-						m_get_index_value_tree(name_user_profile + "\\.tree\\" + data);
+						N_striing s_data = name_user_profile;
+						s_data += "\\";
+						s_data += op_name_catalog;
+						s_data += "\\";
+						m_get_index_value_tree(s_data);
 						int value;
 						for (value = 0; value < Lista.m_size(); value++)
 						{
@@ -1959,12 +1981,18 @@ void C_aplication_txt::m_menu_name_tree() {
 						}
 						if (b_pointer)
 						{
+							//Lista = m_add_to_operation(false, Lista);
 							Lista.m_push_back(data);
-							Lista = m_add_to_operation(false, Lista);
 							m_create_new_location(data);
+							Lista=m_add_to_operation(false,Lista);
+							N_striing s_data = name_user_profile;
+							s_data += "\\";
+							s_data += op_name_catalog;
+							s_data += "\\";
+							s_data +=data;
 							//Lista.m_close();
-							m_get_index_value_tree(data);
-					//		m_load_files(true);
+							m_get_index_value_tree(s_data);
+							//m_load_files(true);
 						//	m_menu_add_human();
 							m_menu_tree();
 							return;
@@ -2078,6 +2106,7 @@ void C_aplication_txt::m_menu_tree() {
 
 	while (true)
 	{
+		m_load_files(true);
 		system("cls");
 		CreateLogo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -2152,7 +2181,7 @@ void C_aplication_txt::m_menu_tree() {
 				case 2:
 				{
 					//eksportuj
-					//return;
+					return;
 				} break;
 				case 3:
 				{

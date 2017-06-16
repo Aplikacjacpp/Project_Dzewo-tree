@@ -217,8 +217,9 @@ N_striing N_striing::operator+(const char c[])
 	return *this;
 }
 N_striing N_striing::operator+(const N_striing &c){ 
-	*this += c;
-	return *this;
+	N_striing A(*this);
+	A += c;
+	return A;
 }
 N_striing& N_striing::operator+=(const char &c) {
 	N_striing A(*this);
