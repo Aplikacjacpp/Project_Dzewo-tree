@@ -1764,7 +1764,7 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 		{
 			system("cls");
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-			std::cout << "\t\t\t\t" << "Brak Ludzi!" << "\n";
+			std::cout << "\t\t\t\t" << "No people!" << "\n";
 			Sleep(2000);
 			return;
 		}
@@ -1779,7 +1779,7 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 	{
 		system("cls");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-		std::cout << "\t\t\t\t" <<"Brak drzew!" << "\n";
+		std::cout << "\t\t\t\t" <<"No trees!" << "\n";
 			Sleep(2000);
 		return;
 	}
