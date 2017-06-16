@@ -317,10 +317,14 @@ void C_aplication_txt::Sub1()
 						}
 					}
 				}
+
+			Sleep(150);
 			}
+
+		Sleep(150);
 		}
 
-	Sleep(150);     // szybkosc poruszania sie po menu
+	//Sleep(150);     // szybkosc poruszania sie po menu
 }
 
 
@@ -659,7 +663,7 @@ void C_aplication_txt::SubMenu2()
 			if (i == pt)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 			{
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-				cout << "\t\t\t\t" << "--> " << Menu2[i] << " \n\t\t " << SubMenu2[i] << endl;
+				cout << "\t\t\t\t" << "--> " << Menu2[i] << " \n\t\t\t " << SubMenu2[i] << endl;
 
 
 			}
