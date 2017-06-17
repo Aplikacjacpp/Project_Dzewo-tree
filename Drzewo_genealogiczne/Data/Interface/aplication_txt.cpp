@@ -404,12 +404,28 @@ void C_aplication_txt::EditTree()
 				Sleep(1500);
 				switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
 				{
-				case 0: 
+				case 0: {
 					m_menu_add_human();
 					return;
-				case 1:
+				}
+				case 1: {
 					m_lista(true);
 					return;
+				}
+				case 2:
+				{	m_menu_relation();
+				return;
+					break;
+				}
+				case 3: {
+				
+					break;
+				}
+				case 4:
+				{
+					return;
+				}
+				}
 				//menu do tetetetetete
 
 						Sleep(150);     // szybkosc poruszania sie po menu
@@ -421,7 +437,6 @@ void C_aplication_txt::EditTree()
 		//Sleep(150);
 	}
 	//Sleep(150);
-}
 /*	case 1:
 {
 
@@ -2194,6 +2209,303 @@ void C_aplication_txt::m_menu_tree() {
 				}
 				break;
 			}
+		}
+
+		Sleep(150);     // szybkosc poruszania sie po menu
+	}
+}
+void C_aplication_txt::m_menu_relation() {
+	C_element Element(m_menu_wybor_humana_wskaznikowego());
+	N_striing MenuSub1[9] = { "Menu dodawania relacji pomiedy dwojgiem ludi","1. Add Grandparent","2. Add Parent","3. Add Sibling","4. Add Partner",
+	"5. Add Children", "6 Add Grandchildren", "7. Add Order","8. Exit"};
+	N_striing SubSub1[9] = { "", "", "","","","","","","" };
+	int ptr = 1, p = 0;
+	char c;
+	N_striing data;
+	while (true)
+	{
+		system("cls");
+		CreateLogo();
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+		for (int i = 0; i < 9; ++i)
+		{
+			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+				cout << "\t\t\t\t" << "--> " << MenuSub1[i] << "  " << SubSub1[i] << endl;
+
+
+			}
+			else                // niewybrane opcje sa biale
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				cout << "\t\t\t\t" << MenuSub1[i] << endl;
+			}
+		}
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+		cout << "\n\n\n\n Use the arrows to navigate the menu ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		cout << char(24) << " " << char(25);        // kody ASCII strzalek
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		cout << ". Confirm your choice with ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		cout << "ENTER.";
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		cout << "\n Click ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		cout << "SPACEBAR";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		cout << " if you want back to main menu.";
+
+		while (true)
+		{
+			if (GetAsyncKeyState(VK_SPACE) != 0) MainMenu();
+			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
+			{
+				ptr -= 1;
+				if (ptr <= 0)      // gdy wykracza wraca na koniec
+				{
+					ptr = 8;
+				}
+				break;
+			}
+			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
+			{
+				ptr += 1;
+				if (ptr >= 9)       // gdy wykracza poza menu, znow wraca na poczatek
+				{
+					ptr = 1;
+				}
+				break;
+			}
+			else if (GetAsyncKeyState(VK_RETURN) != 0)
+			{
+				switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
+				{
+					case 1:
+						{
+							Element=m_menu_add_relations(t_grandparent,Element);
+							break;
+						}
+					case 2:
+						{
+							Element = m_menu_add_relations(t_parent, Element);
+						//	Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+							break;
+						}
+					case 3:
+						{
+							Element = m_menu_add_relations(t_sibling, Element);
+							//return;
+							break;
+						}
+					case 4:
+						{
+							Element = m_menu_add_relations(t_partner, Element);
+							break;
+						}
+					case 5:
+						{
+							Element = m_menu_add_relations(t_children, Element);
+							break;
+						}
+					case 6:
+						{
+							Element = m_menu_add_relations(t_grandchildren, Element);
+							break;
+						}
+					case 7:
+						{
+							Element = m_menu_add_relations(t_order, Element);
+							break;
+						}
+					case 8:
+						{
+							return;
+						}
+				}
+			}
+
+			Sleep(150);
+		}
+
+		Sleep(150);
+	}
+
+}
+C_element C_aplication_txt::m_menu_add_relations(int data, C_element Element) {
+
+	switch (data)
+	{
+	case t_grandparent:
+	{
+		C_grandparents Grandparent(Element.m_set_Human().m_set_id());
+		Grandparent.m_get_id(m_menu_wybor_humana_wskaznikowego().m_set_Human().m_set_id());
+		Element.m_get_grandparents(Grandparent);
+		break;
+	}
+	case t_parent:
+	{
+		C_parent Parent(Element.m_set_Human().m_set_id());
+		Parent.m_get_id(m_menu_wybor_humana_wskaznikowego().m_set_Human().m_set_id());
+		Element.m_get_parent(Parent);
+		break;
+	}
+	case t_sibling:
+	{
+		C_sibling Sibling(Element.m_set_Human().m_set_id());
+		Sibling.m_get_id(m_menu_wybor_humana_wskaznikowego().m_set_Human().m_set_id());
+		Element.m_get_sibling(Sibling);
+		break;
+	}
+	case t_partner:
+	{
+		C_partner Partner(Element.m_set_Human().m_set_id());
+		Partner.m_get_id(m_menu_wybor_humana_wskaznikowego().m_set_Human().m_set_id());
+		Element.m_get_partner(Partner);
+		break;
+	}
+	case t_children:
+	{
+		C_children Children(Element.m_set_Human().m_set_id());
+		Children.m_get_id(m_menu_wybor_humana_wskaznikowego().m_set_Human().m_set_id());
+		Element.m_get_children(Children);
+		break;
+	}
+	case t_grandchildren:
+	{
+		C_grandchildren Grandchildren(Element.m_set_Human().m_set_id());
+		Grandchildren.m_get_id(m_menu_wybor_humana_wskaznikowego().m_set_Human().m_set_id());
+		Element.m_get_grandchildren(Grandchildren);
+		break;
+	}
+	case t_order:
+	{
+		C_order Order(Element.m_set_Human().m_set_id());
+		Order.m_get_id(m_menu_wybor_humana_wskaznikowego().m_set_Human().m_set_id());
+		Element.m_get_order(Order);
+		break;
+	}
+	}
+	return Element;
+}
+C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() {
+	//bool b_where = false;
+	m_load_lista(); //bagi z nadpisywaniem sie listy
+	if (Lista.m_size() < 2)
+	{
+		system("cls");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		std::cout << "\t\t\t\t" << "No people!" << "\n";
+		Sleep(2000);
+		return;
+	}
+	system("cls");
+	int ptr = 0, p = 0, i;
+	int cykl = 0, pentla = 0;
+	//for (i = 0; i < 100; i++)
+	//	std::cout << "*";
+	//std::cout << '\n';
+	if (Lista.m_size() < 5)
+	{
+		cykl = Lista.m_size(); //- cykl;
+	}
+	else
+	{
+		cykl = 5;
+	}
+	while (true)
+	{
+		system("cls");
+		CreateLogo();
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		if (ptr > 2) {
+			if (cykl + 1 <= Lista.m_size())
+				cykl += 1;
+			else
+			{
+				cykl = Lista.m_size(); //- cykl;
+			}
+		}
+		for (i = pentla; i < cykl; ++i)
+		{
+			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+				cout << "\t\t\t\t" << i + 1 << "\t" << Lista[i] << endl;
+			}
+			else                // niewybrane opcje sa biale
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				cout << "\t\t\t\t" << i + 1 << "\t" << Lista[i] << endl;
+			}
+		}
+		while (true)
+		{
+			//if (Lista.m_size() > 1) {
+			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
+			{
+				ptr -= 1;
+				//cykl -= 2;
+				if (ptr < 0)      // gdy wykracza wraca na koniec
+				{
+					cykl = Lista.m_size();
+					if (Lista.m_size() > 5)
+						pentla = Lista.m_size() - 5;
+					else
+						pentla = 0;
+					ptr = Lista.m_size();
+					continue;
+				}
+				if (pentla > 0 && ptr < Lista.m_size() - 3)
+				{
+					pentla--;
+				}
+				if (cykl > 5 && ptr < Lista.m_size() - 3)
+				{
+					if (cykl > 6)
+						cykl -= 2;
+					else
+						cykl -= 1;
+				}
+
+				//if (pentla>0&&ptr<Lista.m_size() -3)
+
+				break;
+			}
+			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
+			{
+				ptr += 1;
+				if (ptr > 2 && ptr < Lista.m_size() - 2)
+					pentla++;
+				if (ptr > Lista.m_size() - 1)       // gdy wykracza poza menu, znow wraca na poczatek
+				{
+					pentla = 0;
+					if (Lista.m_size() > 5)
+						cykl = 5;
+					else
+						cykl = Lista.m_size();
+					ptr = 0;
+				}
+				break;
+			}
+			//}
+			else if (GetAsyncKeyState(VK_RETURN) != 0)
+			{
+				//	m_create_human(V_ID[ptr]);
+				//	break;
+				//przejscie do edycji danych
+				Sleep(150);
+				C_element Element(V_ID[ptr]);
+				return Element;
+				//	Lista.m_close();
+
+			}
+
 		}
 
 		Sleep(150);     // szybkosc poruszania sie po menu

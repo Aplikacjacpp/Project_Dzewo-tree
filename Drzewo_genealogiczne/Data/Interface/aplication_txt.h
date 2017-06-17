@@ -51,10 +51,13 @@ public:
 	//Poszczegolne menu:
 	void m_menu_name_tree();
 	C_human m_menu_add_first_name();
+	C_element m_menu_wybor_humana_wskaznikowego();
 	void m_menu_add_human();
 	C_human m_menu_add_last_name();
 	C_human m_menu_add_gender();
 	C_human m_menu_add_date();
+	void m_menu_relation();
+	C_element m_menu_add_relations(int data, C_element Element);
 	C_human m_menu_edit_human();
 	void m_menu_tree();
 private:
