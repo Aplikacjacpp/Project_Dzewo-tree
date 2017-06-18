@@ -191,7 +191,7 @@ N_vektor<C_day> C_goverment_date::m_set_value_V_day() { //dziala
 					continue;
 				}
 					day.m_get_contens(str);
-					std::cout <<"dzien: "<< day.m_day_set() << "\n";
+				//	std::cout <<"dzien: "<< day.m_day_set() << "\n";
 					Vektor.m_push_back(day);
 					i = j;
 					break;
@@ -219,7 +219,7 @@ N_vektor<C_month> C_goverment_date::m_set_value_V_month() { //dziala
 					continue;
 				}
 					month.m_get_contens(str);
-					std::cout <<"miesiac: "<< month.m_month_set() << "\n";
+				//	std::cout <<"miesiac: "<< month.m_month_set() << "\n";
 					Vektor.m_push_back(month);
 					i = j;
 					break;
@@ -247,7 +247,7 @@ N_vektor<C_year> C_goverment_date::m_set_value_V_year() { //dziala
 					continue;
 				}
 						year.m_get_contens(str);
-						std::cout <<"rok: "<< year.m_year_set()<<"\n";
+			//			std::cout <<"rok: "<< year.m_year_set()<<"\n";
 						Vektor.m_push_back(year);
 						i = j;
 						break;

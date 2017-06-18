@@ -55,6 +55,9 @@
 #define t_gender_personaly   174
 #define t_gender_date   175
 #define t_gender_relation   183 // 
+#define t_date_bristday 171
+#define t_date_slubu 172
+#define t_date_dead 173
 //definition from file
 #define f_save_data "data.save"
 #define f_save_relation "relation.save"
@@ -98,4 +101,8 @@
 #define op_name_bat "operation.bat"
 #define op_list_tree "Lista.ope"
 #define op_name_catalog ".tree"
+//Dane daty
+#define d_date_bristday "z1"
+#define d_date_slubu "z2"
+#define d_date_dead  "z3"
 #endif // !DEFINITON_H

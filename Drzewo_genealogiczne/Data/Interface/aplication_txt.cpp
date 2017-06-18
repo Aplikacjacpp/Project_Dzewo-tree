@@ -2215,10 +2215,22 @@ void C_aplication_txt::m_menu_tree() {
 	}
 }
 void C_aplication_txt::m_menu_relation() {
+	m_load_lista(); //bagi z nadpisywaniem sie listy
+	if (Lista.m_size() < 2)
+	{
+		system("cls");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		std::cout << "\t\t\t\t" << "Nie mozna dodac relacji!" << "\n";
+		Sleep(2000);
+		return;
+	}
 	C_element Element(m_menu_wybor_humana_wskaznikowego());
-	N_striing MenuSub1[9] = { "Menu dodawania relacji pomiedy dwojgiem ludi","1. Add Grandparent","2. Add Parent","3. Add Sibling","4. Add Partner",
-	"5. Add Children", "6 Add Grandchildren", "7. Add Order","8. Exit"};
-	N_striing SubSub1[9] = { "", "", "","","","","","","" };
+	C_element element;
+	if (Element == element)
+		return;
+	N_striing MenuSub1[10] = { "Menu dodawania relacji pomiedy dwojgiem ludi","1. Add Grandparent","2. Add Parent","3. Add Sibling","4. Add Partner",
+	"5. Add Children", "6 Add Grandchildren", "7. Add Order","9. Save relations","10. Exit"};
+	N_striing SubSub1[10] = { "", "", "","","","","","","","" }; //dodac opisy Mateusz i pretlumaczyc gore
 	int ptr = 1, p = 0;
 	char c;
 	N_striing data;
@@ -2228,7 +2240,7 @@ void C_aplication_txt::m_menu_relation() {
 		CreateLogo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
-		for (int i = 0; i < 9; ++i)
+		for (int i = 0; i < 10; ++i)
 		{
 			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 			{
@@ -2260,7 +2272,7 @@ void C_aplication_txt::m_menu_relation() {
 		cout << "SPACEBAR";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 		cout << " if you want back to main menu.";
-
+	//	cout << "\n\n" << Element << "\n";
 		while (true)
 		{
 			if (GetAsyncKeyState(VK_SPACE) != 0) MainMenu();
@@ -2269,14 +2281,14 @@ void C_aplication_txt::m_menu_relation() {
 				ptr -= 1;
 				if (ptr <= 0)      // gdy wykracza wraca na koniec
 				{
-					ptr = 8;
+					ptr = 9;
 				}
 				break;
 			}
 			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 			{
 				ptr += 1;
-				if (ptr >= 9)       // gdy wykracza poza menu, znow wraca na poczatek
+				if (ptr >= 10)       // gdy wykracza poza menu, znow wraca na poczatek
 				{
 					ptr = 1;
 				}
@@ -2324,6 +2336,12 @@ void C_aplication_txt::m_menu_relation() {
 							break;
 						}
 					case 8:
+						{
+						m_new_element(Element, true);
+						m_save_files(true);
+							return;
+						}
+					case 9:
 						{
 							return;
 						}
@@ -2393,19 +2411,68 @@ C_element C_aplication_txt::m_menu_add_relations(int data, C_element Element) {
 	}
 	return Element;
 }
-C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() {
+C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebnego zprecyzowania
 	//bool b_where = false;
-	m_load_lista(); //bagi z nadpisywaniem sie listy
-	if (Lista.m_size() < 2)
+	if (Lista.m_size() < 1)
 	{
 		system("cls");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-		std::cout << "\t\t\t\t" << "No people!" << "\n";
+		std::cout << "\t\t\t\t" << "Brak ludzi do nawiazania relacji!" << "\n";
 		Sleep(2000);
-		return;
+		C_element element;
+		return element;
 	}
+	int i,j,w,q;
+	N_striing goverment_data;
+#pragma region Analiza sprzezenia zwrotnego
+	for (j = 0; j < V_ID.m_size(); j++) {
+		for (i = 0; i < V_goverment_relation.m_size(); i++) {
+			goverment_data.m_clear();
+			for (q = 3; q < V_goverment_relation[i].m_set_contens().m_size(); q++)
+			{
+				if (V_goverment_relation[i].m_set_contens()[q] == 'r')
+					break;
+				goverment_data += V_goverment_relation[i].m_set_contens()[q];
+			}
+			if (V_ID[j].m_set_contens() == goverment_data)
+			{
+				N_striing value,data = V_goverment_relation[i].m_set_contens();
+				for (q = 0; q < data.m_size(); q++)
+				{
+					if (data[q] == 'r')
+					{
+						q += 2;
+						value.m_clear();
+						while (data[q] != 'r')
+						{
+							if (q < data.m_size()) {
+								value += data[q];
+								q++;
+							}
+							else
+								break;
+						}
+						
+						for (w = 0; w < V_ID.m_size(); w++)
+						{
+							if (V_ID[w].m_set_contens() == value)
+							{
+								Lista.m_erase(w);
+								V_ID.m_erase(w);
+								break;
+							}
+						}
+					}
+				}
+				//Lista.m_erase(j);
+				//V_ID.m_erase(j);
+			}
+		}
+	}
+
+#pragma endregion
 	system("cls");
-	int ptr = 0, p = 0, i;
+	int ptr = 0, p = 0;
 	int cykl = 0, pentla = 0;
 	//for (i = 0; i < 100; i++)
 	//	std::cout << "*";
@@ -2496,18 +2563,14 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() {
 			//}
 			else if (GetAsyncKeyState(VK_RETURN) != 0)
 			{
-				//	m_create_human(V_ID[ptr]);
-				//	break;
-				//przejscie do edycji danych
 				Sleep(150);
-				C_element Element(V_ID[ptr]);
+				C_element Element(m_create_human(V_ID[ptr]));
+				Lista.m_erase(ptr);
+				V_ID.m_erase(ptr);
 				return Element;
-				//	Lista.m_close();
-
 			}
-
 		}
-
 		Sleep(150);     // szybkosc poruszania sie po menu
 	}
-}
+} 
+//w momecie tworzenia jednego elementu ine musza byc aktualizowane

@@ -26,14 +26,14 @@
 class C_element
 {
 public:
-	C_element();
-	C_element(const C_human& human);
-	C_element(const C_element &human);
-	C_element& operator=(const C_element &human);
-	bool operator==(const C_element &human);
-	bool operator!=(const C_element &human);
-	void m_get_children(C_children &children);
-	void m_get_parent(C_parent &parent);
+	C_element(); //konstruktor bezparametrowy
+	C_element(const C_human& human); //konstruktor parametrowy  argumentem typu human
+	C_element(const C_element &human); //konstruktor kopiujacy
+	C_element& operator=(const C_element &human); //operator prypisania
+	bool operator==(const C_element &human); //operator pryrownania ==
+	bool operator!=(const C_element &human); //operator przyrownania !=
+	void m_get_children(C_children &children); //metoda dodajaca relacje children do humana wskaznikowego
+	void m_get_parent(C_parent &parent); //metoda dodajaca relacje parent do humana wskaznikowego
 	void m_get_sibling(C_sibling &sibling);
 	void m_get_grandchildren(C_grandchildren &grandchildren);
 	void m_get_grandparents(C_grandparents &grandparents);
@@ -92,7 +92,7 @@ public:
 	//~C_element();
 	virtual ~C_element();
 protected:
-	C_human Human;
+	C_human Human; //human wskaznikowy
 private:
 	N_vektor<C_children> V_children;
 	N_vektor<C_parent> V_parent;

@@ -38,7 +38,34 @@ void C_human::m_shift_id(int id) { C_id I(id); Id = I; }
 void C_human::m_shift_id(C_id &id) { Id = id; }
 void C_human::m_get_date(C_date date) {
 //	std::cout << "dodanie\n"<<date.m_set_DD_MM_YYYY()<<"\n";
-	V_date.m_push_back(date); 
+	
+	switch(V_date.m_size())
+	{
+	case 0:
+	{
+		N_striing s_data = d_date_bristday;
+		date.m_get_type(s_data);
+		V_date.m_push_back(date);
+		break;
+	}
+	case 1:
+	{
+		N_striing s_data = d_date_slubu;
+		date.m_get_type(s_data);
+		V_date.m_push_back(date);
+		break;
+	}
+	case 2:
+	{
+		N_striing s_data = d_date_dead;
+		date.m_get_type(s_data);
+		V_date.m_push_back(date);
+		break;
+	}
+	default:
+		return;
+	}
+	//V_date.m_push_back(date); 
 	//std::cout << V_date[0].m_set_DD_MM_YYYY() << "\n";
 }
 void C_human::m_delete_first_name() { N_striing data = ""; First.m_get_contens(data); }

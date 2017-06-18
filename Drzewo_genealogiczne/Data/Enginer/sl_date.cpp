@@ -98,12 +98,12 @@ void C_sl_date::m_get_new_date(C_id id,N_vektor<C_date> V_date) {
 	C_date date;
 	C_goverment_date Gover;
 	N_striing data;
+	data = "<";
+	data += id.m_what_type();
+	data += id.m_set_contens();
 		for (i = 0; i < V_date.m_size(); i++)
 		{
 			date = V_date[i];
-			data = "<";
-			data += id.m_what_type();
-			data += id.m_set_contens();
 			data += date.m_what_type_date();
 			data += date.m_set_day().m_what_type();
 			data += date.m_day_set();

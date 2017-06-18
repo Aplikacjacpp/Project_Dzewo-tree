@@ -87,10 +87,6 @@ void C_sl_personalys::m_add_new_personaly(C_id id, C_first_name first, N_vektor<
 	data += id.m_set_contens();
 	data += first.m_what_type();
 	data += first.m_set_contens();
-	if (Last.m_size() == 0)
-	{
-		data += last.m_what_type();
-	}
 	for (i = 0; i < Last.m_size(); i++)
 	{
 		last = Last[i];

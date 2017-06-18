@@ -47,7 +47,7 @@ public:
 	void m_clear(); //wyczysc wszystkie dane daty
 	N_striing m_what_type_date(); //zwroc typ daty np. malzenstwa, smierci czy urodzenia
 	void m_shift_char(char value);
-	void m_get_type(N_striing value); //wstaw znak podzialki
+	void m_get_type(N_striing value); //wstaw typ daty
 	virtual ~C_date(); //destruktor wirtualny
 	friend std::ostream& operator<<(std::ostream &is, const C_date &d); //przeciazenie operatora przesuniecia bitowego na wyjscie
 private:

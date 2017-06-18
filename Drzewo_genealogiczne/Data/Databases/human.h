@@ -25,6 +25,7 @@ C_date"
 #include "../date/date.h"
 #include "../Personaly/gender.h"
 #include "../narzedzia/Vektor.h"
+#include "../Helpful/definition.h"
 #include <windows.h>
 class C_human
 {
