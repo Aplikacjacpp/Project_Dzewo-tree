@@ -63,6 +63,10 @@ void C_sl_personalys::m_load_file_personaly(bool what, N_striing Data) {
 		File.open(Data.m_c_str());
 		if (File.good())
 		{
+			if (V_goverment_personaly.m_size() == 0)
+			{
+
+			}
 	//		std::cout <<"\nrozmiar zapisywanego:"<< V_goverment_personaly.m_size() << "\n";
 			for (i = 0; i < V_goverment_personaly.m_size(); i++)
 			{
