@@ -1165,7 +1165,7 @@ void C_aplication_txt::m_menu_add_human() {
 		else {
 			N_striing MenuSub_add_person[5] = { "1. Add a first name", "2. Add a surname", "3. Add a gender", "4. Add a date", "6. Return" };
 			N_striing SubSub_add_person[5] = { "[You can add a first name to your person]", "[You can add a surname to your person]", "[You can add a gender to your person]",
-				"[You can add a date to your person]","[Return From Add Person]" }; //dla Mateusza
+				"[You can add a date to your person]","[Return From Add Person]" }; 
 			Sleep(150);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 							// tutaj powinna byc metoda dolaczenia nowej osoby
 			while (true)
@@ -1624,7 +1624,7 @@ C_human C_aplication_txt::m_menu_add_date() {
 		data += yy;
 		if (!b_what)
 		{
-			typ = "data urodzenia: ";
+			typ = "Date of birth: ";
 			N_striing MenuSub_add_last_name[3] = { typ,"Date:", "Return" };
 			N_striing SubSub_add_last_name[3] = {"",data ,"[Return From Add Person]" };
 			system("cls");
@@ -1779,8 +1779,8 @@ C_human C_aplication_txt::m_menu_add_date() {
 		}
 		else
 		{
-			typ = "data pogrzebu: ";
-			N_striing MenuSub_add_last_name[4] = { typ,"Date:","save", "Return" };
+			typ = "Date of death: ";
+			N_striing MenuSub_add_last_name[4] = { typ,"Date:","Save", "Return" };
 			N_striing SubSub_add_last_name[4] = { "",data ,"","[Return From Add Person]" };
 			system("cls");
 			CreateLogo();
@@ -2336,14 +2336,14 @@ void C_aplication_txt::m_menu_tree() {
 			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 			{
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-				cout << "\t\t\t\t" << "--> " << Menu[i] << "\n" << SubMenu[i] << endl;
+				cout << "\t\t\t\t" << "--> " << Menu[i] << "   " << SubMenu[i] << endl;
 
 
 			}
 			else                // niewybrane opcje sa biale
 			{
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				cout << "\t\t\t\t" << Menu[i] <<"\n"<< endl;
+				cout << "\t\t\t\t" << Menu[i] << "	 "<< endl;
 			}
 		}
 
@@ -2415,13 +2415,14 @@ void C_aplication_txt::m_menu_tree() {
 		Sleep(150);     // szybkosc poruszania sie po menu
 	}
 }
-void C_aplication_txt::m_menu_relation() {
+void C_aplication_txt::m_menu_relation() 
+{
 	m_load_lista(); //bagi z nadpisywaniem sie listy
 	if (Lista.m_size() < 2)
 	{
 		system("cls");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-		std::cout << "\t\t\t\t" << "Nie mozna dodac relacji!" << "\n";
+		std::cout << "\t\t\t\t" << "Cannot add relationship!" << "\n";
 		Sleep(2000);
 		return;
 	}
@@ -2429,9 +2430,9 @@ void C_aplication_txt::m_menu_relation() {
 	C_element element;
 	if (Element == element)
 		return;
-	N_striing MenuSub1[10] = { "Menu dodawania relacji pomiedy dwojgiem ludi","1. Add Grandparent","2. Add Parent","3. Add Sibling","4. Add Partner",
-	"5. Add Children", "6 Add Grandchildren", "7. Add Order","9. Save relations","10. Exit"};
-	N_striing SubSub1[10] = { "", "", "","","","","","","","" }; //dodac opisy Mateusz i pretlumaczyc gore
+	N_striing MenuSub1[10] = { "Add Relationship - MENU","1. Add Grandparent","2. Add Parent","3. Add Sibling","4. Add Partner",
+	"5. Add Children", "6. Add Grandchildren", "7. Add Order","8. Save relations","9. Exit"};
+	N_striing SubSub1[10] = { "", "[Add grandparent to person]", "[Add parent to person]","[Add sibling to person]","[Add partner to person]","[Add child to person]","[Add grandchild to person]","","[Save your created relations]","[Exit From Program]" }; 
 	int ptr = 1, p = 0;
 	char c;
 	N_striing data;
@@ -2618,7 +2619,7 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebneg
 	{
 		system("cls");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-		std::cout << "\t\t\t\t" << "Brak ludzi do nawiazania relacji!" << "\n";
+		std::cout << "\t\t\t\t" << "No people to create relations!" << "\n";
 		Sleep(2000);
 		C_element element;
 		return element;
