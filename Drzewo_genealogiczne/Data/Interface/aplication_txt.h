@@ -16,6 +16,7 @@
 *1.4     21.05.2017  Menu modified, new methods added								  Mateusz Marchelewicz
 *1.5     22.05.2017  Menu modified								                      Mateusz Marchelewicz
 *1.6	 10.06.2017	 Add valuue to dystryct private									  Lukasz Witek vel Witkowski
+*1.7     27.06.2017  Methods names changed		     								  Mateusz Marchelewicz
 ****************************************************************************************************************/
 #ifndef APLICATION_TXT_H
 #define APLICATION_TXT_H
@@ -29,22 +30,22 @@ class C_aplication_txt :
 	public C_aplication
 {
 public:
-	C_aplication_txt();
-	C_aplication_txt(const C_aplication_txt & aplication_txt);
-	C_aplication_txt& operator=(const C_aplication_txt& aplication_txt);
-	bool operator==(const C_aplication_txt& aplication_txt);
+	C_aplication_txt();			// konstruktor domyslny
+	C_aplication_txt(const C_aplication_txt & aplication_txt);		// konstruktor
+	C_aplication_txt& operator=(const C_aplication_txt& aplication_txt);	// konstruktor kopiujacy
+	bool operator==(const C_aplication_txt& aplication_txt);	// przeciazone operatory
 	bool operator!=(const C_aplication_txt& aplication_txt);
-	virtual ~C_aplication_txt();
-	void SetWindow(int Width, int Height);
+	virtual ~C_aplication_txt();						// destruktor
+	void m_set_window(int Width, int Height);			// ustawia wymiary okna, czcionke
 //	friend char& operator>>(std::iostream& is, char &c);
-	void MainMenu();
-	void Sub1();
-	void SubMenu2();
-	void ImportTree();
-	void EditTree();
-	void DisplayTree();
-	void SearchTree();
-	void CreateLogo();
+	void m_main_menu();			// menu glowne
+	void m_sub_1();				// podmenu
+	void m_sub_menu_2();		// podmenu, edycja, wyswietlanie drzewa
+	void m_import_tree();		// import drzewa
+	void m_edit_tree();			// edycja drzewa
+	void m_display_tree();		// wyswietla drzewo
+	void m_search_tree();
+	void m_create_logo();		// tworzy "atrape" drzewa
 	char m_get_key();
 	bool m_what_return();
 	bool m_what_menu();
