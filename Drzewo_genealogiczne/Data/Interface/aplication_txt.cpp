@@ -307,6 +307,7 @@ void C_aplication_txt::m_sub_1()
 						case 1:
 						{
 							Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+							m_sub_menu_2();
 							break;
 						}
 
@@ -425,41 +426,15 @@ void C_aplication_txt::m_edit_tree()
 				{
 					return;
 				}
-				}
-				//menu do tetetetetete
 
+
+				}
 						Sleep(150);     // szybkosc poruszania sie po menu
 				}
 				Sleep(150);     // szybkosc poruszania sie po menu
 			}
-			//Sleep(150);
 		}
-		//Sleep(150);
 	}
-	//Sleep(150);
-/*	case 1:
-{
-
-} break;
-
-case 2:
-{
-
-} break;
-
-case 3:
-{
-
-} break;
-
-case 4:
-{
-return;
-} break;
-default:
-break;*/
-
-
 
 
 void C_aplication_txt::m_search_tree()
@@ -535,7 +510,7 @@ void C_aplication_txt::m_search_tree()
 				case 0:
 				{
 					Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-									//SubMenu3();
+
 				} break;
 
 				case 1:
@@ -1163,7 +1138,7 @@ void C_aplication_txt::m_menu_add_human() {
 			}
 		}
 		else {
-			N_striing MenuSub_add_person[5] = { "1. Add a first name", "2. Add a surname", "3. Add a gender", "4. Add a date", "6. Return" };
+			N_striing MenuSub_add_person[5] = { "1. Add a first name", "2. Add a surname", "3. Add a gender", "4. Add a date", "5. Return" };
 			N_striing SubSub_add_person[5] = { "[You can add a first name to your person]", "[You can add a surname to your person]", "[You can add a gender to your person]",
 				"[You can add a date to your person]","[Return From Add Person]" }; 
 			Sleep(150);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
@@ -1936,12 +1911,11 @@ C_human C_aplication_txt::m_menu_add_date() {
 						}
 					}
 				}
-			//	Sleep(150);
 			}
-			//Sleep(150);
 		}
 	}
 }
+
 void C_aplication_txt::m_load_lista() {
 	Lista.m_close();
 	m_load_files(true);
@@ -2401,6 +2375,7 @@ void C_aplication_txt::m_menu_tree() {
 				case 2:
 				{
 					//eksportuj
+					// jakas metoda do zapisywania drzewa potrzebna!!!
 					return;
 				} break;
 				case 3:
