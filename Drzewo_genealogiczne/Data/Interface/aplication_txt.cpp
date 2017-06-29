@@ -635,6 +635,8 @@ void C_aplication_txt::m_sub_menu_2()
 {
 	//moim zadniem lista z wczytanymi drzewami do wyboru:P
 	m_lista(false); //lista drzew
+	//std::cout << "Click SpaceBar to return";
+	//if (GetAsyncKeyState(VK_SPACE) != 0) m_main_menu();
 	return;
 //	m_lista(true);
 	N_striing Menu2[4] = { "1. Display Tree", "2. Edit Tree", "3. Export Tree", "4. Exit" };
@@ -646,6 +648,7 @@ void C_aplication_txt::m_sub_menu_2()
 
 		system("cls");
 		//m_create_logo();
+		std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 
 		for (int i = 0; i < 4; ++i)
@@ -1996,6 +1999,8 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 		system("cls");
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
+
 		if (ptr > 2) {
 			if (cykl + 1 <= Lista.m_size())
 				cykl += 1;
@@ -2006,6 +2011,7 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 		}
 		for (i = pentla; i < cykl; ++i)
 		{
+			
 			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 			{
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
@@ -2020,6 +2026,7 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 		while (true)
 		{
 			//if (Lista.m_size() > 1) {
+			    if (GetAsyncKeyState(VK_SPACE) != 0) m_main_menu();
 				if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 				{
 					ptr -= 1;
@@ -2376,7 +2383,7 @@ void C_aplication_txt::m_menu_tree() {
 				{
 					//eksportuj
 					// jakas metoda do zapisywania drzewa potrzebna!!!
-					return;
+					//return;
 				} break;
 				case 3:
 				{
