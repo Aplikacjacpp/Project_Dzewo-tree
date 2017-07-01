@@ -1970,7 +1970,7 @@ void C_aplication_txt::m_load_lista() {
 			s_Data += human.m_set_date(0).m_year_set();
 			//std::cout << s_Data << "\n";
 			//Sleep(2000);
-		}
+		} 
 		Lista.m_push_back(s_Data);
 		V_ID.m_push_back(human.m_set_id());
 	}
