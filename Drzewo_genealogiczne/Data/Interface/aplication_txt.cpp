@@ -4,6 +4,8 @@
 #include <Windows.h>
 
 C_aplication_txt::C_aplication_txt() {
+	system("del operation.ope&&cls");
+	Sleep(100);
 	system("echo %USERPROFILE%>>operation.ope");
 	std::ifstream file;
 	file.open("operation.ope");
@@ -29,6 +31,8 @@ C_aplication_txt::C_aplication_txt() {
 }
 C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
 	if (this != &aplication_txt) *this = aplication_txt;
+	system("del operation.ope&&cls");
+	Sleep(100);
 	system("echo %USERPROFILE%>>operation.ope");
 	std::ifstream file;
 	file.open("operation.ope");
