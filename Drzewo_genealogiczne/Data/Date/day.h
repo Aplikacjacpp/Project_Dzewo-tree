@@ -33,11 +33,11 @@ public:
 	bool operator!=(const C_day &C); //operator porownania !=
 	virtual ~C_day(); //destruktor
 	virtual bool m_wchat_is(); //metoda sprawdza czy istnieje wartosc i_data_day
-	virtual void m_get_contens(N_striing &contens); //metoda ptzyjmuje za parametr n_striing ktory analizuje i
+	virtual void m_get_contens(N_striing &contens); //metoda przyjmuje za parametr n_striing ktory analizuje i
 													//konwertuje ktory nastepnie przypisuje do i_data_day
-	virtual int m_set_variable(); //zwraca wartosc charakterystyczna dla typu dany day zapisana pod t_day
-	N_striing m_day_set(); //zwraca wartosc i_data_day w postaci N_striinga
-	void m_get_day(N_striing &contens); //podstawia po analizie wartosc skonwertowana do i_data_day 
+	virtual int m_set_variable(); //metoda zwraca wartosc charakterystyczna dla typu dany day zapisana pod t_day
+	N_striing m_day_set(); //metoda zwraca wartosc i_data_day w postaci N_striinga
+	void m_get_day(N_striing &contens); //metoda podstawia po analizie wartosc skonwertowana do i_data_day 
 										//(metoda powstala na skutek uwirtualnienia poprzedniej metody "void m_get_contens(N_striing &contens)")
 private:
 	virtual N_striing m_is_there_contens(N_striing &Word); //metoda analizuje i edytuje w razie potrzeby dane przychodzace w postaci N_striing
