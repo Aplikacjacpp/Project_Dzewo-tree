@@ -25,26 +25,28 @@
 class C_year: public C_data
 {
 public:
-	C_year();
-	C_year(N_striing &year);
-	C_year(int year);
-	C_year(const C_year &C);
-	C_year& operator=(const C_year &C);
-	bool operator==(const C_year &C);
-	bool operator!=(const C_year &C);
-	virtual ~C_year();
-	virtual bool m_wchat_is();
-	virtual void m_get_contens(N_striing &contens);
-	virtual int m_set_variable();
-	void m_get_year(N_striing &contens);
-	N_striing m_year_set();
+	C_year(); //konstruktor bezparametrowy
+	C_year(N_striing &year); //kostruktor parametrowy konwertujacy wartosc year i przypisujacy do zmiennej i_data_year
+	C_year(int year); //konstruktor parametrowy przypisujacy wartosc year do zmiennei i_data_year
+	C_year(const C_year &C); //konstruktor kopiujacy
+	C_year& operator=(const C_year &C); //konstruktor przypisania
+	bool operator==(const C_year &C); //konstruktor porownania typu ==
+	bool operator!=(const C_year &C); //konstruktor porownania typu !=
+	virtual ~C_year(); //destruktor
+	virtual bool m_wchat_is(); //metoda sprawdzajaca czy istnieje juz wartosc w zmienej i_data_year
+	virtual void m_get_contens(N_striing &contens); //metoda przyjmuje za parametr n_striing ktory analizuje i
+													//konwertuje ktory nastepnie przypisuje do i_data_year
+	virtual int m_set_variable(); //metoda zwraca wartosc charakterystyczna dla typu dany year zapisana pod t_year
+	void m_get_year(N_striing &contens); //metoda podstawia po analizie wartosc skonwertowana do i_data_year 
+										 //(metoda powstala na skutek uwirtualnienia poprzedniej metody "void m_get_contens(N_striing &contens)")
+	N_striing m_year_set(); //metoda zwraca wartosc i_data_year w postaci N_striing
 private:
-	virtual N_striing m_is_there_contens(N_striing &Word);
-	virtual N_striing m_set_contens();
+	virtual N_striing m_is_there_contens(N_striing &Word); //metoda analizuje i edytuje w razie potrzeby dane przychodzace w postaci N_striing
+	virtual N_striing m_set_contens(); //metoda do konwersji typow
 protected:
-	int m_set_value_year();
-	void m_get_value_year(int value);
-	int i_data_year;
+	int m_set_value_year(); //metoda zwraca wartosc i_data_year
+	void m_get_value_year(int value); //metoda podstawia wartosc value do i_data_year
+	int i_data_year = NULL; //zmienna i_data_year przechowuje warosc roku
 };
 #endif // !year_H
 
