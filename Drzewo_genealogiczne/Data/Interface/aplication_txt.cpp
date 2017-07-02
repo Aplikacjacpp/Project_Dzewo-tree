@@ -2419,9 +2419,20 @@ void C_aplication_txt::m_menu_relation()
 	N_striing MenuSub1[10] = { "Add Relationship - MENU","1. Add Grandparent","2. Add Parent","3. Add Sibling","4. Add Partner",
 	"5. Add Children", "6. Add Grandchildren", "7. Add Order","8. Save relations","9. Exit"};
 	N_striing SubSub1[10] = { "", "[Add grandparent to person]", "[Add parent to person]","[Add sibling to person]","[Add partner to person]","[Add child to person]","[Add grandchild to person]","","[Save your created relations]","[Exit From Program]" }; 
-	int ptr = 1, p = 0;
+	int ptr = 1, p;
 	char c;
 	N_striing data;
+	N_vektor<C_element> V_element;
+	int t;
+	C_id ID;
+	bool b_pointer;
+	//petla po wszystkich relacjach tworzaca elementy i ladujaca je w wektor elementow
+	for (p = 0; p < V_goverment_relation.m_size(); p++)
+	{
+		V_element.m_push_back(m_create_element(V_goverment_relation[p].m_set_value_id()));
+	}
+	p = 0;
+	//ladowanie elementow
 	while (true)
 	{
 		system("cls");
@@ -2488,39 +2499,188 @@ void C_aplication_txt::m_menu_relation()
 				{
 					case 1:
 						{
+						b_pointer = true;
 							Element=m_menu_add_relations(t_grandparent,Element);
+							ID=Element.m_set_v_grandparents()[Element.m_set_v_grandparents().m_size()-1].m_set_id();
+							for (t = 0; t < V_element.m_size(); t++)
+							{
+								if (V_element[t].m_set_Human().m_set_id() == ID)
+								{
+									C_grandchildren grandchildren(ID);
+									grandchildren.m_get_id(Element.m_set_Human().m_set_id());
+									V_element[t].m_get_grandchildren(grandchildren);
+									b_pointer = false;
+									break;
+								}
+							}
+							if (b_pointer) {
+								C_element Element_sprzezony(ID);
+								C_grandchildren grandchildren(ID);
+								grandchildren.m_get_id(Element.m_set_Human().m_set_id());
+								Element_sprzezony.m_get_grandchildren(grandchildren);
+								m_new_element(Element_sprzezony, true);
+								V_element.m_push_back(Element_sprzezony);
+							}
 							break;
 						}
 					case 2:
 						{
+						b_pointer = true;
 							Element = m_menu_add_relations(t_parent, Element);
+							ID = Element.m_set_v_parent()[Element.m_set_v_parent().m_size() - 1].m_set_id();
+							for (t = 0; t < V_element.m_size(); t++)
+							{
+								if (V_element[t].m_set_Human().m_set_id() == ID)
+								{
+									C_children children(ID);
+									children.m_get_id(Element.m_set_Human().m_set_id());
+									V_element[t].m_get_children(children);
+									b_pointer = false;
+									break;
+								}
+							}
+							if (b_pointer) {
+								C_element Element_sprzezony(ID);
+								C_children children(ID);
+								children.m_get_id(Element.m_set_Human().m_set_id());
+								Element_sprzezony.m_get_children(children);
+								m_new_element(Element_sprzezony, true);
+								V_element.m_push_back(Element_sprzezony);
+							}
 						//	Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 							break;
 						}
 					case 3:
 						{
+						b_pointer = true;
 							Element = m_menu_add_relations(t_sibling, Element);
+							ID = Element.m_set_v_sibling()[Element.m_set_v_sibling().m_size() - 1].m_set_id();
+							for (t = 0; t < V_element.m_size(); t++)
+							{
+								if (V_element[t].m_set_Human().m_set_id() == ID)
+								{
+									C_sibling sibling(ID);
+									sibling.m_get_id(Element.m_set_Human().m_set_id());
+									V_element[t].m_get_sibling(sibling);
+									b_pointer = false;
+									break;
+								}
+							}
+							if (b_pointer) {
+								C_element Element_sprzezony(ID);
+								C_sibling sibling(ID);
+								sibling.m_get_id(Element.m_set_Human().m_set_id());
+								Element_sprzezony.m_get_sibling(sibling);
+								m_new_element(Element_sprzezony, true);
+								V_element.m_push_back(Element_sprzezony);
+							}
 							//return;
 							break;
 						}
 					case 4:
 						{
+						b_pointer = true;
 							Element = m_menu_add_relations(t_partner, Element);
+							ID = Element.m_set_v_partner()[Element.m_set_v_partner().m_size() - 1].m_set_id();
+							for (t = 0; t < V_element.m_size(); t++)
+							{
+								if (V_element[t].m_set_Human().m_set_id() == ID)
+								{
+									C_partner partner(ID);
+									partner.m_get_id(Element.m_set_Human().m_set_id());
+									V_element[t].m_get_partner(partner);
+									b_pointer = false;
+									break;
+								}
+							}
+							if (b_pointer) {
+								C_element Element_sprzezony(ID);
+								C_partner partner(ID);
+								partner.m_get_id(Element.m_set_Human().m_set_id());
+								Element_sprzezony.m_get_partner(partner);
+								m_new_element(Element_sprzezony, true);
+								V_element.m_push_back(Element_sprzezony);
+							}
 							break;
 						}
 					case 5:
 						{
+						b_pointer = true;
 							Element = m_menu_add_relations(t_children, Element);
+							ID = Element.m_set_v_children()[Element.m_set_v_children().m_size() - 1].m_set_id();
+							for (t = 0; t < V_element.m_size(); t++)
+							{
+								if (V_element[t].m_set_Human().m_set_id() == ID)
+								{
+									C_parent parent(ID);
+									parent.m_get_id(Element.m_set_Human().m_set_id());
+									V_element[t].m_get_parent(parent);
+									b_pointer = false;
+									break;
+								}
+							}
+							if (b_pointer)
+							{
+								C_element Element_sprzezony(ID);
+								C_parent parent(ID);
+								parent.m_get_id(Element.m_set_Human().m_set_id());
+								Element_sprzezony.m_get_parent(parent);
+								m_new_element(Element_sprzezony, true);
+								V_element.m_push_back(Element_sprzezony);
+							}
 							break;
 						}
 					case 6:
 						{
+						b_pointer = true;
 							Element = m_menu_add_relations(t_grandchildren, Element);
+							ID = Element.m_set_v_grandchildren()[Element.m_set_v_grandchildren().m_size() - 1].m_set_id();
+							for (t = 0; t < V_element.m_size(); t++)
+							{
+								if (V_element[t].m_set_Human().m_set_id() == ID)
+								{
+									C_grandparents Grandparent(ID);
+									Grandparent.m_get_id(Element.m_set_Human().m_set_id());
+									V_element[t].m_get_grandparents(Grandparent);
+									b_pointer = false;
+									break;
+								}
+							}
+							if (b_pointer)
+							{
+								C_element Element_sprzezony(ID);
+								C_grandparents Grandparent(ID);
+								Grandparent.m_get_id(Element.m_set_Human().m_set_id());
+								Element_sprzezony.m_get_grandparents(Grandparent);
+								m_new_element(Element_sprzezony, true);
+								V_element.m_push_back(Element_sprzezony);
+							}
 							break;
 						}
 					case 7:
 						{
+						b_pointer = true;
 							Element = m_menu_add_relations(t_order, Element);
+							ID = Element.m_set_v_order()[Element.m_set_v_order().m_size() - 1].m_set_id();
+							for (t = 0; t < V_element.m_size(); t++)
+							{
+								if (V_element[t].m_set_Human().m_set_id() == ID)
+								{
+									C_order order(ID);
+									order.m_get_id(Element.m_set_Human().m_set_id());
+									V_element[t].m_get_order(order);
+									b_pointer = false;
+									break;
+								}
+							}
+							if (b_pointer) {
+								C_element Element_sprzezony(ID);
+								C_order order(ID);
+								order.m_get_id(Element.m_set_Human().m_set_id());
+								Element_sprzezony.m_get_order(order);
+								m_new_element(Element_sprzezony, true);
+								V_element.m_push_back(Element_sprzezony);
+							}
 							break;
 						}
 					case 8:

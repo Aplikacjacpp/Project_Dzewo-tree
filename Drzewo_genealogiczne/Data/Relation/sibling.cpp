@@ -1,5 +1,6 @@
 #include "sibling.h"
 C_sibling::C_sibling():C_relation(n_sibling) {}
+C_sibling::C_sibling(C_id &id) : C_relation(n_sibling) { ID_index = id; }
 C_sibling::C_sibling(const C_id &id) : C_relation(n_sibling) { ID_index = id; }
 C_sibling::C_sibling(const C_sibling &sib):C_relation(sib) {
 	if (this != &sib) *this = sib;
