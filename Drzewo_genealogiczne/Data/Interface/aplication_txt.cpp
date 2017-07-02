@@ -2657,7 +2657,7 @@ void C_aplication_txt::m_menu_relation()
 							}
 							break;
 						}
-					case 7:
+					case 7: 
 						{
 						b_pointer = true;
 							Element = m_menu_add_relations(t_order, Element);
