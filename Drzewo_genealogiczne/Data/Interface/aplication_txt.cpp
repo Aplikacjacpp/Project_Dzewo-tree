@@ -1220,16 +1220,19 @@ void C_aplication_txt::m_menu_add_human() {
 						{
 						case 0: {
 							Sleep(150);
+							b_whats = true;
 							human.m_get_first_name(m_menu_add_first_name().m_set_first_name());
 							break;
 						}
 						case 1: {
 							Sleep(150);
+							b_whats = true;
 							human.m_get_last_name(m_menu_add_last_name().m_set_last_name());
 							break;
 						}
 						case 2: {
 							Sleep(150);
+							b_whats = true;
 							human.m_get_gender(m_menu_add_gender().m_set_gender());
 							break;
 						}
