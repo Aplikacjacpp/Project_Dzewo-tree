@@ -14,7 +14,7 @@
 *1.2	 03.05.2015	 Adding a virtual methods									      Lukasz Witek vel Witkowski
 *1.3	 13.05.2015	 Adding a method "m_set_variable()"							      Lukasz Witek vel Witkowski
 *1.4	 17.05.2017  Adding priority methods										  Lukasz Witek vel Witkowski
-*1.5	 26.05.2017  Adding private bool variable and method "m_set_bChild()"			  Lukasz Janus
+*1.5	 26.05.2017  Adding private bool variable and method "m_set_bChild()"		  Lukasz Janus
 ****************************************************************************************************************/
 #ifndef CHILDREN_H
 #define CHILDREN_H

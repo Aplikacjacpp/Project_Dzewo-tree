@@ -340,7 +340,7 @@ void C_aplication_txt::m_edit_tree()
 	N_striing data;
 	N_striing MenuSub1[5] = { "1. Add a person", "2. Edit a person", "3. Add a relation", "4. Edit a relation", "5. Exit" }; //do rozbudowy
 	N_striing SubSub1[5] = { "[You can add a person to your tree]", "[You can edit a person]", "[You can add a relation to a person]",
-		"[You can edit a relation to a person]", "[Exit From Program]" };
+		"[You can edit a relation to a person]", "[Back To Menu]" };
 	int ptr = 0, p = 0;
 	int i;
 	while (true)
@@ -444,7 +444,7 @@ void C_aplication_txt::m_edit_tree()
 void C_aplication_txt::m_search_tree()
 {
 	N_striing MenuSub1[3] = { "1. Search by personal data", "2. Search by date" , "3. Exit" };
-	N_striing SubSub1[3] = { "[You can search person by personal data]", "[You can search person by dates]", "[Exit From Program]" };
+	N_striing SubSub1[3] = { "[You can search person by personal data]", "[You can search person by dates]", "[Back To Menu]" };
 	int ptr = 0, p = 0;
 
 	while (true)
@@ -540,7 +540,7 @@ void C_aplication_txt::m_search_tree()
 void C_aplication_txt::m_display_tree()
 {
 	N_striing MenuSub1[3] = { "1. Display from the oldest", "2. Search" , "3. Exit" };
-	N_striing SubSub1[3] = { "[You can display trees from the oldest]", "[Search your created trees]", "[Exit From Program]" };
+	N_striing SubSub1[3] = { "[You can display trees from the oldest]", "[Search your created trees]", "[Back To Menu]" };
 	int ptr = 0, p = 0;
 
 	while (true)
@@ -644,7 +644,7 @@ void C_aplication_txt::m_sub_menu_2()
 	return;
 //	m_lista(true);
 	N_striing Menu2[4] = { "1. Display Tree", "2. Edit Tree", "3. Export Tree", "4. Exit" };
-	N_striing SubMenu2[4] = { "[Display Your Created Trees]", "[Edit Your Created Trees]", "[Export Your Created Trees]", "[Exit From Program]" };
+	N_striing SubMenu2[4] = { "[Display Your Created Trees]", "[Edit Your Created Trees]", "[Export Your Created Trees]", "[Back To Menu]" };
 	int pt = 0;
 
 	while (true)
@@ -1499,7 +1499,7 @@ C_human C_aplication_txt::m_menu_add_gender() {
 	while (true)
 	{
 		//	b_what = false;
-		N_striing MenuSub_add_last_name[4] = { "Gender:","- Men","- Women", "Return" };
+		N_striing MenuSub_add_last_name[4] = { "Gender:","- Man","- Woman", "Return" };
 		N_striing SubSub_add_last_name[4] = { "","","" ,"[Return From Add Person]" };
 		system("cls");
 		m_create_logo();
@@ -2108,21 +2108,29 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 void C_aplication_txt::m_menu_name_tree() {
 	//Lista.m_close();
 	//Lista = m_add_to_operation(true, Lista);
+	
 	int ptr = 0, p = 0;
 	char c;
 	N_striing data;
 	bool b_pointer = true;
+
 	while (true)
 	{
+		
 		if (b_pointer)
 		{
-			N_striing MenuSub1[2] = { "Give your tree name:", "Back: " };
-			N_striing SubSub1[2] = { data, "[Back To Main Menu]" }; 
+			N_striing MenuSub1[1] = { "Give your tree name:"};
+			N_striing SubSub1[1] = {data}; 
+			//N_striing MenuSub1[2] = { "Give your tree name:", "Back: " };
+			//N_striing SubSub1[2] = { data, "[Back To Main Menu]" };
 			system("cls");
 			m_create_logo();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
-			for (int i = 0; i < 2; ++i)
+			std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+
+			for (int i = 0; i < 1; ++i)
 			{
 				if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 				{
@@ -2136,6 +2144,9 @@ void C_aplication_txt::m_menu_name_tree() {
 				}
 			}
 			while (true) {
+				
+				if (GetAsyncKeyState(VK_SPACE) != 0) m_main_menu();
+
 				// sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 				if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 				{
@@ -2143,7 +2154,7 @@ void C_aplication_txt::m_menu_name_tree() {
 					ptr -= 1;
 					if (ptr == 0)      // gdy wykracza wraca na koniec
 					{
-						ptr = 2;
+						ptr = 1;
 					}
 					break;
 				}
@@ -2151,7 +2162,7 @@ void C_aplication_txt::m_menu_name_tree() {
 				{
 					Sleep(1500);
 					ptr += 1;
-					if (ptr == 2)       // gdy wykracza poza menu, znow wraca na poczatek
+					if (ptr == 1)       // gdy wykracza poza menu, znow wraca na poczatek
 					{
 						ptr = 0;
 					}
@@ -2309,7 +2320,7 @@ void C_aplication_txt::m_menu_name_tree() {
 void C_aplication_txt::m_menu_tree() {
 	
 	N_striing Menu[4] = { "1. Display", "2. Edit Tree","3. Export", "4. Exit" };
-	N_striing SubMenu[4] = { "[Display Tree]", "[Edit your tree content]","[Export your tree]", "[Exit From Program]" };
+	N_striing SubMenu[4] = { "[Display Tree]", "[Edit your tree content]","[Export your tree]", "[Back To Menu]" };
 	int ptr = 0, p = 0;
 
 	while (true)
@@ -2421,7 +2432,7 @@ void C_aplication_txt::m_menu_relation()
 		return;
 	N_striing MenuSub1[10] = { "Add Relationship - MENU","1. Add Grandparent","2. Add Parent","3. Add Sibling","4. Add Partner",
 	"5. Add Children", "6. Add Grandchildren", "7. Add Order","8. Save relations","9. Exit"};
-	N_striing SubSub1[10] = { "", "[Add grandparent to person]", "[Add parent to person]","[Add sibling to person]","[Add partner to person]","[Add child to person]","[Add grandchild to person]","","[Save your created relations]","[Exit From Program]" }; 
+	N_striing SubSub1[10] = { "", "[Add grandparent to person]", "[Add parent to person]","[Add sibling to person]","[Add partner to person]","[Add child to person]","[Add grandchild to person]","","[Save your created relations]","[Back To Menu]" }; 
 	int ptr = 1, p;
 	char c;
 	N_striing data;

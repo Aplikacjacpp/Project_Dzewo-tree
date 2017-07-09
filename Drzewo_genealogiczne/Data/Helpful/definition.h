@@ -10,6 +10,7 @@
 *HISTORY:
 *version   Date Changes																	 	Author/Programmer
 *1.0     09.05.2017  Orginal design													  			Lukasz Janus
+*1.1     09.07.2017  Changed a few definitions to polish lang, comments added					Mateusz Marchelewicz
 ****************************************************************************************************************/
 
 #ifndef DEFINITON_H
@@ -58,26 +59,29 @@
 #define t_date_bristday 171
 #define t_date_slubu 172
 #define t_date_dead 173
+
 //definition from file
-#define f_save_data "data.save"
-#define f_save_relation "relation.save"
-#define f_save_date "date.save"
+#define f_save_data "data.save"				// zapis danych osobowych, imie itp
+#define f_save_relation "relation.save"		// zapis relacji
+#define f_save_date "date.save"				// zapis dat urodzenia, smierci
 #define f_init_file "file."
-#define f_end_file "#@#@#@#@#@#@#@#@#@"
+#define f_end_file "#@#@#@#@#@#@#@#@#@"		// znak konca pliku
 #define k_atribut_order '/'
+
 //definicje from type relation
 #define w_children_boy "Syn"
-#define w_children_girl "Corka" //wstawic o z kreska
-#define w_grandchildren_boy "Wnok" //wstawic o z kreska
-#define w_grandchildren_girl "Wnoczka" //wstawic o z kreska
+#define w_children_girl "Córka" 
+#define w_grandchildren_boy "Wnók" 
+#define w_grandchildren_girl "Wnóczka" 
 #define w_grandparents_boy "Dziadek" 
 #define w_grandparents_girl "Babcia" 
 #define w_parent_boy "Ojciec"
 #define w_parent_girl "Matka"
-#define w_partner_boy "Maz" //polskie litery
-#define w_partner_girl "Zona"  //polskie litery
+#define w_partner_boy "M¹¿"
+#define w_partner_girl "¯ona"  
 #define w_sibling_boy "Brat"
 #define w_sibling_girl "Siostra"
+
 // parametry do interfejsu drzewa
 #define p_grandparent_1 1
 #define p_grandparent_2 2

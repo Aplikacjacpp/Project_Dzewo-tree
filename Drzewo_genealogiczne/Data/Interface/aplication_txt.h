@@ -15,8 +15,9 @@
 *1.3     17.05.2017  Font size changed										          Mateusz Marchelewicz
 *1.4     21.05.2017  Menu modified, new methods added								  Mateusz Marchelewicz
 *1.5     22.05.2017  Menu modified								                      Mateusz Marchelewicz
-*1.6	 10.06.2017	 Add valuue to dystryct private									  Lukasz Witek vel Witkowski
+*1.6	 10.06.2017	 Add value to dystryct private									  Lukasz Witek vel Witkowski
 *1.7     27.06.2017  Methods names changed		     								  Mateusz Marchelewicz
+*1.7     27.06.2017  Comments added	  		     								      Mateusz Marchelewicz
 ****************************************************************************************************************/
 #ifndef APLICATION_TXT_H
 #define APLICATION_TXT_H
@@ -48,12 +49,12 @@ public:
 	void m_create_logo();		// tworzy "atrape" drzewa
 	char m_get_key();			// obsluga polskich znakow, alfabetu
 	bool m_what_return();		// menu z opcjami "Tak", "Nie", "Powrot"
-	bool m_what_menu();
+	bool m_what_menu();			// do dokonczenia!
 
 	//Poszczegolne menu:
 	void m_menu_name_tree();			// metoda dodaje nazwe drzewa
 	C_human m_menu_add_first_name();	// metoda dodaje imie osoby
-	C_element m_menu_wybor_humana_wskaznikowego();
+	C_element m_menu_wybor_humana_wskaznikowego();		// potrzebna do tworzenia relacji
 	void m_menu_add_human();			// menu dodawania osoby
 	C_human m_menu_add_last_name();		// metoda dodaje nazwisko osoby
 	C_human m_menu_add_gender();		// metoda dodaje plec osoby
@@ -61,6 +62,7 @@ public:
 	void m_menu_relation();				// wyswietla menu z relacjami
 	C_element m_menu_add_relations(int data, C_element Element);	// metoda dodaje relacje do osoby
 	// C_human m_menu_edit_human();		// nie uzywane!!
+	// C_human m_menu_edit_relations();		// bedzie taka metoda ???
 	void m_menu_tree();					// menu w utworzonym drzewie, wyswietlania go, edycja
 
 private:
