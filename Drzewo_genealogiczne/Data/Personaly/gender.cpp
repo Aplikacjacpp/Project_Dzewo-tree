@@ -31,7 +31,7 @@ N_striing C_gender::m_is_there_contens(N_striing &Word) {
 }
 std::ostream& operator<<(std::ostream& is,const C_gender &gender)
 {
-	is << "Plec: " << gender.s_data_gender;
+	is << "Plec: " << gender.s_data_gender<<" ";
 	return is;
 }
 int C_gender::m_set_variable() {

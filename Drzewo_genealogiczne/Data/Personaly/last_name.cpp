@@ -59,7 +59,7 @@ N_striing C_last_name::m_is_there_contens(N_striing &Word) {
 
 std::ostream& operator<<(std::ostream& is, C_last_name &last)
 {
-	is << "nazwisko: " << last.m_set_contens() << "\n";
+	is << "Nazwisko: " << last.m_set_contens() << " ";
 	return is;
 }
 int C_last_name::m_set_variable() {
