@@ -71,8 +71,8 @@
 //definicje from type relation
 #define w_children_boy "Syn"
 #define w_children_girl "Córka" 
-#define w_grandchildren_boy "Wnók" 
-#define w_grandchildren_girl "Wnóczka" 
+#define w_grandchildren_boy "Wnuk" 
+#define w_grandchildren_girl "Wnuczka" 
 #define w_grandparents_boy "Dziadek" 
 #define w_grandparents_girl "Babcia" 
 #define w_parent_boy "Ojciec"
