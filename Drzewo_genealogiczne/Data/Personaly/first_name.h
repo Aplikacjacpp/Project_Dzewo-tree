@@ -21,25 +21,26 @@
 class C_first_name :public C_data
 {
 public:
-	C_first_name();
-	C_first_name(N_striing &first);
-	C_first_name(const C_first_name &first);
-	C_first_name& operator=(const C_first_name &first);
-	bool operator==(const C_first_name &first);
-	bool operator!=(const C_first_name &first);
-	bool operator>(C_first_name &first);
-	bool operator<(C_first_name &first);
-	friend std::ostream& operator<<(std::ostream& is,const C_first_name &first);
+	C_first_name(); //konstruktor bezparametrowy
+	C_first_name(N_striing &first); //konstruktor parametrowy
+	C_first_name(const C_first_name &first); //konstruktoe kopiujacy
+	C_first_name& operator=(const C_first_name &first); //operator przypisania
+	bool operator==(const C_first_name &first); //operator porownania ==
+	bool operator!=(const C_first_name &first); //operator porownania !=
+	bool operator>(C_first_name &first); //operator wieksze
+	bool operator<(C_first_name &first); //operator mniejsze
+	friend std::ostream& operator<<(std::ostream& is,const C_first_name &first); //operator przesuniecia bitowego na ostream 
+	//(mozna wyswietlac zawartosc za pomoca std::cout)
 	//~C_first_name();
-	virtual ~C_first_name();
-	virtual bool m_wchat_is();
-	virtual void m_get_contens(N_striing &contens);
-	virtual N_striing m_set_contens();
-	virtual int m_set_variable();
+	virtual ~C_first_name(); //destruktor
+	virtual bool m_wchat_is(); //metoda zwraca true gdy zostalo wprowadzone jakies imie
+	virtual void m_get_contens(N_striing &contens); //metoda do wprowadzenia wartosci do zmiennej s_data_first_name
+	virtual N_striing m_set_contens(); //metoda do zwrucenia zwartosci znajdujacej sie w zmiennej s_data_first_name
+	virtual int m_set_variable(); // metoda zwracajaca wartosc typu C_first_name zdefiniowane pod zmienna t_first_name
 protected:
 	
 private:
-	virtual N_striing m_is_there_contens(N_striing &Word);
-	N_striing s_data_first_name;
+	virtual N_striing m_is_there_contens(N_striing &Word); //metoda do analizowania poprawnosci wprowadzonego imienia 
+	N_striing s_data_first_name; //zmienna przechoujaca wartosc imienia
 };
 #endif // !C_FIRST_NAME_H

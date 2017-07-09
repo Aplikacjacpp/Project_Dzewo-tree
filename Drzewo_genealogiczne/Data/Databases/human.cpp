@@ -513,15 +513,35 @@ void C_human::interf_mbd(N_striing firstname, N_striing lastname, C_date &du, C_
 std::ostream& operator<<(std::ostream &is,const C_human &h) {
 	int i;
 	//na razie bez ramki...
-	is << h.First;
+	is <<"\t"<< h.First<<"\n\t";
 	N_vektor<C_last_name> Last = h.V_last;
 	N_vektor<C_date> date = h.V_date;
 	for (i = 0; i < Last.m_size(); i++) {
-		is <<i<<"   "<< Last[i] << "\t";
+		is<< Last[i];
 	}
-	is << "\n"<<h.Gender << "\n";
+	is << "\n\t"<<h.Gender << "\n\t";
 	for (i = 0; i < date.m_size(); i++) {
-		is << date[i] << "\t";
+		switch (i)
+		{
+		case 0:
+		{
+			is <<"Data urodzenia: "<< date[i] << "\t";
+			break;
+		}
+		case 1:
+		{
+			is << "Data smierci: " << date[i] << "\t"; //polskie litery
+			break;
+		}
+		case 2:
+		{
+			is << "Data slubu: " << date[i] << "\t"; //polskie litery
+			break;
+		}
+		default:
+			break;
+		}
+		is << "\n";
 	}
 	return is;
 }

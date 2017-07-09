@@ -1119,7 +1119,7 @@ void C_aplication_txt::m_menu_add_human() {
 								human.m_get_last_name(last);
 								human.m_get_gender(gender);
 							}
-							m_new_human(human);
+							m_new_human(human); 
 							Sleep(150);
 							m_save_files(true);
 							//Sleep(150000);
