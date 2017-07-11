@@ -415,6 +415,7 @@ void C_aplication_txt::m_edit_tree()
 				}
 				case 1: {
 					m_lista(true);
+					//tu trzeba zrobic 
 					return;
 				}
 				case 2:
@@ -1963,7 +1964,7 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 	bool b_where = false;
 	if (b_pointer)
 	{
-		m_load_lista(); //bagi z nadpisywaniem sie listy
+		m_load_lista(); //bagi z nadpisywaniem sie listy - chyba naprawione
 		if (Lista.m_size() == 0)
 		{
 			system("cls");
@@ -2087,11 +2088,16 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 			//	break;
 				//przejscie do edycji danych
 				Sleep(150);
-				if (b_where) {
+				if (b_where) { //prawdziwe dla ladowania listy drzew
 					N_striing s_data = name_user_profile;
 					s_data += "\\"; s_data += op_name_catalog; s_data += "\\"; //poprawa mam nadzieje ze na lepsze
 					s_data += Lista[ptr];
 					m_get_index_value_tree(s_data);
+				}
+				else
+				{
+				//	m_create_human()
+				//	m_menu_edit_human()
 				}
 			//	Lista.m_close();
 				
@@ -2936,3 +2942,93 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebneg
 	}
 } 
 //w momecie tworzenia jednego elementu ine musza byc aktualizowane
+C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
+{
+	int i;
+	//tworzenie danych
+	N_striing first_name, sure_name,gender;
+	for (i = 0; i < Data.m_size(); i++)
+	{
+		switch (Data[i])
+		{
+		case'$':
+			{
+				while (1)
+				{
+					i++;
+					if (Data[i] == '&')
+						break;
+					else
+						first_name += Data[i];
+				}
+				break;
+			}
+		case'&':
+		{
+			while (1)
+			{
+				i++;
+				if (Data[i] == '!')
+					break;
+				else
+					sure_name += Data[i];
+			}
+			break;
+		}
+		case'!':
+		{
+			while (1)
+			{
+				i++;
+				if (Data[i] == '>')
+					break;
+				else
+					gender += Data[i];
+			}
+			break;
+		}
+		}
+
+	}
+	C_human human;
+	human=m_create_human(X);
+	if (human.m_set_first_name().m_set_contens() == first_name&&human.m_set_last_name().m_set_contens() == sure_name
+		&&human.m_set_gender().m_set_contens() == gender)
+	{
+		system("cls");
+		std::cout << human;
+		//kolejne opcje z menu i mozliwoscia edytowania humana
+		return human;
+	}
+	else
+	{
+		i = 1;
+		while (true)
+		{
+			if (i % 2 == 0)
+			{
+					human = m_create_human(X+i);
+				if (human.m_set_first_name().m_set_contens() == first_name&&human.m_set_last_name().m_set_contens() == sure_name
+					&&human.m_set_gender().m_set_contens() == gender)
+				{
+					system("cls");
+					std::cout << human;
+					return human;
+				}
+				i++;
+			}
+			else
+			{
+				human = m_create_human(X - i);
+				if (human.m_set_first_name().m_set_contens() == first_name&&human.m_set_last_name().m_set_contens() == sure_name
+					&&human.m_set_gender().m_set_contens() == gender)
+				{
+					system("cls");
+					std::cout << human;
+					return human;
+				}
+				i++;
+			}
+		}
+	}
+}

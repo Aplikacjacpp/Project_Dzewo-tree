@@ -61,9 +61,10 @@ public:
 	C_human m_menu_add_date();			// metoda dodaje daty ur i smierci
 	void m_menu_relation();				// wyswietla menu z relacjami
 	C_element m_menu_add_relations(int data, C_element Element);	// metoda dodaje relacje do osoby
-	// C_human m_menu_edit_human();		// nie uzywane!!
+	C_human m_menu_edit_human(N_striing Data, int X);		// nie uzywane!!
 	// C_human m_menu_edit_relations();		// bedzie taka metoda ???
 	void m_menu_tree();					// menu w utworzonym drzewie, wyswietlania go, edycja
+
 
 private:
 	N_vektor<N_striing> Lista;		// do wykorzystania przy liscie ludzi i dystryktow:)
