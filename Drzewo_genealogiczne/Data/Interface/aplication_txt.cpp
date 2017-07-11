@@ -2958,7 +2958,6 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 					i++;
 					if (Data[i] == '&')
 						break;
-					else
 						first_name += Data[i];
 				}
 				break;
@@ -2970,7 +2969,6 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 				i++;
 				if (Data[i] == '!')
 					break;
-				else
 					sure_name += Data[i];
 			}
 			break;
@@ -2982,7 +2980,6 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 				i++;
 				if (Data[i] == '>')
 					break;
-				else
 					gender += Data[i];
 			}
 			break;
@@ -3013,6 +3010,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 				{
 					system("cls");
 					std::cout << human;
+					//kolejne opcje z menu i mozliwoscia edytowania humana
 					return human;
 				}
 				i++;
@@ -3025,6 +3023,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 				{
 					system("cls");
 					std::cout << human;
+					//kolejne opcje z menu i mozliwoscia edytowania humana
 					return human;
 				}
 				i++;
