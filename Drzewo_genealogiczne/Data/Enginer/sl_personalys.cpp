@@ -99,13 +99,22 @@ void C_sl_personalys::m_add_new_personaly(C_id id, C_first_name first, N_vektor<
 	}
 	data += gender.m_what_type();
 	data += gender.m_set_contens();
-	data += ">";
+	data += ">"; 
 	C_goverment_personaly Gover;
 	Gover.m_get_contens(data);
+	for(i=0;V_goverment_personaly.m_size();i++)
+	{
+		if (V_goverment_personaly[i].m_set_value_id()==id.m_set_variable())
+		{
+			V_goverment_personaly.m_erase(i);
+			V_goverment_personaly.m_insert(i, Gover);
+			break;
+		}
+	}
 	V_goverment_personaly.m_push_back(Gover); //tego bakowalo!!!
 	if (m_what(Gover.m_set_value_id()))
 	{
-		int i;
+		
 		if (V_goverment_personaly.m_size() == 0) {
 			V_goverment_personaly.m_push_back(Gover);
 			return;

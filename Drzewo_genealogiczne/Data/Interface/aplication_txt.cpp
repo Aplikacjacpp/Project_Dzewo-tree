@@ -1964,6 +1964,7 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 	bool b_where = false;
 	if (b_pointer)
 	{
+		int r;
 		m_load_lista(); //bagi z nadpisywaniem sie listy - chyba naprawione
 		if (Lista.m_size() == 0)
 		{
@@ -2096,13 +2097,26 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 				}
 				else
 				{
+					C_human human, Human;
 				//	m_create_human()
-				//	m_menu_edit_human()
+					human=m_menu_edit_human(V_goverment_personaly[ptr].m_set_contens(),ptr);
+					if (human == Human)
+					{
+						m_menu_tree();
+						return;
+					}
+					else
+					{
+						m_new_human(human);
+						m_menu_tree();
+						return;
+					}
+					
 				}
 			//	Lista.m_close();
-				
 				m_menu_tree();
 				return;
+				
 			}
 
 		}
@@ -2419,6 +2433,7 @@ void C_aplication_txt::m_menu_tree() {
 		}
 
 		Sleep(150);     // szybkosc poruszania sie po menu
+
 	}
 }
 void C_aplication_txt::m_menu_relation() 
@@ -2944,42 +2959,50 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebneg
 //w momecie tworzenia jednego elementu ine musza byc aktualizowane
 C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 {
+	X++;
 	int i;
 	//tworzenie danych
-	N_striing first_name, sure_name,gender;
-	for (i = 0; i < Data.m_size(); i++)
+	char C;
+	N_striing first_name, sure_name,gender,data,dd,mm,yy;
+	for (i = 0; i < Data.m_size(); i++) //problem z analiza
 	{
 		switch (Data[i])
 		{
 		case'$':
 			{
+			i++;
 				while (1)
 				{
-					i++;
-					if (Data[i] == '&')
+					//i++;
+					if (Data[i+1] == '&')
 						break;
+					i++;
 						first_name += Data[i];
 				}
 				break;
 			}
 		case'&':
 		{
+			i++;
 			while (1)
 			{
-				i++;
-				if (Data[i] == '!')
+				//i++;
+				if (Data[i+1] == '!')
 					break;
+				i++;
 					sure_name += Data[i];
 			}
 			break;
 		}
 		case'!':
 		{
+			i++;
 			while (1)
 			{
-				i++;
-				if (Data[i] == '>')
+				//i++;
+				if (Data[i+1] == '>')
 					break;
+				i++;
 					gender += Data[i];
 			}
 			break;
@@ -2988,13 +3011,227 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 
 	}
 	C_human human;
-	human=m_create_human(X);
+	human=m_create_human(X); //da tego mometu dziala
 	if (human.m_set_first_name().m_set_contens() == first_name&&human.m_set_last_name().m_set_contens() == sure_name
 		&&human.m_set_gender().m_set_contens() == gender)
 	{
+		N_vektor<C_date> v_date = human.m_set_Vdate(); 
+		if (v_date.m_size() > 1) {
+			dd = v_date[1].m_set_day().m_day_set();
+			mm = v_date[1].m_set_month().m_month_set();
+			yy = v_date[1].m_set_year().m_year_set();
+		}
 		system("cls");
-		std::cout << human;
-		//kolejne opcje z menu i mozliwoscia edytowania humana
+		N_striing Menu2[6] = { "1. Imie", "2. Nazwisko", "3. Plec", "4. Date smierci ","5. save human", "6. return" };
+		N_striing SubMenu2[6] = { first_name, sure_name, gender, data,"[save bierzacego humana]", "wyjscie do poprzedniego menu"};
+		int pt = 0;
+		while (true)
+		{
+			data = dd + " - " + mm + " - " + yy;
+			system("cls");
+			//m_create_logo();
+			std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+
+			for (int i = 0; i < 4; ++i)
+			{
+				if (i == pt)       // podswietla dana opcje na niebiesko, dopisuje strzalke
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+					cout << "\t\t\t\t" << "--> " << Menu2[i] << " \n\t\t\t " << SubMenu2[i] << endl;
+				}
+				else                // niewybrane opcje sa biale
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					cout << "\t\t\t\t" << Menu2[i] << endl;
+				}
+			}
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+			cout << "\n\n\n\n Use the arrows to navigate the menu ";
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+			cout << char(24) << " " << char(25);        // kody ASCII strzalek
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+			cout << ". Confirm your choice with ";
+
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+
+			cout << "ENTER.";
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+			cout << "\n Click ";
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+			cout << "SPACEBAR";
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+			cout << " if you want back to main menu.";
+
+
+			while (true)
+			{
+				if (GetAsyncKeyState(VK_SPACE)) m_main_menu();
+				if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
+				{
+					pt -= 1;
+					if (pt == -1)      // gdy wykracza wraca na koniec
+					{
+						pt = 3;
+					}
+					break;
+				}
+				else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
+				{
+					pt += 1;
+					if (pt == 4)       // gdy wykracza poza menu, znow wraca na poczatek
+					{
+						pt = 0;
+					}
+					break;
+				}
+				else
+				{
+					switch (pt)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
+					{
+					case 0:
+					{
+						Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+					//edycja dotyczaca imienia
+						if (sure_name.m_size() >= 1 && GetAsyncKeyState(VK_BACK) != 0)
+						{
+							Sleep(150);
+							first_name.m_pop_back();
+							break;
+						}
+						C = m_get_key();
+						if (C != '\0') {
+							first_name.m_push_back(C);
+							human.m_set_first_name();
+						}
+						break;
+					}
+					case 1:
+					{
+						Sleep(1500);
+						if (sure_name.m_size() >= 1 && GetAsyncKeyState(VK_BACK) != 0)
+						{
+							Sleep(150);
+							sure_name.m_pop_back();
+							break;
+						}
+						C = m_get_key();
+						if (C != '\0') {
+							sure_name.m_push_back(C);
+						}
+						break;
+					}
+					case 2:
+					{
+						if (gender == "Women" && GetAsyncKeyState(VK_RETURN) != 0)
+						{
+							gender = "Men";
+							Sleep(150);
+							break;
+						}
+						else if (gender == "Men"&& GetAsyncKeyState(VK_RETURN) != 0)
+						{
+							gender = "Women";
+							Sleep(150);
+							break;
+						}
+					}
+					case 3:
+					{
+						if (GetAsyncKeyState(VK_BACK) != 0)
+						{
+							if (yy.m_size() > 0)
+							{
+								yy.m_pop_back();
+								Sleep(150);
+								break;
+							}
+							else
+							{
+								if (mm.m_size() > 0)
+								{
+									mm.m_pop_back();
+									Sleep(150);
+									break;
+								}
+								else
+								{
+									if (dd.m_size() > 0)
+									{
+										dd.m_pop_back();
+										Sleep(150);
+										break;
+									}
+									Sleep(150);
+									break;
+								}
+							}
+							Sleep(150);
+							break;
+						}
+						else
+						{
+							if (dd.m_size() < 2) {
+								C = m_get_key();
+								if (C != '\0') {
+									dd.m_push_back(C);
+									break;
+								}
+							}
+							else
+							{
+								if (mm.m_size() < 2) {
+									C = m_get_key();
+									if (C != '\0') {
+										mm.m_push_back(C);
+										break;
+									}
+								}
+								else
+								{
+									if (yy.m_size() < 4) {
+										C = m_get_key();
+										if (C != '\0') {
+											yy.m_push_back(C);
+											break;
+										}
+									}
+								
+									break;
+								}
+							}
+							break;
+						}
+						//edycja dotyczaca daty
+					}
+					case 4:
+					{
+						C_first_name First(first_name);
+						C_last_name Last(sure_name);
+						if (gender == "Men")
+							human.m_get_gender(true);
+						else
+							human.m_get_gender(false);
+						C_date date;
+						date.m_get_day(dd);
+						date.m_get_month(mm);
+						date.m_get_year(yy);
+						human.m_update_date(1, date);
+						human.m_get_first_name(First);
+						human.m_update_last_name(0, Last);
+						return human;
+					}
+					case 5:
+					{
+						human.m_clear();
+						return human; //to samo jak nie mozana znalesc humana
+						//wyjscie bez zmian
+					}
+					}//koniec switcha
+				}
+			}
+			Sleep(150);     // szybkosc poruszania sie po menu
+		}
 		return human;
 	}
 	else
@@ -3004,7 +3241,14 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 		{
 			if (i % 2 == 0)
 			{
+				if(X+1<=Lista.m_size())
 					human = m_create_human(X+i);
+				else
+				{
+					human.m_clear();
+					return human;
+					//po wyjsciu z metody zrobic warunek jesli pusty human to nic nie rob
+				}
 				if (human.m_set_first_name().m_set_contens() == first_name&&human.m_set_last_name().m_set_contens() == sure_name
 					&&human.m_set_gender().m_set_contens() == gender)
 				{
@@ -3017,7 +3261,15 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 			}
 			else
 			{
+				if(X-i>0)
 				human = m_create_human(X - i);
+				else
+				{
+					human.m_clear();
+					return human;
+					//po wyjsciu z metody zrobic warunek jesli pusty human to nic nie rob
+				}
+
 				if (human.m_set_first_name().m_set_contens() == first_name&&human.m_set_last_name().m_set_contens() == sure_name
 					&&human.m_set_gender().m_set_contens() == gender)
 				{
