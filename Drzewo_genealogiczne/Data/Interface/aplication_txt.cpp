@@ -423,7 +423,8 @@ void C_aplication_txt::m_edit_tree()
 				return;
 					break;
 				}
-				case 3: {
+				case 3: 
+				{
 				
 					break;
 				}
@@ -1512,7 +1513,7 @@ C_human C_aplication_txt::m_menu_add_gender() {
 			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 			{
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-				cout << "\t\t\t\t" << "--> " << MenuSub_add_last_name[i] << " \n\t\t " << SubSub_add_last_name[i] << endl;
+				cout << "\t\t\t\t" << "--> " << MenuSub_add_last_name[i] << "   " << SubSub_add_last_name[i] << endl;
 			}
 			else                // niewybrane opcje sa biale
 			{
@@ -2425,7 +2426,9 @@ void C_aplication_txt::m_menu_tree() {
 				} break;
 				case 3:
 				{
-					return;
+					Sleep(1500);
+					m_main_menu();
+
 				}
 				}
 				break;
@@ -2452,8 +2455,8 @@ void C_aplication_txt::m_menu_relation()
 	if (Element == element)
 		return;
 	N_striing MenuSub1[10] = { "Add Relationship - MENU","1. Add Grandparent","2. Add Parent","3. Add Sibling","4. Add Partner",
-	"5. Add Children", "6. Add Grandchildren", "7. Add Order","8. Save relations","9. Exit"};
-	N_striing SubSub1[10] = { "", "[Add grandparent to person]", "[Add parent to person]","[Add sibling to person]","[Add partner to person]","[Add child to person]","[Add grandchild to person]","","[Save your created relations]","[Back To Menu]" }; 
+	"5. Add Children", "6. Add Grandchildren", "7. Save relations","8. Exit"};
+	N_striing SubSub1[10] = { "", "[Add grandparent to person]", "[Add parent to person]","[Add sibling to person]","[Add partner to person]","[Add child to person]","[Add grandchild to person]", "[Save your created relations]","[Back To Menu]" }; 
 	int ptr = 1, p;
 	char c;
 	N_striing data;
@@ -2474,15 +2477,14 @@ void C_aplication_txt::m_menu_relation()
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
-		for (int i = 0; i < 10; ++i)
+		for (int i = 0; i < 9; ++i)
 		{
 			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 			{
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 				cout << "\t\t\t\t" << "--> " << MenuSub1[i] << "  " << SubSub1[i] << endl;
-
-
 			}
+
 			else                // niewybrane opcje sa biale
 			{
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -2515,14 +2517,14 @@ void C_aplication_txt::m_menu_relation()
 				ptr -= 1;
 				if (ptr <= 0)      // gdy wykracza wraca na koniec
 				{
-					ptr = 9;
+					ptr = 8;
 				}
 				break;
 			}
 			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 			{
 				ptr += 1;
-				if (ptr >= 10)       // gdy wykracza poza menu, znow wraca na poczatek
+				if (ptr >= 9)       // gdy wykracza poza menu, znow wraca na poczatek
 				{
 					ptr = 1;
 				}
@@ -2718,13 +2720,13 @@ void C_aplication_txt::m_menu_relation()
 							}
 							break;
 						}
+					//case 8:
+					//	{
+					//	m_new_element(Element, true);
+					//	m_save_files(true);
+					//		return;
+					//	}
 					case 8:
-						{
-						m_new_element(Element, true);
-						m_save_files(true);
-							return;
-						}
-					case 9:
 						{
 							return;
 						}
