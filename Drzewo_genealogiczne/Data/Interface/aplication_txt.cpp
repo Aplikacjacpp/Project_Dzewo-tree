@@ -3024,8 +3024,8 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 			yy = v_date[1].m_set_year().m_year_set();
 		}
 		system("cls");
-		N_striing Menu2[6] = { "1. Imie", "2. Nazwisko", "3. Plec", "4. Date smierci ","5. save human", "6. return" };
-		N_striing SubMenu2[6] = { first_name, sure_name, gender, data,"[save bierzacego humana]", "wyjscie do poprzedniego menu"};
+		N_striing Menu2[6] = { "1. Name", "2. Surname", "3. Gender", "4. Date of death ","5. Save", "6. Return" };
+		N_striing SubMenu2[6] = { first_name, sure_name, gender, data,"[Save Human]", "[Back To Previous Menu]"};
 		int pt = 0;
 		while (true)
 		{
@@ -3035,7 +3035,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 			std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 
-			for (int i = 0; i < 4; ++i)
+			for (int i = 0; i < 6; ++i)
 			{
 				if (i == pt)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 				{
@@ -3074,14 +3074,14 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 					pt -= 1;
 					if (pt == -1)      // gdy wykracza wraca na koniec
 					{
-						pt = 3;
+						pt = 5;
 					}
 					break;
 				}
 				else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 				{
 					pt += 1;
-					if (pt == 4)       // gdy wykracza poza menu, znow wraca na poczatek
+					if (pt == 5)       // gdy wykracza poza menu, znow wraca na poczatek
 					{
 						pt = 0;
 					}
@@ -3125,15 +3125,15 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 					}
 					case 2:
 					{
-						if (gender == "Women" && GetAsyncKeyState(VK_RETURN) != 0)
+						if (gender == "Woman" && GetAsyncKeyState(VK_RETURN) != 0)
 						{
-							gender = "Men";
+							gender = "Man";
 							Sleep(150);
 							break;
 						}
-						else if (gender == "Men"&& GetAsyncKeyState(VK_RETURN) != 0)
+						else if (gender == "Man"&& GetAsyncKeyState(VK_RETURN) != 0)
 						{
-							gender = "Women";
+							gender = "Woman";
 							Sleep(150);
 							break;
 						}
