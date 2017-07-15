@@ -217,7 +217,9 @@ void C_aplication_txt::m_main_menu() //start
 
 				case 2:
 				{
-					return;
+					std::cout << '\n';
+					exit(0);		// dziala !!!
+					//return;
 				} break;
 
 				}
