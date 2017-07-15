@@ -657,6 +657,7 @@ void C_aplication_txt::m_sub_menu_2()
 		system("cls");
 		//m_create_logo();
 		std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
+		std::cout << "\t\t\tTree successfully loaded\n\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 
 		for (int i = 0; i < 4; ++i)
