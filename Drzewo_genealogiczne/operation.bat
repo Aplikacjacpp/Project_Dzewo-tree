@@ -1,3 +1,3 @@
 @echo off
 cd %USERPROFILE%\.tree
- md TTT 
+ md fgik 

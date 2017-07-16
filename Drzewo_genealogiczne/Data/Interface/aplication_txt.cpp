@@ -3075,7 +3075,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 				if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 				{
 					pt -= 1;
-					if (pt == -1)      // gdy wykracza wraca na koniec
+					if (pt < 0)      // gdy wykracza wraca na koniec
 					{
 						pt = 5;
 					}
@@ -3084,7 +3084,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 				else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 				{
 					pt += 1;
-					if (pt == 5)       // gdy wykracza poza menu, znow wraca na poczatek
+					if (pt >= 6)       // gdy wykracza poza menu, znow wraca na poczatek
 					{
 						pt = 0;
 					}
@@ -3096,9 +3096,9 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 					{
 					case 0:
 					{
-						Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+						Sleep(150);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 					//edycja dotyczaca imienia
-						if (sure_name.m_size() >= 1 && GetAsyncKeyState(VK_BACK) != 0)
+						if (GetAsyncKeyState(VK_BACK) != 0)
 						{
 							Sleep(150);
 							first_name.m_pop_back();
@@ -3113,8 +3113,8 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 					}
 					case 1:
 					{
-						Sleep(1500);
-						if (sure_name.m_size() >= 1 && GetAsyncKeyState(VK_BACK) != 0)
+						Sleep(150);
+						if (GetAsyncKeyState(VK_BACK) != 0)
 						{
 							Sleep(150);
 							sure_name.m_pop_back();
@@ -3211,28 +3211,34 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 					}
 					case 4:
 					{
-						C_first_name First(first_name);
-						C_last_name Last(sure_name);
-						if (gender == "Men")
-							human.m_get_gender(true);
-						else
-							human.m_get_gender(false);
-						C_date date;
-						date.m_get_day(dd);
-						date.m_get_month(mm);
-						date.m_get_year(yy);
-						human.m_update_date(1, date);
-						human.m_get_first_name(First);
-						human.m_update_last_name(0, Last);
-						return human;
+						if (GetAsyncKeyState(VK_RETURN) != 0)
+						{
+							C_first_name First(first_name);
+							C_last_name Last(sure_name);
+							if (gender == "Men")
+								human.m_get_gender(true);
+							else
+								human.m_get_gender(false);
+							C_date date;
+							date.m_get_day(dd);
+							date.m_get_month(mm);
+							date.m_get_year(yy);
+							human.m_update_date(1, date);
+							human.m_get_first_name(First);
+							human.m_update_last_name(0, Last);
+							return human;
+						}
 					}
 					case 5:
 					{
+						if(GetAsyncKeyState(VK_RETURN) != 0){
 						human.m_clear();
 						return human; //to samo jak nie mozana znalesc humana
+						}
 						//wyjscie bez zmian
 					}
 					}//koniec switcha
+					break;
 				}
 			}
 			Sleep(150);     // szybkosc poruszania sie po menu
