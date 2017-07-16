@@ -413,16 +413,17 @@ void C_aplication_txt::m_edit_tree()
 				{
 				case 0: {
 					m_menu_add_human();
-					return;
+					break;
 				}
 				case 1: {
 					m_lista(true);
 					//tu trzeba zrobic 
-					return;
+					//retu
+					break;
 				}
 				case 2:
 				{	m_menu_relation();
-				return;
+				//return;
 					break;
 				}
 				case 3: 
@@ -2111,6 +2112,8 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 					}
 					else
 					{
+						//do tad dziala dobrze dalej trzeba cos wymyslec
+						//zajme sie tym jutro w poniedzialek
 						m_new_human(human);
 						m_menu_tree();
 						return;
@@ -3016,7 +3019,8 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 
 	}
 	C_human human;
-	human=m_create_human(X); //da tego mometu dziala
+	human=m_create_human(X);
+	int pt = 0;//da tego mometu dziala
 	if (human.m_set_first_name().m_set_contens() == first_name&&human.m_set_last_name().m_set_contens() == sure_name
 		&&human.m_set_gender().m_set_contens() == gender)
 	{
@@ -3027,12 +3031,15 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 			yy = v_date[1].m_set_year().m_year_set();
 		}
 		system("cls");
-		N_striing Menu2[6] = { "1. Name", "2. Surname", "3. Gender", "4. Date of death ","5. Save", "6. Return" };
-		N_striing SubMenu2[6] = { first_name, sure_name, gender, data,"[Save Human]", "[Back To Previous Menu]"};
-		int pt = 0;
 		while (true)
 		{
-			data = dd + " - " + mm + " - " + yy;
+			data = dd;
+			data += " - ";
+			data += mm;
+			data += " - ";
+			data += yy;
+			N_striing Menu2[6] = { "1. Name", "2. Surname", "3. Gender", "4. Date of death ","5. Save", "6. Return" };
+			N_striing SubMenu2[6] = { first_name, sure_name, gender, data,"[Save Human]", "[Back To Previous Menu]" };
 			system("cls");
 			//m_create_logo();
 			std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
@@ -3128,22 +3135,27 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 					}
 					case 2:
 					{
-						if (gender == "Woman" && GetAsyncKeyState(VK_RETURN) != 0)
+						Sleep(150);
+						if (GetAsyncKeyState(VK_RETURN) != 0)
 						{
-							gender = "Man";
-							Sleep(150);
-							break;
+							if (gender == "Woman")
+							{
+								gender = "Man";
+								Sleep(150);
+								break;
+							}
+							else
+							{
+								gender = "Woman";
+								Sleep(150);
+								break;
+							}
 						}
-						else if (gender == "Man"&& GetAsyncKeyState(VK_RETURN) != 0)
-						{
-							gender = "Woman";
-							Sleep(150);
-							break;
-						}
+						break;
 					}
 					case 3:
 					{
-						if (GetAsyncKeyState(VK_BACK) != 0)
+						if (GetAsyncKeyState(VK_BACK) != 0&&v_date.m_size()>1)
 						{
 							if (yy.m_size() > 0)
 							{
@@ -3223,9 +3235,12 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 							date.m_get_day(dd);
 							date.m_get_month(mm);
 							date.m_get_year(yy);
-							human.m_update_date(1, date);
+							if (v_date.m_size() > 1)
+								human.m_update_date(1, date);
+							else
+								human.m_get_date(date);
 							human.m_get_first_name(First);
-							human.m_update_last_name(0, Last);
+							human.m_update_last_name(0,Last);
 							return human;
 						}
 					}

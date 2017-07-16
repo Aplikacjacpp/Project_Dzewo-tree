@@ -74,9 +74,26 @@ void C_human::m_delete_last_name() { V_last.m_pop_front(); }
 void C_human::m_delete_gender() { N_striing data = ""; Gender.m_get_contens(data);}
 void C_human::m_delete_date(int value) { V_date.m_erase(value); }
 void C_human::m_delete_date() { V_date.m_pop_front(); }
-void C_human::m_update_date(int value, C_date& date) { V_date.m_insert(value, date); }
-void C_human::m_update_last_name(int value, C_last_name& l_name) { V_last.m_insert(value, l_name); }
-void C_human::m_update_last_name(int value, N_striing& l_name) { C_last_name L(l_name); V_last.m_insert(value, L); }
+void C_human::m_update_date(int value, C_date& date) { V_date.m_erase(value); V_date.m_insert(value, date); }
+void C_human::m_update_last_name(int value, C_last_name& l_name) { 
+	V_last.m_erase(value);
+	if (V_last.m_size() == 0)
+	{
+		V_last.m_push_back(l_name);
+	}
+	else
+	V_last.m_insert(value, l_name);
+}
+void C_human::m_update_last_name(int value, N_striing& l_name) {
+	C_last_name L(l_name); 
+	V_last.m_erase(value);
+	if (V_last.m_size() == 0)
+	{
+		V_last.m_push_back(L);
+	}
+	else
+		V_last.m_insert(value, L);
+}
 C_human& C_human::m_clear() { C_human H(m_set_id()); return H; }
 C_human& C_human::m_clear_date() { V_date.m_close(); return *this; }
 C_human& C_human::m_clear_last_name() { V_last.m_close(); return *this; }
