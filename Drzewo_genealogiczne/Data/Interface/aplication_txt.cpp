@@ -3107,7 +3107,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 					//edycja dotyczaca imienia
 						if (GetAsyncKeyState(VK_BACK) != 0)
 						{
-							Sleep(150);
+							//Sleep(150);
 							first_name.m_pop_back();
 							break;
 						}
@@ -3123,7 +3123,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 						Sleep(150);
 						if (GetAsyncKeyState(VK_BACK) != 0)
 						{
-							Sleep(150);
+							//Sleep(150);
 							sure_name.m_pop_back();
 							break;
 						}
@@ -3141,13 +3141,13 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 							if (gender == "Woman")
 							{
 								gender = "Man";
-								Sleep(150);
+								//Sleep(150);
 								break;
 							}
 							else
 							{
 								gender = "Woman";
-								Sleep(150);
+								//Sleep(150);
 								break;
 							}
 						}
@@ -3160,7 +3160,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 							if (yy.m_size() > 0)
 							{
 								yy.m_pop_back();
-								Sleep(150);
+								//Sleep(150);
 								break;
 							}
 							else
@@ -3168,7 +3168,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 								if (mm.m_size() > 0)
 								{
 									mm.m_pop_back();
-									Sleep(150);
+									//Sleep(150);
 									break;
 								}
 								else
@@ -3176,10 +3176,10 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 									if (dd.m_size() > 0)
 									{
 										dd.m_pop_back();
-										Sleep(150);
+										//Sleep(150);
 										break;
 									}
-									Sleep(150);
+									//Sleep(150);
 									break;
 								}
 							}
