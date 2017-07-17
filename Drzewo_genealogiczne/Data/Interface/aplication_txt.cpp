@@ -98,11 +98,11 @@ bool C_aplication_txt::m_what_files() {
 
 void C_aplication_txt::m_set_window(int Width, int Height)
 {
-	_COORD coord;
-	coord.X = Width;
-	coord.Y = Height;
+	_COORD coord;			// wymiary
+	coord.X = Width;		// szerokosc
+	coord.Y = Height;		// wysokosc
 
-	_SMALL_RECT Rect;
+	_SMALL_RECT Rect;		// prostokat
 	Rect.Top = 0;
 	Rect.Left = 0;
 	Rect.Bottom = Height - 1;
@@ -116,7 +116,7 @@ void C_aplication_txt::m_set_window(int Width, int Height)
 	cfi.nFont = 0;
 	cfi.dwFontSize.X = 0;                   // szerokosc kazdej litery w czcionce
 	cfi.dwFontSize.Y = 24;                  // wysokosc
-	cfi.FontFamily = FF_DONTCARE;
+	cfi.FontFamily = FF_DONTCARE;		// czcionka
 	cfi.FontWeight = FW_BOLD;			//FW_NORMAL
 	std::wcscpy(cfi.FaceName, L"Consolas"); // czcionka
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
@@ -222,8 +222,8 @@ void C_aplication_txt::m_main_menu() //start
 					//return;
 				} break;
 
-				}
-				break;
+			  }
+			  break;
 			}
 		}
 
@@ -319,7 +319,8 @@ void C_aplication_txt::m_sub_1()
 
 						case 2:
 						{
-							return;
+							exit(0);
+							//return;
 							break;
 						}
 					}
@@ -428,12 +429,15 @@ void C_aplication_txt::m_edit_tree()
 				}
 				case 3: 
 				{
-				
+					m_menu_edit_relations();
 					break;
 				}
 				case 4:
 				{
-					return;
+					//m_main_menu();
+					//break;
+					exit(0);
+					//return;
 				}
 
 
@@ -658,7 +662,7 @@ void C_aplication_txt::m_sub_menu_2()
 		system("cls");
 		//m_create_logo();
 		std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
-		std::cout << "\t\t\tTree successfully loaded\n\n";
+		//std::cout << "\t\t\tTree successfully loaded\n\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 
 		for (int i = 0; i < 4; ++i)
@@ -2434,10 +2438,10 @@ void C_aplication_txt::m_menu_tree() {
 				{
 					Sleep(1500);
 					m_main_menu();
+				}
 
-				}
-				}
-				break;
+			  }
+			  break;
 			}
 		}
 
@@ -2448,7 +2452,7 @@ void C_aplication_txt::m_menu_tree() {
 void C_aplication_txt::m_menu_relation() 
 {
 	m_load_lista(); //bagi z nadpisywaniem sie listy
-	if (Lista.m_size() < 2)
+	if (Lista.m_size() < 2)		// gdy nie ma choc 2 osob nie zbuduje relacji
 	{
 		system("cls");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
@@ -2964,7 +2968,7 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebneg
 		Sleep(150);     // szybkosc poruszania sie po menu
 	}
 } 
-//w momecie tworzenia jednego elementu ine musza byc aktualizowane
+//w momecie tworzenia jednego elementu nie musza byc aktualizowane
 C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 {
 	X++;
@@ -3308,4 +3312,15 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 			}
 		}
 	}
+}
+
+C_human C_aplication_txt::m_menu_edit_relations()
+{
+	C_human human;
+	// do rozbudowy
+	return human;
+
+
+
+
 }
