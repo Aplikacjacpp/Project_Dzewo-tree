@@ -1,6 +1,7 @@
 ﻿#include "aplication_txt.h"
 // #include "Data\Enginer\enginer.h"     nie widzi tego!
 #include <cstdlib>
+//#include <fstream>
 #include <Windows.h>
 
 C_aplication_txt::C_aplication_txt() {
@@ -219,7 +220,6 @@ void C_aplication_txt::m_main_menu() //start
 				{
 					std::cout << '\n';
 					exit(0);		// dziala !!!
-					//return;
 				} break;
 
 			  }
@@ -319,8 +319,8 @@ void C_aplication_txt::m_sub_1()
 
 						case 2:
 						{
+							std::cout << '\n';
 							exit(0);
-							//return;
 							break;
 						}
 					}
@@ -410,39 +410,40 @@ void C_aplication_txt::m_edit_tree()
 			else if (GetAsyncKeyState(VK_RETURN) != 0)
 			{
 				Sleep(1500);
-				switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
-				{
-				case 0: {
-					m_menu_add_human();
-					break;
-				}
-				case 1: {
-					m_lista(true);
-					//tu trzeba zrobic 
-					//retu
-					break;
-				}
-				case 2:
-				{	m_menu_relation();
-				//return;
-					break;
-				}
-				case 3: 
-				{
-					m_menu_edit_relations();
-					break;
-				}
-				case 4:
-				{
-					//m_main_menu();
-					//break;
-					exit(0);
+					switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
+					{
+					case 0: {
+						m_menu_add_human();
+						break;
+					}
+					case 1: {
+						m_lista(true);
+						//tu trzeba zrobic 
+						//retu
+						break;
+					}
+					case 2:
+					{	m_menu_relation();
 					//return;
-				}
+						break;
+					}
+					case 3: 
+					{
+						m_menu_edit_relations();
+						break;
+					}
+					case 4:
+					{
+						//m_main_menu();
+						//break;
+						exit(0);
+						//return;
+					}
 
 
-				}
-						Sleep(150);     // szybkosc poruszania sie po menu
+					}
+
+					Sleep(150);     // szybkosc poruszania sie po menu
 				}
 				Sleep(150);     // szybkosc poruszania sie po menu
 			}
@@ -745,7 +746,7 @@ void C_aplication_txt::m_sub_menu_2()
 
 				case 2:
 				{
-					//EditTree();
+					m_export_tree();
 				} break;
 
 
@@ -2181,7 +2182,7 @@ void C_aplication_txt::m_menu_name_tree() {
 				// sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 				if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 				{
-					Sleep(1500);
+					Sleep(1000);
 					ptr -= 1;
 					if (ptr == 0)      // gdy wykracza wraca na koniec
 					{
@@ -2191,7 +2192,7 @@ void C_aplication_txt::m_menu_name_tree() {
 				}
 				else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 				{
-					Sleep(1500);
+					Sleep(1000);
 					ptr += 1;
 					if (ptr == 1)       // gdy wykracza poza menu, znow wraca na poczatek
 					{
@@ -2201,7 +2202,7 @@ void C_aplication_txt::m_menu_name_tree() {
 				}
 				else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
 				{
-					Sleep(1500);
+					Sleep(1000);
 					data.m_pop_back();
 					break;
 				}
@@ -2257,13 +2258,14 @@ void C_aplication_txt::m_menu_name_tree() {
 		}
 		else
 		{
-			N_striing MenuSub1[3] = { "Give your tree name:", "Back: ","This name already exists" };
-			N_striing SubSub1[3] = { data, "[Back To Main Menu]","" }; 
+			N_striing MenuSub1[2] = { "Give your tree name:", "Back: "};
+			N_striing SubSub1[2] = { data, "[Click Spacebar To Back The Menu]"}; 
 			system("cls");
 			m_create_logo();
+			std::cout << "\t\t\t   This name already exists!\n";
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
-			for (int i = 0; i < 3; ++i)
+			for (int i = 0; i < 2; ++i)
 			{
 				if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 				{
@@ -2280,30 +2282,39 @@ void C_aplication_txt::m_menu_name_tree() {
 				// sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 				if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 				{
-					Sleep(1500);
+					Sleep(500);
 					ptr -= 1;
-					if (ptr == 0)      // gdy wykracza wraca na koniec
+					if (ptr < 0)      // gdy wykracza wraca na koniec
 					{
-						ptr = 2;
+						ptr = 1;
 					}
 					break;
 				}
 				else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 				{
-					Sleep(1500);
+					Sleep(500);
 					ptr += 1;
-					if (ptr == 2)       // gdy wykracza poza menu, znow wraca na poczatek
+					if (ptr >= 2)       // gdy wykracza poza menu, znow wraca na poczatek
 					{
 						ptr = 0;
 					}
 					break;
 				}
+
 				else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
 				{
-					Sleep(1500);
+					Sleep(500);
 					data.m_pop_back();
 					break;
 				}
+
+
+				else if (ptr == 1 && GetAsyncKeyState(VK_SPACE) != 0)
+				{
+					m_main_menu();
+				}
+
+
 				else
 				{
 					c = m_get_key();
@@ -2313,7 +2324,7 @@ void C_aplication_txt::m_menu_name_tree() {
 					}
 					if (GetAsyncKeyState(VK_RETURN) != 0 && data.m_size() > 0)
 					{
-						Sleep(1500);
+						Sleep(500);
 						//stworzyc zabezpieczenie przed ponownym stworzeniem tego samego dystryktu
 						m_get_index_value_tree(name_user_profile + "\\.tree\\" + data);
 						int value;
@@ -3319,6 +3330,19 @@ C_human C_aplication_txt::m_menu_edit_relations()
 	C_human human;
 	// do rozbudowy
 	return human;
+
+
+
+
+}
+
+
+
+void C_aplication_txt::m_export_tree()
+{
+
+	// do rozbudowy
+
 
 
 
