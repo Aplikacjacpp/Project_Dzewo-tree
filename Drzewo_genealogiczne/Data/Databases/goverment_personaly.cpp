@@ -56,7 +56,7 @@ N_striing C_goverment_personaly::m_is_there_contens(N_striing &Word) { //naprawi
 		}
 	}
 	if (value >= 3) return Word; 
-	std::cout << "Problem z plikiem personaly.save!";
+	std::cout << "Problem with file personaly.save!";
 	return "";
 }
 int C_goverment_personaly::m_id_value() {
@@ -122,7 +122,7 @@ N_vektor<C_last_name> C_goverment_personaly::m_set_value_last_name() { //dziala 
 		data.m_push_back(s_goverment_personaly[i]);
 		if (data == n_last_name)
 		{
-			std::cout << "wynik: " << i << "\n";
+			std::cout << "Result: " << i << "\n";
 			str.m_clear();
 			for (j = i+1; j < s_goverment_personaly.m_size(); j++)
 			{

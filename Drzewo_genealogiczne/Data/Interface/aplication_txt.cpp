@@ -436,6 +436,7 @@ void C_aplication_txt::m_edit_tree()
 					{
 						//m_main_menu();
 						//break;
+						std::cout << '\n';
 						exit(0);
 						//return;
 					}
@@ -1143,7 +1144,7 @@ void C_aplication_txt::m_menu_add_human() {
 						}
 						case 5: {
 							Sleep(150);
-							return;
+							m_main_menu();
 						}
 								//	break;
 						}
@@ -1159,7 +1160,7 @@ void C_aplication_txt::m_menu_add_human() {
 			N_striing MenuSub_add_person[5] = { "1. Add a first name", "2. Add a surname", "3. Add a gender", "4. Add a date", "5. Return" };
 			N_striing SubSub_add_person[5] = { "[You can add a first name to your person]", "[You can add a surname to your person]", "[You can add a gender to your person]",
 				"[You can add a date to your person]","[Return From Add Person]" }; 
-			Sleep(150);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+			Sleep(120);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
 							// tutaj powinna byc metoda dolaczenia nowej osoby
 			while (true)
 			{
@@ -1259,7 +1260,11 @@ void C_aplication_txt::m_menu_add_human() {
 							break;
 						}
 						case 4: {
-							return;
+							//std::cout << '\n';
+							//exit(0);
+							Sleep(150);
+							m_main_menu();
+							//return;
 						}
 					//	break;
 						}
@@ -1905,6 +1910,7 @@ C_human C_aplication_txt::m_menu_add_date() {
 							date.m_get_year(yy);
 							if(human.m_set_Vdate().m_size()<2)
 							human.m_get_date(date);
+
 							//b_what = true;
 							ptr = 2;
 							break;
@@ -1981,8 +1987,10 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 			system("cls");
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 			std::cout << "\t\t\t\t" << "No people!" << "\n";
-			Sleep(2000);
-			return;
+			Sleep(1500);
+			m_edit_tree();
+			//Sleep(2000);
+			//return;
 		}
 	}
 	else
@@ -1996,8 +2004,9 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 		system("cls");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		std::cout << "\t\t\t\t" <<"No trees!" << "\n";
-			Sleep(2000);
-		return;
+		Sleep(1500);
+		m_main_menu();
+		//return;
 	}
 	system("cls");
 	int ptr = 0, p = 0, i;
@@ -2468,8 +2477,10 @@ void C_aplication_txt::m_menu_relation()
 		system("cls");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		std::cout << "\t\t\t\t" << "Cannot add relationship!" << "\n";
-		Sleep(2000);
-		return;
+		Sleep(1500);
+		m_edit_tree();
+		//Sleep(2000);
+		//return;
 	}
 	C_element Element(m_menu_wybor_humana_wskaznikowego());
 	C_element element;
@@ -2824,7 +2835,7 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebneg
 		system("cls");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		std::cout << "\t\t\t\t" << "No people to create relations!" << "\n";
-		Sleep(2000);
+		Sleep(1500);
 		C_element element;
 		return element;
 	}
@@ -3045,7 +3056,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 			mm = v_date[1].m_set_month().m_month_set();
 			yy = v_date[1].m_set_year().m_year_set();
 		}
-		system("cls");
+		//system("cls");
 		while (true)
 		{
 			data = dd;
@@ -3057,7 +3068,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 			N_striing SubMenu2[6] = { first_name, sure_name, gender, data,"[Save Human]", "[Back To Previous Menu]" };
 			system("cls");
 			//m_create_logo();
-			std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
+			std::cout << "\tYou can change your personal data. Don't forget to save your changes!\n\n";
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 
 			for (int i = 0; i < 6; ++i)
@@ -3262,8 +3273,9 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 					case 5:
 					{
 						if(GetAsyncKeyState(VK_RETURN) != 0){
-						human.m_clear();
-						return human; //to samo jak nie mozana znalesc humana
+							m_edit_tree();
+						//human.m_clear();
+						//return human; //to samo jak nie mozana znalesc humana
 						}
 						//wyjscie bez zmian
 					}
@@ -3271,7 +3283,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 					break;
 				}
 			}
-			Sleep(150);     // szybkosc poruszania sie po menu
+			Sleep(100);     // szybkosc poruszania sie po menu
 		}
 		return human;
 	}
