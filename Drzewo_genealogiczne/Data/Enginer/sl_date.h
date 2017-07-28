@@ -31,6 +31,7 @@ protected:
 	bool m_what(int value);
 	virtual N_striing m_cypher_on(N_striing data); //odszyfrowywanie
 	virtual N_striing m_cypher_off(N_striing data); //zaszyfrowywanie
+	void m_update_date(C_id id, N_vektor<C_date> V_date); //uaktualnienie dat 
 	void m_get_new_date(C_id id, N_vektor<C_date> V_date); //dodawanie nowych dat
 	C_goverment_date& operator[](int i);
 	C_goverment_date m_set_gover_date(int i);

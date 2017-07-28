@@ -149,3 +149,34 @@ bool C_sl_date::m_what(int value) {
 	}
 	return true;
 }
+void C_sl_date::m_update_date(C_id id, N_vektor<C_date> V_date) {
+	int i;
+	C_date date;
+	C_goverment_date Gover;
+	N_striing data;
+	data = "<";
+	data += id.m_what_type();
+	data += id.m_set_contens();
+	for (i = 0; i < V_date.m_size(); i++)
+	{
+		date = V_date[i];
+		data += date.m_what_type_date();
+		data += date.m_set_day().m_what_type();
+		data += date.m_day_set();
+		data += date.m_set_month().m_what_type();
+		data += date.m_month_set();
+		data += date.m_set_year().m_what_type();
+		data += date.m_year_set();
+		if (i == V_date.m_size() - 1)
+			data += ">";
+	}
+	Gover.m_get_contens(data);
+	for (i = 0; i < V_goverment_date.m_size(); i++) {
+		if (i == id.m_set_contens().m_atoi(0, id.m_set_contens().m_size()))
+		{
+			V_goverment_date.m_erase(i);
+			V_goverment_date.m_insert(i, Gover);
+			break;
+		}
+	}
+}

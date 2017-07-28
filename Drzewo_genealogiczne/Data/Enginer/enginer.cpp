@@ -346,3 +346,15 @@ void C_enginer::m_get_index_value_tree(N_striing data) {
 N_striing C_enginer::m_return_value_tree() {
 	return index_value_tree;
 }
+void C_enginer::m_update_human(C_human &human) {
+	int i;
+	C_id id = human.m_set_id();
+	C_first_name first = human.m_set_first_name();
+	N_vektor<C_last_name> Last = human.m_set_V_last_name();
+	C_last_name last;
+	C_gender gender = human.m_set_gender();
+	m_update_personaly(id, first, Last, gender);
+	N_vektor<C_date> V_date = human.m_set_Vdate();
+	m_update_date(id, V_date);
+	//dokonczyc dalej
+}

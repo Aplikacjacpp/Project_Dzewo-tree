@@ -102,7 +102,7 @@ void C_sl_personalys::m_add_new_personaly(C_id id, C_first_name first, N_vektor<
 	data += ">"; 
 	C_goverment_personaly Gover;
 	Gover.m_get_contens(data);
-	for(i=0;V_goverment_personaly.m_size();i++)
+/*	for(i=0;V_goverment_personaly.m_size();i++)
 	{
 		if (V_goverment_personaly[i].m_set_value_id()==id.m_set_variable())
 		{
@@ -110,7 +110,7 @@ void C_sl_personalys::m_add_new_personaly(C_id id, C_first_name first, N_vektor<
 			V_goverment_personaly.m_insert(i, Gover);
 			break;
 		}
-	}
+	}*/
 	V_goverment_personaly.m_push_back(Gover); //tego bakowalo!!!
 	if (m_what(Gover.m_set_value_id()))
 	{
@@ -145,4 +145,34 @@ bool C_sl_personalys::m_what(int value) {
 		}
 	}
 	return true;
+}
+void C_sl_personalys::m_update_personaly(C_id id, C_first_name first, N_vektor<C_last_name> V_last, C_gender gender) {
+	int i;
+	C_last_name last;
+	N_striing data;
+	data = "<";
+	data += id.m_what_type();
+	data += id.m_set_contens();
+	data += first.m_what_type();
+	data += first.m_set_contens();
+	for (i = 0; i < V_last.m_size(); i++)
+	{
+		last = V_last[i];
+		data += last.m_what_type();
+		data += last.m_set_contens();
+	}
+	data += gender.m_what_type();
+	data += gender.m_set_contens();
+	data += ">";
+	C_goverment_personaly Gover_person;
+	Gover_person.m_get_contens(data);
+	for (i = 0; i < V_goverment_personaly.m_size(); i++)
+	{
+		if (i == id.m_set_contens().m_atoi(0, id.m_set_contens().m_size()))
+		{
+			V_goverment_personaly.m_erase(i);
+			V_goverment_personaly.m_insert(i, Gover_person);
+			break;
+		}
+	}
 }

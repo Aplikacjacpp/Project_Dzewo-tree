@@ -2114,7 +2114,8 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 					{
 						//do tad dziala dobrze dalej trzeba cos wymyslec
 						//zajme sie tym jutro w poniedzialek
-						m_new_human(human);
+						m_update_human(human);
+						m_save_files(true);
 						m_menu_tree();
 						return;
 					}
@@ -3308,4 +3309,10 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 			}
 		}
 	}
+}
+void C_aplication_txt::m_look_at()
+{
+	C_tree Tree(m_create_tree(i_index));
+	std::cout<<Tree.m_set_Human()<<"n";
+
 }

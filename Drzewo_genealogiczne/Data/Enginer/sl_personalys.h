@@ -32,6 +32,7 @@ protected:
 	void m_load_file_personaly(bool what, N_striing Data); //czytanie z pliku
 	virtual N_striing m_cypher_on(N_striing data); //odszyfrowywanie
 	virtual N_striing m_cypher_off(N_striing data); //zaszyfrowywanie
+	void m_update_personaly(C_id id, C_first_name first, N_vektor<C_last_name> V_last, C_gender gender); //uaktualnienie danych personalnych
 	void m_add_new_personaly(C_id id, C_first_name first, N_vektor<C_last_name> Last, C_gender gender); //dodawanie nowych danych personalnych
 	C_goverment_personaly& operator[](int i); //operator "dostepu" []
 	N_vektor<C_goverment_personaly> V_goverment_personaly;
