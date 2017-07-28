@@ -181,7 +181,7 @@ C_last_name L1, L2;
 	date13.m_get_type(data);
 	human.m_get_date(date15[0]);
 	//Engin.m_new_human(human);
-	C_element element(human);
+	/* C_element element(human);
 	C_children children(human.m_set_id());
 	C_id id(10055);
 	C_grandchildren gchildren(human.m_set_id());
@@ -216,7 +216,7 @@ C_last_name L1, L2;
 	else std::cout << "\nblad z elementem:(\n";
 	std::cout << "po wczytaniu\n" << HHH << "\t==\t" << "przed wczytaniem\n" << human << "\nprzedwczytaniem\n"
 		<< element.m_set_Human() << "\npowczytaniu:\n" << EEE.m_set_Human() << "\n";
-
+		*/
 	//
 	//Engin.m_create_human(0);
 	//test na poskie znaki
@@ -272,9 +272,9 @@ C_last_name L1, L2;
 	std::cout << yyy << "\n";
 	*/
 
-	C_children chil;
+	//C_children chil;
 
-	chil.m_get_complete_content(34, 3);
+	//chil.m_get_complete_content(34, 3);
 
 
 	/*main_szyfrowanie("plik.txt", "dom", 5);

@@ -56,7 +56,7 @@ N_striing C_goverment_relation::m_is_there_contens(N_striing &Word) { //naprawio
 		}
 	}
 	if (value >= 1) return Word;
-	std::cout << "Problem z plikiem relation.save!\n";
+	std::cout << "Problem with file relation.save!\n";
 	return "";
 }
 int C_goverment_relation::m_id_value() {

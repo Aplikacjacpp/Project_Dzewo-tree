@@ -18,6 +18,7 @@
 *1.6	 10.06.2017	 Add value to dystryct private									  Lukasz Witek vel Witkowski
 *1.7     27.06.2017  Methods names changed		     								  Mateusz Marchelewicz
 *1.7     27.06.2017  Comments added	  		     								      Mateusz Marchelewicz
+*1.7.1   17.07.2017  New method added	  		     								  Mateusz Marchelewicz
 ****************************************************************************************************************/
 #ifndef APLICATION_TXT_H
 #define APLICATION_TXT_H
@@ -62,9 +63,10 @@ public:
 	C_human m_menu_add_date();			// metoda dodaje daty ur i smierci
 	void m_menu_relation();				// wyswietla menu z relacjami
 	C_element m_menu_add_relations(int data, C_element Element);	// metoda dodaje relacje do osoby
-	C_human m_menu_edit_human(N_striing Data, int X);		// nie uzywane!!
-	// C_human m_menu_edit_relations();		// bedzie taka metoda ???
+	C_human m_menu_edit_human(N_striing Data, int X);		// edycja humana
+	C_human m_menu_edit_relations();		// edycja relacji humana
 	void m_menu_tree();					// menu w utworzonym drzewie, wyswietlania go, edycja
+	void m_export_tree();					// export drzewa do pliku, by go potem moc zaladowac na innym PC
 
 
 private:
