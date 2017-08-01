@@ -1905,6 +1905,12 @@ C_human C_aplication_txt::m_menu_add_date() {
 							}
 							C_date date;
 						//	human.m_get_date(date);
+
+							// warunek by data smierci byla pozniejsza od daty urodzenia musi byc!!!
+							// nie mam pomyslu, nie moge ich porownac, w obu te same zmienne, te same nazwy...
+							// moze na cos wpadniesz Lukasz
+
+
 							date.m_get_day(dd);
 							date.m_get_month(mm);
 							date.m_get_year(yy);
@@ -2271,7 +2277,7 @@ void C_aplication_txt::m_menu_name_tree() {
 			N_striing SubSub1[2] = { data, "[Click Spacebar To Back The Menu]"}; 
 			system("cls");
 			m_create_logo();
-			std::cout << "\t\t\t   This name already exists!\n";
+			//std::cout << "\t\t\t   This name already exists!\n";
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 			for (int i = 0; i < 2; ++i)
