@@ -665,7 +665,7 @@ void C_aplication_txt::m_sub_menu_2()
 
 		system("cls");
 		//m_create_logo();
-		std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
+		//std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
 		//std::cout << "\t\t\tTree successfully loaded\n\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 
@@ -2144,6 +2144,7 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 					}
 					
 				}
+				//std::cout << "Tree successfully loaded!\n";
 			//	Lista.m_close();
 				m_menu_tree();
 				return;
@@ -2386,11 +2387,14 @@ void C_aplication_txt::m_menu_tree() {		// menu drzewa
 	N_striing SubMenu[4] = { "[Display Tree]", "[Edit your tree content]","[Export your tree]", "[Back To Menu]" };
 	int ptr = 0, p = 0;
 
+	
+
 	while (true)
 	{
 		m_load_files(true);
 		system("cls");
 		m_create_logo();
+		std::cout << "\t\t\t      Tree successfully loaded!\n\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 		for (int i = 0; i < 4; ++i)
