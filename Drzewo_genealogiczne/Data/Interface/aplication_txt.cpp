@@ -4,6 +4,33 @@
 //#include <fstream>
 #include <Windows.h>
 
+void C_aplication_txt::cls()
+{
+	HANDLE hStdout;
+	hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD coordScreen = { 0, 0 };
+	DWORD cCharsWritten;
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	DWORD dwConSize;
+
+	if (!GetConsoleScreenBufferInfo(hStdout, &csbi))
+		return;
+
+	dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+	if (!FillConsoleOutputCharacter(hStdout, (TCHAR) ' ',
+		dwConSize, coordScreen, &cCharsWritten))
+		return;
+
+	if (!GetConsoleScreenBufferInfo(hStdout, &csbi))
+		return;
+
+	if (!FillConsoleOutputAttribute(hStdout, csbi.wAttributes,
+		dwConSize, coordScreen, &cCharsWritten))
+		return;
+
+	SetConsoleCursorPosition(hStdout, coordScreen);
+}
+
 C_aplication_txt::C_aplication_txt() {
 	system("del operation.ope&&cls");		// na poczatku usuwa plik operation.ope + czysci ekran
 	Sleep(100);
@@ -149,7 +176,8 @@ void C_aplication_txt::m_main_menu()	// menu glowne aplikacji
 	{
 		Lista.m_close();
 		Lista = m_add_to_operation(true, Lista);
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();		// tworzy atrape drzewka
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -229,7 +257,7 @@ void C_aplication_txt::m_main_menu()	// menu glowne aplikacji
 			}
 		}
 
-		Sleep(150);     // szybkosc poruszania sie po menu
+		Sleep(130);     // szybkosc poruszania sie po menu
 	}
 }
 
@@ -243,7 +271,8 @@ void C_aplication_txt::m_sub_1()
 	N_striing data;
 	while (true)			// dopoki nie podejmie jakiejs akcji ciagle true, ekran z menu nie zniknie
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -345,13 +374,14 @@ void C_aplication_txt::m_edit_tree()
 	N_striing data;
 	N_striing MenuSub1[5] = { "1. Add a person", "2. Edit a person", "3. Add a relation", "4. Edit a relation", "5. Exit" }; //do rozbudowy
 	N_striing SubSub1[5] = { "[You can add a person to your tree]", "[You can edit a person]", "[You can add a relation to a person]",
-		"[You can edit a relation to a person]", "[Back To Menu]" };
+		"[You can edit a relation to a person]", "[Exit From Program]" };
 	int ptr = 0, p = 0;
 	int i;
 	while (true)
 	{
 		Sleep(150);
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();			// atrapa drzewka
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -462,7 +492,8 @@ void C_aplication_txt::m_search_tree()			// nieuzywana metoda!!!!
 
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -558,7 +589,8 @@ void C_aplication_txt::m_display_tree()			// nieuzywana metoda !!!!!
 
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		//m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -657,13 +689,14 @@ void C_aplication_txt::m_sub_menu_2()
 	return;
 //	m_lista(true);
 	N_striing Menu2[4] = { "1. Display Tree", "2. Edit Tree", "3. Export Tree", "4. Exit" };
-	N_striing SubMenu2[4] = { "[Display Your Created Trees]", "[Edit Your Created Trees]", "[Export Your Created Trees]", "[Back To Menu]" };
+	N_striing SubMenu2[4] = { "[Display Your Created Trees]", "[Edit Your Created Trees]", "[Export Your Created Trees]", "[Exit From Program]" };
 	int pt = 0;
 
 	while (true)
 	{
 
-		system("cls");
+		//system("cls");
+		cls();
 		//m_create_logo();
 		//std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
 		//std::cout << "\t\t\tTree successfully loaded\n\n";
@@ -779,7 +812,8 @@ void C_aplication_txt::m_import_tree()		// nieuzywane???
 
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -937,7 +971,8 @@ bool C_aplication_txt::m_what_return() {		// metoda ktora pyta co zrobic, wyjsc 
 
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();		// atrapa drzewa
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1013,7 +1048,8 @@ void C_aplication_txt::m_menu_add_human() {			// dodawanie nowej osoby
 							// tutaj powinna byc metoda dolaczenia nowej osoby
 			while (true)
 			{
-				system("cls");
+				//system("cls");
+				cls();
 				m_create_logo();		// atrapa drzewka
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1168,7 +1204,8 @@ void C_aplication_txt::m_menu_add_human() {			// dodawanie nowej osoby
 							// tutaj powinna byc metoda dolaczenia nowej osoby
 			while (true)
 			{
-				system("cls");
+				//system("cls");
+				cls();
 				m_create_logo();
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1297,7 +1334,8 @@ C_human C_aplication_txt::m_menu_add_first_name() {
 		//	b_what = false;
 		N_striing MenuSub_add_first_name[2] = { "First name:", "Return" };
 		N_striing SubSub_add_first_name[2] = { data ,"[Return From Add Person]" };
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1410,7 +1448,8 @@ C_human C_aplication_txt::m_menu_add_last_name() {
 			b_what = false;
 			N_striing MenuSub_add_last_name[2] = { "Last name:", "Return" };
 			N_striing SubSub_add_last_name[2] = { data ,"[Return From Add Person]" };
-			system("cls");
+			//system("cls");
+			cls();
 			m_create_logo();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1521,7 +1560,8 @@ C_human C_aplication_txt::m_menu_add_gender() {
 		//	b_what = false;
 		N_striing MenuSub_add_last_name[4] = { "Gender:","- Man","- Woman", "Return" };
 		N_striing SubSub_add_last_name[4] = { "","","" ,"[Return From Add Person]" };
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1632,7 +1672,8 @@ C_human C_aplication_txt::m_menu_add_date() {
 			typ = "Date of birth: ";
 			N_striing MenuSub_add_last_name[3] = { typ,"Date:", "Return" };
 			N_striing SubSub_add_last_name[3] = {"",data ,"[Return From Add Person]" };
-			system("cls");
+			//system("cls");
+			cls();
 			m_create_logo();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1787,7 +1828,8 @@ C_human C_aplication_txt::m_menu_add_date() {
 			typ = "Date of death: ";				// analogicznie gdy jest data smierci (opcjonalny parametr)
 			N_striing MenuSub_add_last_name[4] = { typ,"Date:","Save", "Return" };
 			N_striing SubSub_add_last_name[4] = { "",data ,"","[Return From Add Person]" };
-			system("cls");
+			//system("cls");
+			cls();
 			m_create_logo();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1994,7 +2036,8 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 		m_load_lista(); //bagi z nadpisywaniem sie listy - chyba naprawione
 		if (Lista.m_size() == 0)		// gdy lista ludzi pusta pisze komunikat
 		{
-			system("cls");
+			//system("cls");
+			cls();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 			std::cout << "\t\t\t\t" << "No people!" << "\n";
 			Sleep(1500);
@@ -2011,14 +2054,16 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 	}
 	if (Lista.m_size() == 0)			// to samo gdy nie znajdzie zadnych drzew
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		std::cout << "\t\t\t\t" <<"No trees!" << "\n";
 		Sleep(1500);
 		m_main_menu();
 		//return;
 	}
-	system("cls");
+	//system("cls");
+	cls();
 	int ptr = 0, p = 0, i;
 	int cykl = 0, pentla = 0;
 	//for (i = 0; i < 100; i++)
@@ -2034,10 +2079,15 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 	}
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-		std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
+		std::cout << "\t\t\t Click";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		std::cout << " SPACEBAR ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		std::cout << "to return the menu\n\n";
 
 		if (ptr > 2) {			// potem przewija liste
 			if (cykl + 1 <= Lista.m_size())
@@ -2175,7 +2225,8 @@ void C_aplication_txt::m_menu_name_tree() {			// tworzenie nowego drzewa
 			N_striing SubSub1[1] = {data}; 
 			//N_striing MenuSub1[2] = { "Give your tree name:", "Back: " };
 			//N_striing SubSub1[2] = { data, "[Back To Main Menu]" };
-			system("cls");
+			//system("cls");
+			cls();
 			m_create_logo();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -2282,7 +2333,8 @@ void C_aplication_txt::m_menu_name_tree() {			// tworzenie nowego drzewa
 		{
 			N_striing MenuSub1[2] = { "Give your tree name:", "Back: "};
 			N_striing SubSub1[2] = { data, "[Click Spacebar To Back The Menu]"}; 
-			system("cls");
+			//system("cls");
+			cls();
 			m_create_logo();
 			//std::cout << "\t\t\t   This name already exists!\n";
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -2383,7 +2435,7 @@ void C_aplication_txt::m_menu_name_tree() {			// tworzenie nowego drzewa
 //}
 void C_aplication_txt::m_menu_tree() {		// menu drzewa
 	
-	N_striing Menu[4] = { "1. Display", "2. Edit Tree","3. Export", "4. Exit" };
+	N_striing Menu[4] = { "1. Display", "2. Edit Tree","3. Export", "4. Back" };
 	N_striing SubMenu[4] = { "[Display Tree]", "[Edit your tree content]","[Export your tree]", "[Back To Menu]" };
 	int ptr = 0, p = 0;
 
@@ -2392,7 +2444,8 @@ void C_aplication_txt::m_menu_tree() {		// menu drzewa
 	while (true)
 	{
 		m_load_files(true);
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		std::cout << "\t\t\t      Tree successfully loaded!\n\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -2472,7 +2525,7 @@ void C_aplication_txt::m_menu_tree() {		// menu drzewa
 				} break;
 				case 3:
 				{
-					Sleep(1500);
+					Sleep(800);
 					m_main_menu();
 				}
 
@@ -2490,7 +2543,8 @@ void C_aplication_txt::m_menu_relation()	// relacje ludzi
 	m_load_lista(); //bagi z nadpisywaniem sie listy
 	if (Lista.m_size() < 2)		// gdy nie ma choc 2 osob nie zbuduje relacji
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		std::cout << "\t\t\t\t" << "Cannot add relationship!" << "\n";
 		Sleep(1500);
@@ -2521,7 +2575,8 @@ void C_aplication_txt::m_menu_relation()	// relacje ludzi
 	//ladowanie elementow
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -2850,7 +2905,8 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebneg
 	//bool b_where = false;
 	if (Lista.m_size() < 1)		// nie utworzy relacji gdy za malo ludzi
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		std::cout << "\t\t\t\t" << "No people to create relations!" << "\n";
 		Sleep(1500);
@@ -2906,7 +2962,8 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebneg
 	}
 
 #pragma endregion
-	system("cls");
+	//system("cls");
+	cls();
 	int ptr = 0, p = 0;
 	int cykl = 0, pentla = 0;
 	//for (i = 0; i < 100; i++)
@@ -2922,7 +2979,8 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebneg
 	}
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 		if (ptr > 2) {
@@ -3084,7 +3142,8 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)			// edycja h
 			data += yy;
 			N_striing Menu2[6] = { "1. Name", "2. Surname", "3. Gender", "4. Date of death ","5. Save", "6. Return" };
 			N_striing SubMenu2[6] = { first_name, sure_name, gender, data,"[Save Human]", "[Back To Previous Menu]" };
-			system("cls");
+			//system("cls");
+			cls();
 			//m_create_logo();
 			std::cout << "\tYou can change your personal data. Don't forget to save your changes!\n\n";
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
@@ -3301,7 +3360,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)			// edycja h
 					break;
 				}
 			}
-			Sleep(100);     // szybkosc poruszania sie po menu
+			Sleep(70);     // szybkosc poruszania sie po menu
 		}
 		return human;
 	}
@@ -3323,7 +3382,8 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)			// edycja h
 				if (human.m_set_first_name().m_set_contens() == first_name&&human.m_set_last_name().m_set_contens() == sure_name
 					&&human.m_set_gender().m_set_contens() == gender)
 				{
-					system("cls");
+					//system("cls");
+					cls();
 					std::cout << human;
 					//kolejne opcje z menu i mozliwoscia edytowania humana
 					return human;
@@ -3344,7 +3404,8 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)			// edycja h
 				if (human.m_set_first_name().m_set_contens() == first_name&&human.m_set_last_name().m_set_contens() == sure_name
 					&&human.m_set_gender().m_set_contens() == gender)
 				{
-					system("cls");
+					//system("cls");
+					cls();
 					std::cout << human;
 					//kolejne opcje z menu i mozliwoscia edytowania humana
 					return human;
@@ -3360,8 +3421,6 @@ C_human C_aplication_txt::m_menu_edit_relations()		// bedzie edycja relacji???
 	C_human human;
 	// do rozbudowy
 	return human;
-
-
 
 
 }

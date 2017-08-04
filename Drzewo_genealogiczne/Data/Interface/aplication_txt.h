@@ -67,6 +67,7 @@ public:
 	C_human m_menu_edit_relations();		// edycja relacji humana
 	void m_menu_tree();					// menu w utworzonym drzewie, wyswietlania go, edycja
 	void m_export_tree();					// export drzewa do pliku, by go potem moc zaladowac na innym PC
+	void cls();
 
 
 private:
