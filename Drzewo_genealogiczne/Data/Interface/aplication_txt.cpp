@@ -2558,7 +2558,7 @@ void C_aplication_txt::m_menu_relation()	// relacje ludzi
 		return;
 	N_striing MenuSub1[10] = { "Add Relationship - MENU","1. Add Grandparent","2. Add Parent","3. Add Sibling","4. Add Partner",
 	"5. Add Children", "6. Add Grandchildren", "7. Add Order", "8. Save relations","9. Exit"};
-	N_striing SubSub1[10] = { "", "[Add grandparent to person]", "[Add parent to person]","[Add sibling to person]","[Add partner to person]","[Add child to person]","[Add grandchild to person]", "[Add Order]", "[Save your created relations]","[Back To Menu]" }; 
+	N_striing SubSub1[10] = { "", "[Add grandparent to person]", "[Add parent to person]","[Add sibling to person]","[Add partner to person]","[Add child to person]","[Add grandchild to person]", "[Add Order]", "[Save your created relations]","[Exit From Program]" }; 
 	int ptr = 1, p;
 	char c;
 	N_striing data;
@@ -3324,7 +3324,7 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)			// edycja h
 						}
 						//edycja dotyczaca daty
 					}
-					case 4:			// save osoby, nie dziala!!
+					case 4:			// save osoby, dziala!!
 					{
 						if (GetAsyncKeyState(VK_RETURN) != 0)
 						{
@@ -3431,8 +3431,6 @@ void C_aplication_txt::m_export_tree()			// bedzie export???
 {
 
 	// do rozbudowy
-
-
 
 
 
