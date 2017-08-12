@@ -4,22 +4,49 @@
 //#include <fstream>
 #include <Windows.h>
 
+void C_aplication_txt::cls()
+{
+	HANDLE hStdout;
+	hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD coordScreen = { 0, 0 };
+	DWORD cCharsWritten;
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	DWORD dwConSize;
+
+	if (!GetConsoleScreenBufferInfo(hStdout, &csbi))
+		return;
+
+	dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+	if (!FillConsoleOutputCharacter(hStdout, (TCHAR) ' ',
+		dwConSize, coordScreen, &cCharsWritten))
+		return;
+
+	if (!GetConsoleScreenBufferInfo(hStdout, &csbi))
+		return;
+
+	if (!FillConsoleOutputAttribute(hStdout, csbi.wAttributes,
+		dwConSize, coordScreen, &cCharsWritten))
+		return;
+
+	SetConsoleCursorPosition(hStdout, coordScreen);
+}
+
 C_aplication_txt::C_aplication_txt() {
-	system("del operation.ope&&cls");
+	system("del operation.ope&&cls");		// na poczatku usuwa plik operation.ope + czysci ekran
 	Sleep(100);
 	system("echo %USERPROFILE%>>operation.ope");
 	std::ifstream file;
-	file.open("operation.ope");
-	if (file.good())
+	file.open("operation.ope");			// tworzenie pliku operation.ope
+	if (file.good())			// operacje na nim
 	{
-		name_user_profile.m_getline(file);
+		name_user_profile.m_getline(file);		// na poczatku nazwa usera
 		//name_user_profile.m_push_back("\\");
 		//std::cout << name_user_profile << "\n";
 		N_striing s_data = name_user_profile;
 		s_data += "\\";
-		s_data += op_name_catalog;
+		s_data += op_name_catalog;			// do tego nazwa katalogu
 		m_get_index_value_tree(s_data);
-		file.close();
+		file.close();			// zamykanie pliku
 	}
 	Lista=m_add_to_operation(true, Lista);
 	if (m_what_files())
@@ -30,13 +57,13 @@ C_aplication_txt::C_aplication_txt() {
 	m_set_window(150, 70);
 	m_menu();
 }
-C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
+C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {		// konstr kopiujacy
 	if (this != &aplication_txt) *this = aplication_txt;
 	system("del operation.ope&&cls");
 	Sleep(100);
 	system("echo %USERPROFILE%>>operation.ope");
 	std::ifstream file;
-	file.open("operation.ope");
+	file.open("operation.ope");				// tworzenie pliku operation.ope
 	if (file.good())
 	{
 		name_user_profile.m_getline(file);
@@ -44,9 +71,9 @@ C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
 	//	std::cout << name_user_profile << "\n";
 		N_striing s_data = name_user_profile;
 		s_data += "\\";
-		s_data += op_name_catalog;
+		s_data += op_name_catalog;			// do tego nazwa katalogu
 		m_get_index_value_tree(s_data);
-		file.close();
+		file.close();					// zamykanie pliku
 	}
 	Lista = m_add_to_operation(true, Lista);
 	if (m_what_files())
@@ -60,12 +87,12 @@ C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {
 C_aplication_txt& C_aplication_txt::operator=(const C_aplication_txt& aplication_txt) {
 	if (this == &aplication_txt) return *this;
 	if (*this == aplication_txt) return *this;
-	Lista = aplication_txt.Lista;
+	Lista = aplication_txt.Lista;			// przypisanie wartosci
 	V_ID = aplication_txt.V_ID;
 	name_user_profile = aplication_txt.name_user_profile;
 	return *this;
 }
-bool C_aplication_txt::operator==(const C_aplication_txt& aplication_txt) {
+bool C_aplication_txt::operator==(const C_aplication_txt& aplication_txt) {		// przeciazone operatory, gdy OK zwraca true
 	if (Lista==aplication_txt.Lista&&V_ID==aplication_txt.V_ID&&name_user_profile == aplication_txt.name_user_profile) return true;
 	return false;
 }
@@ -80,16 +107,16 @@ bool C_aplication_txt::m_what_files() {
 	std::ifstream file;
 	data = "cd ";
 	data += name_user_profile;
-	data += "\\.tree\\&&attrib +A -H init.";
+	data += "\\.tree\\&&attrib +A -H init.";		// wchodzi do folderu zgodnego z nazwa usera 
 	system(data.m_c_str());
 	data = name_user_profile;
 	data += "\\.tree\\init.";
 	file.open(data.m_c_str());
 	if (file.good())
 	{
-		file.close();
+		file.close();			// zamyka plik
 		data = "cd ";
-		data += name_user_profile;
+		data += name_user_profile;			// wchodzi do folderu zgodnego z nazwa usera
 		data += "\\.tree\\&&attrib -A +H init.";
 		system(data.m_c_str());
 		return false;
@@ -104,10 +131,10 @@ void C_aplication_txt::m_set_window(int Width, int Height)
 	coord.Y = Height;		// wysokosc
 
 	_SMALL_RECT Rect;		// prostokat
-	Rect.Top = 0;
-	Rect.Left = 0;
-	Rect.Bottom = Height - 1;
-	Rect.Right = Width - 1;
+	Rect.Top = 0;			// gora
+	Rect.Left = 0;			// lewo
+	Rect.Bottom = Height - 1;			// dol
+	Rect.Right = Width - 1;				// prawo
 
 	HANDLE Handle = GetStdHandle(STD_OUTPUT_HANDLE);      // pobranie uchwytu 
 	SetConsoleScreenBufferSize(Handle, coord);            // ustawienie rozmiaru bufora
@@ -143,12 +170,13 @@ int C_aplication_txt::m_main_menu() //start
 	N_striing SubMenu[3] = { "[Create New Tree]", "[Import Your Created Trees]", "[Exit From Program]" };
 	int ptr = 0, p = 0;
 
-	while (true)
+	while (true)		// dopoki nie podejmie jakiejs akcji ciagle true, ekran z menu nie zniknie
 	{
 		Lista.m_close();
 		Lista = m_add_to_operation(true, Lista);
-		system("cls");
-		m_create_logo();
+		//system("cls");
+		cls();
+		m_create_logo();		// tworzy atrape drzewka
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 		for (int i = 0; i < 3; ++i)
@@ -179,7 +207,7 @@ int C_aplication_txt::m_main_menu() //start
 
 		cout << "ENTER.";
 
-		while (true)
+		while (true)			// dopoki nie podejmie jakiejs akcji ciagle true, ekran z menu nie zniknie
 		{
 			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 			{
@@ -226,7 +254,7 @@ int C_aplication_txt::m_main_menu() //start
 			}
 		}
 
-		Sleep(150);     // szybkosc poruszania sie po menu
+		Sleep(130);     // szybkosc poruszania sie po menu
 	}
 }
 
@@ -238,9 +266,10 @@ int C_aplication_txt::m_sub_1()
 	int ptr = 0, p = 0;
 	char c;
 	N_striing data;
-	while (true)
+	while (true)			// dopoki nie podejmie jakiejs akcji ciagle true, ekran z menu nie zniknie
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -277,9 +306,9 @@ int C_aplication_txt::m_sub_1()
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 		cout << " if you want back to main menu.";
 
-		while (true)
+		while (true)			// dopoki nie podejmie jakiejs akcji ciagle true, ekran z menu nie zniknie
 		{
-			if (GetAsyncKeyState(VK_SPACE) !=0) m_main_menu();
+			if (GetAsyncKeyState(VK_SPACE) !=0) m_main_menu();		// gdy SPACJA wroci do main_menu
 			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 			{
 				ptr -= 1;
@@ -344,14 +373,15 @@ int C_aplication_txt::m_edit_tree()
 	N_striing data;
 	N_striing MenuSub1[5] = { "1. Add a person", "2. Edit a person", "3. Add a relation", "4. Edit a relation", "5. Exit" }; //do rozbudowy
 	N_striing SubSub1[5] = { "[You can add a person to your tree]", "[You can edit a person]", "[You can add a relation to a person]",
-		"[You can edit a relation to a person]", "[Back To Menu]" };
+		"[You can edit a relation to a person]", "[Exit From Program]" };
 	int ptr = 0, p = 0;
 	int i;
 	while (true)
 	{
 		Sleep(150);
-		system("cls");
-		m_create_logo();
+		//system("cls");
+		cls();
+		m_create_logo();			// atrapa drzewka
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 		for (i = 0; i < 5; ++i)
@@ -449,7 +479,8 @@ int C_aplication_txt::m_search_tree()
 
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -543,7 +574,8 @@ int C_aplication_txt::m_display_tree()
 
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		//m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -631,15 +663,16 @@ int C_aplication_txt::m_display_tree()
 int C_aplication_txt::m_sub_menu_2()
 {
 	N_striing Menu2[4] = { "1. Display Tree", "2. Edit Tree", "3. Export Tree", "4. Exit" };
-	N_striing SubMenu2[4] = { "[Display Your Created Trees]", "[Edit Your Created Trees]", "[Export Your Created Trees]", "[Back To Menu]" };
+	N_striing SubMenu2[4] = { "[Display Your Created Trees]", "[Edit Your Created Trees]", "[Export Your Created Trees]", "[Exit From Program]" };
 	int pt = 0;
 
 	while (true)
 	{
 
-		system("cls");
-		m_create_logo();
-		std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
+		//system("cls");
+		cls();
+		//m_create_logo();
+		//std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
 		//std::cout << "\t\t\tTree successfully loaded\n\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 
@@ -734,7 +767,10 @@ int C_aplication_txt::m_sub_menu_2()
 		Sleep(150);     // szybkosc poruszania sie po menu
 	}
 }
-void C_aplication_txt::m_import_tree()
+
+
+
+void C_aplication_txt::m_import_tree()		// nieuzywane???
 {
 	N_striing MenuSub1[2] = { "1. Give your tree name", "2. Exit" };
 	N_striing SubSub1[2] = { "[You can give your created tree name]", "[Exit From Program]" };
@@ -742,7 +778,8 @@ void C_aplication_txt::m_import_tree()
 
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -822,26 +859,26 @@ void C_aplication_txt::m_import_tree()
 		Sleep(150);     // szybkosc poruszania sie po menu
 	}
 }
-char C_aplication_txt::m_get_key() {
+char C_aplication_txt::m_get_key() {		// metoda pobiera znaki z klawiatury, polskie znaki i Backspace
 	char C;
 	int Tab_key[26] = { 0x41,0x42,0x43,0x44,0x45,0x46,0x47,0x48,0x49,0x4A,0x4B,0x4C,0x4D,0x4E,0x4F,
-		0x50,0x51,0x52,0x53,0x54,0x55,0x56,0x57,0x58,0x59,0x5A };
-	int Tab_key_number[2][10];
-	char Tab_letter[2][26];
-	char Tab_number[10] = { '0','1','2','3','4','5','6','7','8','9' };
+		0x50,0x51,0x52,0x53,0x54,0x55,0x56,0x57,0x58,0x59,0x5A };		// kody poszczegolnych 26 znakow
+	int Tab_key_number[2][10];		// tablica na cyfry
+	char Tab_letter[2][26];			// tablica dwuwymiarowa na 26 malych i duzych
+	char Tab_number[10] = { '0','1','2','3','4','5','6','7','8','9' };		// cyfry
 	char Tab_polish[9] = { (char)185,(char)230,(char)234,(char)179,(char)241,(char)243,(char)156,(char)159,(char)191 }; //Polskie litery male
-	char Tab_Polish[9] = { (char)165,(char)198,(char)202,(char)163,(char)209,(char)211,(char)140,(char)143,(char)175 }; //Polskie lityry duze
+	char Tab_Polish[9] = { (char)165,(char)198,(char)202,(char)163,(char)209,(char)211,(char)140,(char)143,(char)175 }; //Polskie litery duze
 	int Tab_npolish[9] = { 0x41,0x43,0x45,0x4C,0x4E,0x4F,0x53,0x58,0x5A };
 	int i;
 	for (i = 0; i < 26; i++)
 	{
-		Tab_letter[0][i] = 'a' + i;
-		Tab_letter[1][i] = 'A' + i;
+		Tab_letter[0][i] = 'a' + i;		// wypelnienie tablic tymi znakami , male
+		Tab_letter[1][i] = 'A' + i;		// tu tez , duze
 	}
 	for (i = 0; i < 10; i++)
 	{
-		Tab_key_number[0][i] = 0x30 + i;
-		Tab_key_number[1][i] = 0x60 + i;
+		Tab_key_number[0][i] = 0x30 + i;		// wypelnienie cyframi
+		Tab_key_number[1][i] = 0x60 + i;		// tu tez
 	}
 	while (true) {
 		for (i = 0; i < 10; i++)
@@ -893,15 +930,16 @@ char C_aplication_txt::m_get_key() {
 		}
 	}
 }
-bool C_aplication_txt::m_what_return() {
+bool C_aplication_txt::m_what_return() {		// metoda ktora pyta co zrobic, wyjsc do menu, pozostac i nic nie zmieniac itp
 	N_striing MenuSub1[4] = { "Do you want back to the menu?","1. Yes","2. No", "3. Cancel" }; 
 	N_striing SubSub1[4] = { "","[All data will be deleted]","[Continue]" ,"[Cancel and return to adding data]" };
 	int ptr = 1, p = 0;
 
 	while (true)
 	{
-		system("cls");
-		m_create_logo();
+		//system("cls");
+		cls();
+		m_create_logo();		// atrapa drzewa
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 		for (int i = 0; i < 4; ++i)
@@ -941,15 +979,15 @@ bool C_aplication_txt::m_what_return() {
 			}
 			else if (ptr==1&&GetAsyncKeyState(VK_RETURN) != 0)
 			{
-				return true;
+				return true;		// wyjdzie do menu gdy spelni te warunki
 			}
 			else if (ptr == 2 && GetAsyncKeyState(VK_RETURN) != 0)
 			{
-				return false;
+				return false;		// tu pozostanie
 			}
 			else if (ptr == 3 && GetAsyncKeyState(VK_RETURN) != 0)
 			{
-				return false;
+				return false;		// tu tez
 			}
 		}
 		 
@@ -976,8 +1014,9 @@ int C_aplication_txt::m_menu_add_human(int where) {
 							// tutaj powinna byc metoda dolaczenia nowej osoby
 			while (true)
 			{
-				system("cls");
-				m_create_logo();
+				//system("cls");
+				cls();
+				m_create_logo();		// atrapa drzewka
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 				for (i = 0; i < 6; ++i)
@@ -1013,7 +1052,7 @@ int C_aplication_txt::m_menu_add_human(int where) {
 				cout << human;
 				while (true)
 				{
-					if (GetAsyncKeyState(VK_SPACE)) {
+					if (GetAsyncKeyState(VK_SPACE)) {		// SPACJA cofa do menu
 						//	Sleep(150);
 						if (m_what_menu())
 							return M_menu_glowne;
@@ -1056,25 +1095,25 @@ int C_aplication_txt::m_menu_add_human(int where) {
 						case 0: {
 							Sleep(150);
 							b_whats = true;
-							human.m_get_first_name(m_menu_add_first_name().m_set_first_name());
+							human.m_get_first_name(m_menu_add_first_name().m_set_first_name());		// doda imie
 							break;
 						}
 						case 1: {
 							Sleep(150);
 							b_whats = true;
-							human.m_get_last_name(m_menu_add_last_name().m_set_last_name());
+							human.m_get_last_name(m_menu_add_last_name().m_set_last_name());	// doda nazwisko
 							break;
 						}
 						case 2: {
 							Sleep(150);
 							b_whats = true;
-							human.m_get_gender(m_menu_add_gender().m_set_gender());
+							human.m_get_gender(m_menu_add_gender().m_set_gender());		// doda plec
 							break;
 						}
 						case 3: {
 							Sleep(150);
 							b_what = true;
-							N_vektor<C_date> V_date = m_menu_add_date().m_set_Vdate();
+							N_vektor<C_date> V_date = m_menu_add_date().m_set_Vdate();		// doda date
 							int iteral;
 								for (iteral = 0; iteral < V_date.m_size(); iteral++)
 								{
@@ -1094,13 +1133,13 @@ int C_aplication_txt::m_menu_add_human(int where) {
 								C_first_name first;
 								C_last_name last;
 								C_gender gender;
-								human.m_get_first_name(first);
-								human.m_get_last_name(last);
-								human.m_get_gender(gender);
+								human.m_get_first_name(first);		// pobiera imie
+								human.m_get_last_name(last);		// pobiera nazwisko
+								human.m_get_gender(gender);			// pobiera plec
 							}
 							m_new_human(human); 
 							Sleep(150);
-							m_save_files(true);
+							m_save_files(true);			// zapis humana
 							//Sleep(150000);
 							//		int x;
 							//		std::cin >> x;
@@ -1131,7 +1170,8 @@ int C_aplication_txt::m_menu_add_human(int where) {
 							// tutaj powinna byc metoda dolaczenia nowej osoby
 			while (true)
 			{
-				system("cls");
+				//system("cls");
+				cls();
 				m_create_logo();
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1200,25 +1240,25 @@ int C_aplication_txt::m_menu_add_human(int where) {
 						case 0: {
 							Sleep(150);
 							b_whats = true;
-							human.m_get_first_name(m_menu_add_first_name().m_set_first_name());
+							human.m_get_first_name(m_menu_add_first_name().m_set_first_name());		// imie
 							break;
 						}
 						case 1: {
 							Sleep(150);
 							b_whats = true;
-							human.m_get_last_name(m_menu_add_last_name().m_set_last_name());
+							human.m_get_last_name(m_menu_add_last_name().m_set_last_name());		// nazwisko
 							break;
 						}
 						case 2: {
 							Sleep(150);
 							b_whats = true;
-							human.m_get_gender(m_menu_add_gender().m_set_gender());
+							human.m_get_gender(m_menu_add_gender().m_set_gender());		// plec
 							break;
 						}
 						case 3: {
 							Sleep(150);
 							b_what = true;
-							N_vektor<C_date> V_date = m_menu_add_date().m_set_Vdate();
+							N_vektor<C_date> V_date = m_menu_add_date().m_set_Vdate();		// data
 							int iteral;
 							for (iteral = 0; iteral < V_date.m_size(); iteral++)
 							{
@@ -1255,7 +1295,8 @@ C_human C_aplication_txt::m_menu_add_first_name() {
 		//	b_what = false;
 		N_striing MenuSub_add_first_name[2] = { "First name:", "Return" };
 		N_striing SubSub_add_first_name[2] = { data ,"[Return From Add Person]" };
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1317,17 +1358,17 @@ C_human C_aplication_txt::m_menu_add_first_name() {
 			else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
 			{
 				Sleep(150);
-				data.m_pop_back();
+				data.m_pop_back();		// usuwa od konca znaki z imienia gdy kliknie Backspace
 				Sleep(150);
 				break;
 			}
 			else if (ptr == 0 && GetAsyncKeyState(VK_RETURN) != 0)
 			{
 				Sleep(150);
-				if (data.m_size() > 0)
+				if (data.m_size() > 0)		// musi byc cos wpisane
 				{
 					C_first_name First(data);
-					human.m_get_first_name(First);
+					human.m_get_first_name(First);		// zapisuje to
 					data.m_clear();
 					return human;
 				}
@@ -1368,7 +1409,8 @@ C_human C_aplication_txt::m_menu_add_last_name() {
 			b_what = false;
 			N_striing MenuSub_add_last_name[2] = { "Last name:", "Return" };
 			N_striing SubSub_add_last_name[2] = { data ,"[Return From Add Person]" };
-			system("cls");
+			//system("cls");
+			cls();
 			m_create_logo();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1479,7 +1521,8 @@ C_human C_aplication_txt::m_menu_add_gender() {
 		//	b_what = false;
 		N_striing MenuSub_add_last_name[4] = { "Gender:","- Man","- Woman", "Return" };
 		N_striing SubSub_add_last_name[4] = { "","","" ,"[Return From Add Person]" };
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1544,14 +1587,14 @@ C_human C_aplication_txt::m_menu_add_gender() {
 			else if (ptr == 1 && GetAsyncKeyState(VK_RETURN) != 0)
 			{
 			//	Sleep(150);
-				human.m_get_gender(true);
+				human.m_get_gender(true);		// ustawi 'Man'
 				Sleep(150);
 				return human;
 			}
 			else if (ptr == 2 && GetAsyncKeyState(VK_RETURN) != 0)
 			{
-				//Sleep(150);
-				human.m_get_gender(false);
+				//Sleep(150);	
+				human.m_get_gender(false);		// ustawi 'Woman'
 				Sleep(150);
 				return human;
 			}
@@ -1559,7 +1602,7 @@ C_human C_aplication_txt::m_menu_add_gender() {
 			{
 				Sleep(150);
 				if (m_what_return()) {
-					return human;
+					return human;			// powrot
 				}
 				break;
 			}
@@ -1580,17 +1623,18 @@ C_human C_aplication_txt::m_menu_add_date() {
 	while (true)
 	{
 		//	b_what = false;
-		data = dd;
+		data = dd;		// dzien
 		data += '-';
-		data += mm;
+		data += mm;		// miesiac
 		data += '-';
-		data += yy;
+		data += yy;		// rok
 		if (!b_what)
 		{
 			typ = "Date of birth: ";
 			N_striing MenuSub_add_last_name[3] = { typ,"Date:", "Return" };
 			N_striing SubSub_add_last_name[3] = {"",data ,"[Return From Add Person]" };
-			system("cls");
+			//system("cls");
+			cls();
 			m_create_logo();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1656,7 +1700,7 @@ C_human C_aplication_txt::m_menu_add_date() {
 				{
 					if (yy.m_size() > 0)
 					{
-						yy.m_pop_back();
+						yy.m_pop_back();		// usunie koncowe cyfry z roku gdy klikne Backspace
 						Sleep(150);
 						break;
 					}
@@ -1664,7 +1708,7 @@ C_human C_aplication_txt::m_menu_add_date() {
 					{
 						if (mm.m_size() > 0)
 						{
-							mm.m_pop_back();
+							mm.m_pop_back();		// potem z miesiaca
 							Sleep(150);
 							break;
 						}
@@ -1672,7 +1716,7 @@ C_human C_aplication_txt::m_menu_add_date() {
 						{
 							if (dd.m_size() > 0)
 							{
-								dd.m_pop_back();
+								dd.m_pop_back();		// i z dnia
 								Sleep(150);
 								break;
 							}
@@ -1688,7 +1732,7 @@ C_human C_aplication_txt::m_menu_add_date() {
 					if (dd.m_size() < 2) {
 						C = m_get_key();
 						if (C != '\0') {
-							dd.m_push_back(C);
+							dd.m_push_back(C);		// zapamietuje/wstawia dla dnia
 							break;
 						}
 					}
@@ -1697,7 +1741,7 @@ C_human C_aplication_txt::m_menu_add_date() {
 						if (mm.m_size() < 2) {
 							C = m_get_key();
 							if (C != '\0') {
-								mm.m_push_back(C);
+								mm.m_push_back(C);		// dla miesiaca
 								break;
 							}
 						}
@@ -1706,13 +1750,13 @@ C_human C_aplication_txt::m_menu_add_date() {
 							if (yy.m_size() < 4) {
 								C = m_get_key();
 								if (C != '\0') {
-									yy.m_push_back(C);
+									yy.m_push_back(C);		// i 4 cyfry dla roku
 									break;
 								}
 							}
 							C_date date;
 						//	human.m_get_date(date);
-							date.m_get_day(dd);
+							date.m_get_day(dd);			// zapisuje 
 							date.m_get_month(mm);
 							date.m_get_year(yy);
 							human.m_get_date(date);
@@ -1742,10 +1786,11 @@ C_human C_aplication_txt::m_menu_add_date() {
 		}
 		else
 		{
-			typ = "Date of death: ";
+			typ = "Date of death: ";				// analogicznie gdy jest data smierci (opcjonalny parametr)
 			N_striing MenuSub_add_last_name[4] = { typ,"Date:","Save", "Return" };
 			N_striing SubSub_add_last_name[4] = { "",data ,"","[Return From Add Person]" };
-			system("cls");
+			//system("cls");
+			cls();
 			m_create_logo();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -1867,6 +1912,12 @@ C_human C_aplication_txt::m_menu_add_date() {
 							}
 							C_date date;
 						//	human.m_get_date(date);
+
+							// warunek by data smierci byla pozniejsza od daty urodzenia musi byc!!!
+							// nie mam pomyslu, nie moge ich porownac, w obu te same zmienne, te same nazwy...
+							// moze na cos wpadniesz Lukasz
+
+
 							date.m_get_day(dd);
 							date.m_get_month(mm);
 							date.m_get_year(yy);
@@ -1905,22 +1956,22 @@ C_human C_aplication_txt::m_menu_add_date() {
 	}
 }
 
-void C_aplication_txt::m_load_lista() {
+void C_aplication_txt::m_load_lista() {			// lista ludzi
 	Lista.m_close();
-	m_load_files(true);
+	m_load_files(true);		// wczytuje pliki
 	N_striing s_Data;
 	int i, end = V_goverment_personaly.m_size(); //mam nadzieje ze sluszna poprawa
 	for (i = 1; i <=end; i++)
 	{
 		s_Data.m_clear();
 		C_human human;
-		human = m_create_human(i);
-		s_Data += human.m_set_first_name().m_set_contens();
-		s_Data += '  ';
-		s_Data += human.m_set_last_name().m_set_contens();
+		human = m_create_human(i);			// nr porzadkowy, 1, 2, itp
+		s_Data += human.m_set_first_name().m_set_contens();		// imie
+		s_Data += '  ';								// spacja
+		s_Data += human.m_set_last_name().m_set_contens();			// nazwisko
 		s_Data += "\n\t\t\t\t";
 		if (human.m_set_date(0).m_day_set() == '0'||human.m_set_date(0).m_month_set() == '0') {
-			s_Data += " - - ";
+			s_Data += " - - ";			// data urodzenia
 		}
 		else
 		{
@@ -1934,8 +1985,8 @@ void C_aplication_txt::m_load_lista() {
 			//std::cout << s_Data << "\n";
 			//Sleep(2000);
 		} 
-		Lista.m_push_back(s_Data);
-		V_ID.m_push_back(human.m_set_id());
+		Lista.m_push_back(s_Data);		// kladzie na liste
+		V_ID.m_push_back(human.m_set_id());		// i zczytyje po kolei
 	}
 }
 int C_aplication_txt::m_lista(int what_this) { //do naprawy bedzie switch!!!
@@ -2301,7 +2352,8 @@ int C_aplication_txt::m_menu_name_tree() {
 			N_striing SubSub1[1] = {data}; 
 			//N_striing MenuSub1[2] = { "Give your tree name:", "Back: " };
 			//N_striing SubSub1[2] = { data, "[Back To Main Menu]" };
-			system("cls");
+			//system("cls");
+			cls();
 			m_create_logo();
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -2349,20 +2401,22 @@ int C_aplication_txt::m_menu_name_tree() {
 				else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
 				{
 					Sleep(1000);
-					data.m_pop_back();
+					data.m_pop_back();			// usuwa nazwe od konca gdy klikam Backspace
 					break;
 				}
 				else
 				{
 					c = m_get_key();
 					if (c != '\0') {
-						data.m_push_back(c);
+						data.m_push_back(c);		// wpisuje kolejne literki
 						break;
 					}
 					if (GetAsyncKeyState(VK_RETURN) != 0 && data.m_size() > 0)
 					{
 						Sleep(1500);
 						//stworzyc zabezpieczenie przed ponownym stworzeniem tego samego dystryktu
+						// potrzebny warunek by nie moc tworzyc tych samych drzew(o tej samej nazwie)
+
 						N_striing s_data = name_user_profile;
 						s_data += "\\";
 						s_data += op_name_catalog;
@@ -2406,9 +2460,10 @@ int C_aplication_txt::m_menu_name_tree() {
 		{
 			N_striing MenuSub1[2] = { "Give your tree name:", "Back: "};
 			N_striing SubSub1[2] = { data, "[Click Spacebar To Back The Menu]"}; 
-			system("cls");
+			//system("cls");
+			cls();
 			m_create_logo();
-			std::cout << "\t\t\t   This name already exists!\n";
+			//std::cout << "\t\t\t   This name already exists!\n";
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 			for (int i = 0; i < 2; ++i)
@@ -2450,7 +2505,7 @@ int C_aplication_txt::m_menu_name_tree() {
 				else if (ptr == 0 && GetAsyncKeyState(VK_BACK) != 0)
 				{
 					Sleep(500);
-					data.m_pop_back();
+					data.m_pop_back();		// usuwa nazwe
 					break;
 				}
 
@@ -2463,9 +2518,9 @@ int C_aplication_txt::m_menu_name_tree() {
 
 				else
 				{
-					c = m_get_key();
+					c = m_get_key();	// bedzie pobieral znaki
 					if (c != '\0') {
-						data.m_push_back(c);
+						data.m_push_back(c);		// doklada kolejne litery
 						break;
 					}
 					if (GetAsyncKeyState(VK_RETURN) != 0 && data.m_size() > 0)
@@ -2508,15 +2563,19 @@ int C_aplication_txt::m_menu_name_tree() {
 //}
 int C_aplication_txt::m_menu_tree() {
 	
-	N_striing Menu[4] = { "1. Display", "2. Edit Tree","3. Export", "4. Exit" };
+	N_striing Menu[4] = { "1. Display", "2. Edit Tree","3. Export", "4. Back" };
 	N_striing SubMenu[4] = { "[Display Tree]", "[Edit your tree content]","[Export your tree]", "[Back To Menu]" };
 	int ptr = 0, p = 0;
+
+	
 
 	while (true)
 	{
 		m_load_files(true);
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
+		std::cout << "\t\t\t      Tree successfully loaded!\n\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 		for (int i = 0; i < 4; ++i)
@@ -2603,7 +2662,8 @@ int C_aplication_txt::m_menu_relation(int where)
 	m_load_lista(); //bagi z nadpisywaniem sie listy
 	if (Lista.m_size() < 2)		// gdy nie ma choc 2 osob nie zbuduje relacji
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		std::cout << "\t\t\t\t" << "Cannot add relationship!" << "\n";
 		Sleep(1500);
@@ -2616,8 +2676,8 @@ int C_aplication_txt::m_menu_relation(int where)
 	if (Element == element)
 		return where;
 	N_striing MenuSub1[10] = { "Add Relationship - MENU","1. Add Grandparent","2. Add Parent","3. Add Sibling","4. Add Partner",
-	"5. Add Children", "6. Add Grandchildren", "7. Save relations","8. Exit"};
-	N_striing SubSub1[10] = { "", "[Add grandparent to person]", "[Add parent to person]","[Add sibling to person]","[Add partner to person]","[Add child to person]","[Add grandchild to person]", "[Save your created relations]","[Back To Menu]" }; 
+	"5. Add Children", "6. Add Grandchildren", "7. Add Order", "8. Save relations","9. Exit"};
+	N_striing SubSub1[10] = { "", "[Add grandparent to person]", "[Add parent to person]","[Add sibling to person]","[Add partner to person]","[Add child to person]","[Add grandchild to person]", "[Add Order]", "[Save your created relations]","[Exit From Program]" }; 
 	int ptr = 1, p;
 	char c;
 	N_striing data;
@@ -2634,11 +2694,12 @@ int C_aplication_txt::m_menu_relation(int where)
 	//ladowanie elementow
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
-		for (int i = 0; i < 9; ++i)
+		for (int i = 0; i < 10; ++i)
 		{
 			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 			{
@@ -2678,14 +2739,14 @@ int C_aplication_txt::m_menu_relation(int where)
 				ptr -= 1;
 				if (ptr <= 0)      // gdy wykracza wraca na koniec
 				{
-					ptr = 8;
+					ptr = 9;
 				}
 				break;
 			}
 			else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
 			{
 				ptr += 1;
-				if (ptr >= 9)       // gdy wykracza poza menu, znow wraca na poczatek
+				if (ptr >= 10)       // gdy wykracza poza menu, znow wraca na poczatek
 				{
 					ptr = 1;
 				}
@@ -2704,7 +2765,7 @@ int C_aplication_txt::m_menu_relation(int where)
 							{
 								if (V_element[t].m_set_Human().m_set_id() == ID)
 								{
-									C_grandchildren grandchildren(ID);
+									C_grandchildren grandchildren(ID);			// wnuczek
 									grandchildren.m_get_id(Element.m_set_Human().m_set_id());
 									V_element[t].m_get_grandchildren(grandchildren);
 									b_pointer = false;
@@ -2729,8 +2790,8 @@ int C_aplication_txt::m_menu_relation(int where)
 							for (t = 0; t < V_element.m_size(); t++)
 							{
 								if (V_element[t].m_set_Human().m_set_id() == ID)
-								{
-									C_children children(ID);
+								{		
+									C_children children(ID);			// dzieci
 									children.m_get_id(Element.m_set_Human().m_set_id());
 									V_element[t].m_get_children(children);
 									b_pointer = false;
@@ -2757,7 +2818,7 @@ int C_aplication_txt::m_menu_relation(int where)
 							{
 								if (V_element[t].m_set_Human().m_set_id() == ID)
 								{
-									C_sibling sibling(ID);
+									C_sibling sibling(ID);			// rodzenstwo
 									sibling.m_get_id(Element.m_set_Human().m_set_id());
 									V_element[t].m_get_sibling(sibling);
 									b_pointer = false;
@@ -2784,7 +2845,7 @@ int C_aplication_txt::m_menu_relation(int where)
 							{
 								if (V_element[t].m_set_Human().m_set_id() == ID)
 								{
-									C_partner partner(ID);
+									C_partner partner(ID);			// maz, zona
 									partner.m_get_id(Element.m_set_Human().m_set_id());
 									V_element[t].m_get_partner(partner);
 									b_pointer = false;
@@ -2810,7 +2871,7 @@ int C_aplication_txt::m_menu_relation(int where)
 							{
 								if (V_element[t].m_set_Human().m_set_id() == ID)
 								{
-									C_parent parent(ID);
+									C_parent parent(ID);			// rodzic
 									parent.m_get_id(Element.m_set_Human().m_set_id());
 									V_element[t].m_get_parent(parent);
 									b_pointer = false;
@@ -2837,7 +2898,7 @@ int C_aplication_txt::m_menu_relation(int where)
 							{
 								if (V_element[t].m_set_Human().m_set_id() == ID)
 								{
-									C_grandparents Grandparent(ID);
+									C_grandparents Grandparent(ID);			// dziadkowie
 									Grandparent.m_get_id(Element.m_set_Human().m_set_id());
 									V_element[t].m_get_grandparents(Grandparent);
 									b_pointer = false;
@@ -2884,6 +2945,12 @@ int C_aplication_txt::m_menu_relation(int where)
 					case 8: //exit
 						{
 							return M_menu_glowne;
+						}
+					case 9:
+						{
+						std::cout << '\n';
+						exit(0);
+							//return;
 						}
 				}
 			}
@@ -2953,9 +3020,10 @@ C_element C_aplication_txt::m_menu_add_relations(int data, C_element Element) {
 }
 C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebnego zprecyzowania
 	//bool b_where = false;
-	if (Lista.m_size() < 1)
+	if (Lista.m_size() < 1)		// nie utworzy relacji gdy za malo ludzi
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		std::cout << "\t\t\t\t" << "No people to create relations!" << "\n";
 		Sleep(1500);
@@ -3011,13 +3079,14 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebneg
 	}
 
 #pragma endregion
-	system("cls");
+	//system("cls");
+	cls();
 	int ptr = 0, p = 0;
 	int cykl = 0, pentla = 0;
 	//for (i = 0; i < 100; i++)
 	//	std::cout << "*";
 	//std::cout << '\n';
-	if (Lista.m_size() < 5)
+	if (Lista.m_size() < 5)		// przewija liste, widoczne pierwsze "5"
 	{
 		cykl = Lista.m_size(); //- cykl;
 	}
@@ -3027,7 +3096,8 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebneg
 	}
 	while (true)
 	{
-		system("cls");
+		//system("cls");
+		cls();
 		m_create_logo();
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 		if (ptr > 2) {
@@ -3120,10 +3190,10 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 	int i;
 	//tworzenie danych
 	char C;
-	N_striing first_name, sure_name,gender,data,dd,mm,yy;
+	N_striing first_name, sure_name,gender,data,dd,mm,yy;		// bedzie mozna edytowac tylko to
 	for (i = 0; i < Data.m_size(); i++) //problem z analiza
 	{
-		switch (Data[i])
+		switch (Data[i])			// warunki potrzebne przy czytaniu z pliku
 		{
 		case'$':
 			{
@@ -3189,7 +3259,8 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 			data += yy;
 			N_striing Menu2[6] = { "1. Name", "2. Surname", "3. Gender", "4. Date of death ","5. Save", "6. Return" };
 			N_striing SubMenu2[6] = { first_name, sure_name, gender, data,"[Save Human]", "[Back To Previous Menu]" };
-			system("cls");
+			//system("cls");
+			cls();
 			//m_create_logo();
 			std::cout << "\tYou can change your personal data. Don't forget to save your changes!\n\n";
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
@@ -3258,12 +3329,12 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 						if (GetAsyncKeyState(VK_BACK) != 0)
 						{
 							//Sleep(150);
-							first_name.m_pop_back();
+							first_name.m_pop_back();		// mozna usuwac "od tylu" imie
 							break;
 						}
 						C = m_get_key();
 						if (C != '\0') {
-							first_name.m_push_back(C);
+							first_name.m_push_back(C);		// tu wpisac nowe
 							human.m_set_first_name();
 						}
 						break;
@@ -3274,7 +3345,7 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 						if (GetAsyncKeyState(VK_BACK) != 0)
 						{
 							//Sleep(150);
-							sure_name.m_pop_back();
+							sure_name.m_pop_back();		// analogicznie jak z imieniem
 							break;
 						}
 						C = m_get_key();
@@ -3288,7 +3359,7 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 						Sleep(150);
 						if (GetAsyncKeyState(VK_RETURN) != 0)
 						{
-							if (gender == "Woman")
+							if (gender == "Woman")		// tu po kliknieciu ENTER zmienia plec na przeciwna
 							{
 								gender = "Man";
 								//Sleep(150);
@@ -3307,7 +3378,7 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 					{
 						if (GetAsyncKeyState(VK_BACK) != 0&&v_date.m_size()>1)
 						{
-							if (yy.m_size() > 0)
+							if (yy.m_size() > 0)		// edycja daty
 							{
 								yy.m_pop_back();
 								//Sleep(150);
@@ -3371,7 +3442,7 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 						}
 						//edycja dotyczaca daty
 					}
-					case 4:
+					case 4:			// save osoby, dziala!!
 					{
 						if (GetAsyncKeyState(VK_RETURN) != 0)
 						{
@@ -3405,7 +3476,7 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 					break;
 				}
 			}
-		//	Sleep(100);     // szybkosc poruszania sie po menu
+			Sleep(70);     // szybkosc poruszania sie po menu
 		}
 		//return M_edit_tree;
 	}
@@ -3414,7 +3485,7 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 		i = 1;
 		while (true)
 		{
-			if (i % 2 == 0)
+			if (i % 2 == 0)			// ????
 			{
 				if(X+1<=Lista.m_size())
 					human = m_create_human(X+i);
@@ -3427,7 +3498,8 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 				if (human.m_set_first_name().m_set_contens() == first_name&&human.m_set_last_name().m_set_contens() == sure_name
 					&&human.m_set_gender().m_set_contens() == gender)
 				{
-					system("cls");
+					//system("cls");
+					cls();
 					std::cout << human;
 					N_vektor<C_date> v_date = human.m_set_Vdate();
 					if (v_date.m_size() > 1) {
@@ -3679,7 +3751,8 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 				if (human.m_set_first_name().m_set_contens() == first_name&&human.m_set_last_name().m_set_contens() == sure_name
 					&&human.m_set_gender().m_set_contens() == gender)
 				{
-					system("cls");
+					//system("cls");
+					cls();
 					std::cout << human;
 					N_vektor<C_date> v_date = human.m_set_Vdate();
 					if (v_date.m_size() > 1) {

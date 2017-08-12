@@ -17,8 +17,8 @@
 *1.5     22.05.2017  Menu modified								                      Mateusz Marchelewicz
 *1.6	 10.06.2017	 Add value to dystryct private									  Lukasz Witek vel Witkowski
 *1.7     27.06.2017  Methods names changed		     								  Mateusz Marchelewicz
-*1.7     27.06.2017  Comments added	  		     								      Mateusz Marchelewicz
-*1.7.1   17.07.2017  New method added	  		     								  Mateusz Marchelewicz
+*1.7.1   27.06.2017  Comments added	  		     								      Mateusz Marchelewicz
+*1.7.2   1.08.2017   New method added	  		     								  Mateusz Marchelewicz
 ****************************************************************************************************************/
 #ifndef APLICATION_TXT_H
 #define APLICATION_TXT_H
@@ -67,6 +67,7 @@ public:
 	C_element m_menu_edit_relations();		// edycja relacji humana
 	int m_menu_tree();					// menu w utworzonym drzewie, wyswietlania go, edycja
 	void m_export_tree();					// export drzewa do pliku, by go potem moc zaladowac na innym PC
+	void cls();						// metoda "czysci" ekran, lepiej nie uzywac system('cls')
 
 
 private:
