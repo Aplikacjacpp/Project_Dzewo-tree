@@ -236,9 +236,6 @@
     <ClInclude Include="Data\Interface\aplication.h">
       <Filter>Header Files\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Data\Interface\aplication_txt.h">
-      <Filter>Header Files\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Data\Relation\grandchildren.h">
       <Filter>Header Files\Data\Relations</Filter>
     </ClInclude>
@@ -280,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="Data\Relation\order.h">
       <Filter>Header Files\Data\Relations</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Interface\aplication_txt.h">
+      <Filter>Header Files\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
