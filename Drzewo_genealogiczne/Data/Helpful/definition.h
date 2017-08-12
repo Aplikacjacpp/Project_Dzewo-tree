@@ -109,4 +109,26 @@
 #define d_date_bristday "z1"
 #define d_date_slubu "z2"
 #define d_date_dead  "z3"
+//Dane menu:
+#define M_menu_glowne 0
+#define M_new_tree 1
+#define M_load_tree 2
+#define M_creating_new_tree 3
+#define M_import_tree 4
+#define M_dysplay_tree 5
+#define M_edit_tree 6
+#define M_export_tree 7
+#define M_import_tree 8
+#define M_szukanie 9
+#define M_menu_tree 10
+#define M_add_human 90 //dla kilku wywolan
+#define M_menu_relation 12
+#define M_edit_relation 13
+#define M_edit_human 14
+#define M_lista 80 //dla kilku wywolan
+#define M_exit -100 //by sie nie mylilo
+//Dane listy
+#define L_tree 0
+#define L_human 1
+#define L_dysplay 2
 #endif // !DEFINITON_H

@@ -40,32 +40,32 @@ public:
 	virtual ~C_aplication_txt();						// destruktor
 	void m_set_window(int Width, int Height);			// ustawia wymiary okna, czcionke
 //	friend char& operator>>(std::iostream& is, char &c);
-	void m_main_menu();			// menu glowne
-	void m_sub_1();				// podmenu
-	void m_sub_menu_2();		// podmenu, edycja, wyswietlanie drzewa
+	int m_main_menu();			// menu glowne
+	int m_sub_1();				// podmenu
+	int m_sub_menu_2();		// podmenu, edycja, wyswietlanie drzewa
 	void m_import_tree();		// import drzewa
-	void m_edit_tree();			// edycja drzewa
-	void m_display_tree();		// wyswietla drzewo
-	void m_search_tree();		// metoda do wyszukiwania ludzi po danych
+	int m_edit_tree();			// edycja drzewa
+	int m_display_tree();		// wyswietla drzewo
+	int m_search_tree();		// metoda do wyszukiwania ludzi po danych
 	void m_create_logo();		// tworzy "atrape" drzewa
 	char m_get_key();			// obsluga polskich znakow, alfabetu
 	bool m_what_return();		// menu z opcjami "Tak", "Nie", "Powrot"
 	bool m_what_menu();			// do dokonczenia!
-	void m_look_at();			//metoda wyswietlajaca drzewo
+	void m_look_at(C_id id);			//metoda wyswietlajaca drzewo
 	void m_menu();				//metoda zawiera w sobie jedno calkowite menu
 	//Poszczegolne menu:
-	void m_menu_name_tree();			// metoda dodaje nazwe drzewa
+	int m_menu_name_tree();			// metoda dodaje nazwe drzewa
 	C_human m_menu_add_first_name();	// metoda dodaje imie osoby
 	C_element m_menu_wybor_humana_wskaznikowego();		// potrzebna do tworzenia relacji
-	void m_menu_add_human();			// menu dodawania osoby
+	int m_menu_add_human(int where);			// menu dodawania osoby
 	C_human m_menu_add_last_name();		// metoda dodaje nazwisko osoby
 	C_human m_menu_add_gender();		// metoda dodaje plec osoby
 	C_human m_menu_add_date();			// metoda dodaje daty ur i smierci
-	void m_menu_relation();				// wyswietla menu z relacjami
+	int m_menu_relation(int where);				// wyswietla menu z relacjami
 	C_element m_menu_add_relations(int data, C_element Element);	// metoda dodaje relacje do osoby
-	C_human m_menu_edit_human(N_striing Data, int X);		// edycja humana
-	C_human m_menu_edit_relations();		// edycja relacji humana
-	void m_menu_tree();					// menu w utworzonym drzewie, wyswietlania go, edycja
+	int m_menu_edit_human(N_striing Data, int X, C_human& human);		// edycja humana
+	C_element m_menu_edit_relations();		// edycja relacji humana
+	int m_menu_tree();					// menu w utworzonym drzewie, wyswietlania go, edycja
 	void m_export_tree();					// export drzewa do pliku, by go potem moc zaladowac na innym PC
 
 
@@ -74,7 +74,7 @@ private:
 	N_vektor<C_id> V_ID;
 	N_striing name_user_profile;	// nazwa usera (Lukasz, Mateusz itp)
 	void m_load_lista();			// wyswietla liste utworzonych ludzi
-	void m_lista(bool b_pointer);	// wyswietla liste utworzonych drzew
+	int m_lista(int what);	// wyswietla liste utworzonych drzew
 	bool m_what_files();			// zwiazana z plikami tworzonymi przez program (ope..)
 };
 #endif // !APLICATION_TXT_H

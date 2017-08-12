@@ -263,7 +263,6 @@ void C_enginer::m_create_new_location(N_striing Data) {
 		system(op_name_bat);
 }
 N_vektor<N_striing> C_enginer::m_add_to_operation(bool b_what, N_vektor<N_striing> Lista_tree) {
-	//N_vektor<N_striing> Lista_tree;
 	N_striing data;
 	int i;
 	bool bwhat = true;
@@ -271,7 +270,6 @@ N_vektor<N_striing> C_enginer::m_add_to_operation(bool b_what, N_vektor<N_striin
 	{
 		N_striing data;
 		int i;
-	
 		//wczytywanie
 		std::ifstream file;
 		file.open(op_list_tree);
@@ -286,13 +284,6 @@ N_vektor<N_striing> C_enginer::m_add_to_operation(bool b_what, N_vektor<N_striin
 				Lista_tree.m_push_back(data);
 			} while (true);
 			file.close();
-			//for (i = 0; i < Lista_tree.m_size(); i++)
-			//{
-			//	if (Lista_tree[i] == Data)
-			//		bwhat = false;
-			//}
-			//if (bwhat)
-			//	Lista_tree.m_push_back(Data);
 		}
 		return Lista_tree;
 	}

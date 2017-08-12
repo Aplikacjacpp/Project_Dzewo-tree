@@ -122,7 +122,7 @@ N_vektor<C_last_name> C_goverment_personaly::m_set_value_last_name() { //dziala 
 		data.m_push_back(s_goverment_personaly[i]);
 		if (data == n_last_name)
 		{
-			std::cout << "Result: " << i << "\n";
+			//std::cout << "Result: " << i << "\n";
 			str.m_clear();
 			for (j = i+1; j < s_goverment_personaly.m_size(); j++)
 			{
