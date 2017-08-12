@@ -55,7 +55,7 @@ C_aplication_txt::C_aplication_txt() {
 		system("md %USERPROFILE%\\.tree&&%USERPROFILE%>>echo  >>%USERPROFILE%\\.tree\\init.&&cd %USERPROFILE%\\.tree\\&&ATTRIB -A +H init."); //dziala
 	}
 	m_set_window(150, 70);
-	m_menu();
+	m_main_menu();
 }
 C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {		// konstr kopiujacy
 	if (this != &aplication_txt) *this = aplication_txt;
@@ -82,7 +82,7 @@ C_aplication_txt::C_aplication_txt(const C_aplication_txt & aplication_txt) {		/
 		system("md %USERPROFILE%\\.tree&&%USERPROFILE%>>echo  >>%USERPROFILE%\\.tree\\init.&&cd %USERPROFILE%\\.tree\\&&ATTRIB -A +H init."); //dziala
 	}
 	m_set_window(150, 70);
-	m_menu();
+	m_main_menu();
 }
 C_aplication_txt& C_aplication_txt::operator=(const C_aplication_txt& aplication_txt) {
 	if (this == &aplication_txt) return *this;
@@ -100,7 +100,9 @@ bool C_aplication_txt::operator!=(const C_aplication_txt& aplication_txt) {
 	if (Lista != aplication_txt.Lista&&V_ID != aplication_txt.V_ID&&name_user_profile != aplication_txt.name_user_profile) return true;
 	return false;
 }
+
 C_aplication_txt::~C_aplication_txt() {}
+
 bool C_aplication_txt::m_what_files() {
 	N_striing data;
 	int i;
@@ -164,7 +166,7 @@ void C_aplication_txt::m_create_logo()       // metoda tworzy logo (atrape "drze
 	cout << "\n\n" << "\t\t\t" << "DRZEWO GENEALOGICZNE - FAMILY TREE\n\n";
 }
 
-int C_aplication_txt::m_main_menu() //start
+void C_aplication_txt::m_main_menu() //start
 {
 	N_striing Menu[3] = { "1. New Tree", "2. Load Tree", "3. Exit" };
 	N_striing SubMenu[3] = { "[Create New Tree]", "[Import Your Created Trees]", "[Exit From Program]" };
@@ -235,9 +237,9 @@ int C_aplication_txt::m_main_menu() //start
 				case 0:
 				{
 					Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-	//				m_sub_1();
-					return M_new_tree;
-				}// break;
+					m_sub_1();
+				} break;
+
 				case 1:
 				{
 					Sleep(1500);
@@ -333,25 +335,21 @@ int C_aplication_txt::m_sub_1()
 					{
 						case 0:
 						{
-							Sleep(1500);
-	//						m_menu_name_tree();
-							return M_creating_new_tree;
-							//break;
+							m_menu_name_tree();
+							return;
+							break;
 						}
 						case 1:
 						{
 							Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-					//		m_sub_menu_2();
-					//		break;
-							return M_import_tree;
+							m_sub_menu_2();
+							break;
 						}
 						case 2:
 						{
-						//	std::cout << '\n';
-						//	exit(0);
-						//	break;
-							Sleep(1500);
-							return M_exit; //Jak chcesz Mateusz moze byc (powrot) czyli "M_menu_glowne;"
+							std::cout << '\n';
+							exit(0);
+							break;
 						}
 					}
 				}
@@ -419,7 +417,7 @@ int C_aplication_txt::m_edit_tree()
 
 		while (true)
 		{
-			if (GetAsyncKeyState(VK_SPACE)) return M_menu_glowne;
+			if (GetAsyncKeyState(VK_SPACE)) m_main_menu();
 			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 			{
 				ptr -= 1;
@@ -444,24 +442,32 @@ int C_aplication_txt::m_edit_tree()
 					switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
 					{
 					case 0: {
-						Sleep(150);
-						return M_add_human+1;
+						m_menu_add_human();
+						break;
 					}
 					case 1: {
-						Sleep(150);
-						return M_lista + 2; //skok103
+						m_lista(true);
+						//tu trzeba zrobic 
+						//retu
+						break;
 					}
-					case 2:{
-						Sleep(150);
-						return M_menu_relation;
+					case 2:
+					{	m_menu_relation();
+					//return;
+						break;
 					}
-					case 3: {
-						Sleep(150);
-						return M_edit_relation;
+					case 3: 
+					{
+						m_menu_edit_relations();
+						break;
 					}
-					case 4:{
-						Sleep(150);
-						return M_menu_glowne;
+					case 4:
+					{
+						//m_main_menu();
+						//break;
+						std::cout << '\n';
+						exit(0);
+						//return;
 					}
 				}
 
@@ -471,7 +477,9 @@ int C_aplication_txt::m_edit_tree()
 			}
 		}
 	}
-int C_aplication_txt::m_search_tree()
+
+
+void C_aplication_txt::m_search_tree()
 {
 	N_striing MenuSub1[3] = { "1. Search by personal data", "2. Search by date" , "3. Exit" };
 	N_striing SubSub1[3] = { "[You can search person by personal data]", "[You can search person by dates]", "[Back To Menu]" };
@@ -566,7 +574,7 @@ int C_aplication_txt::m_search_tree()
 }
 
 
-int C_aplication_txt::m_display_tree()
+void C_aplication_txt::m_display_tree()
 {
 	N_striing MenuSub1[3] = { "1. Display from the oldest", "2. Search" , "3. Exit" };
 	N_striing SubSub1[3] = { "[You can display trees from the oldest]", "[Search your created trees]", "[Back To Menu]" };
@@ -669,10 +677,9 @@ int C_aplication_txt::m_sub_menu_2()
 	while (true)
 	{
 
-		//system("cls");
-		cls();
+		system("cls");
 		//m_create_logo();
-		//std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
+		std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
 		//std::cout << "\t\t\tTree successfully loaded\n\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 
@@ -714,7 +721,7 @@ int C_aplication_txt::m_sub_menu_2()
 
 		while (true)
 		{
-			if (GetAsyncKeyState(VK_SPACE)) return M_menu_glowne;
+			if (GetAsyncKeyState(VK_SPACE)) m_main_menu();
 			if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
 			{
 				pt -= 1;
@@ -737,29 +744,34 @@ int C_aplication_txt::m_sub_menu_2()
 			{
 				switch (pt)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
 				{
-					case 0:
-					{
-						Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-		//				m_display_tree();
-						//ImportTree();
-						//system("dir /s H:\TREE_INOP");
-						//system("tree /f H:\TREE_INOP\\Drzewo_genealogiczne\\Drzewo_genealogiczne\\Data");	//w CodeBlocks dziala, tu nie...
-						//system("PAUSE");
-						return M_lista + 3; //skok101
-					}// break;
-					case 1:
-					{
-						Sleep(1500);
-						return M_edit_tree;
-					}
-					case 2:
-					{
-						return M_export_tree;
-					} 
-					case 3:
-					{
-						return M_exit;
-					}
+				case 0:
+				{
+					Sleep(1500);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+					m_display_tree();
+					//ImportTree();
+					//system("dir /s H:\TREE_INOP");
+					//system("tree /f H:\TREE_INOP\\Drzewo_genealogiczne\\Drzewo_genealogiczne\\Data");	//w CodeBlocks dzia�a, tu nie...
+					//system("PAUSE");
+
+				} break;
+
+				case 1:
+				{
+					Sleep(1500);
+					m_edit_tree();
+				} break;
+
+				case 2:
+				{
+					m_export_tree();
+				} break;
+
+
+				case 3:
+				{
+					return;
+				} break;
+
 				}
 				break;
 			}
@@ -770,7 +782,7 @@ int C_aplication_txt::m_sub_menu_2()
 
 
 
-void C_aplication_txt::m_import_tree()		// nieuzywane???
+void C_aplication_txt::m_import_tree()
 {
 	N_striing MenuSub1[2] = { "1. Give your tree name", "2. Exit" };
 	N_striing SubSub1[2] = { "[You can give your created tree name]", "[Exit From Program]" };
@@ -998,7 +1010,7 @@ bool C_aplication_txt::m_what_return() {		// metoda ktora pyta co zrobic, wyjsc 
 bool C_aplication_txt::m_what_menu() {
 	return true; //do dokonczenia
 }
-int C_aplication_txt::m_menu_add_human(int where) {
+void C_aplication_txt::m_menu_add_human() {
 //	m_load_files(true);
 	C_human human;
 	int ptr=0,i;
@@ -1144,13 +1156,13 @@ int C_aplication_txt::m_menu_add_human(int where) {
 							//		int x;
 							//		std::cin >> x;
 							//m_what_menu();
-							return where;
+							return;
 							//czy chcesz kontynulowac??
 							//break;
 						}
 						case 5: {
 							Sleep(150);
-							return M_menu_glowne;
+							m_main_menu();
 						}
 								//	break;
 						}
@@ -1209,7 +1221,7 @@ int C_aplication_txt::m_menu_add_human(int where) {
 					if (GetAsyncKeyState(VK_SPACE)) {
 						//Sleep(150);
 						if (m_what_menu())
-							return M_menu_glowne;
+							m_main_menu();
 						break;
 					}
 					if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
@@ -1268,7 +1280,8 @@ int C_aplication_txt::m_menu_add_human(int where) {
 						}
 						case 4: {
 							Sleep(150);
-							return M_menu_glowne;
+							m_main_menu();
+							//return;
 						}
 						}
 						break;
@@ -1995,231 +2008,165 @@ int C_aplication_txt::m_lista(int what_this) { //do naprawy bedzie switch!!!
 	int cykl = 0, pentla = 0;
 	while (true)
 	{
-		switch (what_this)
+		int r;
+		m_load_lista(); //bagi z nadpisywaniem sie listy - chyba naprawione
+		if (Lista.m_size() == 0)
 		{
-		case L_tree:
-		{
-			Lista.m_close();
-			Lista = m_add_to_operation(true, Lista);
-			b_where = true; //po co to??
-			if (Lista.m_size() == 0)
-			{
-				system("cls");
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-				std::cout << "\t\t\t\t" << "No trees!" << "\n";
-				Sleep(1500);
-				return M_menu_glowne;
-				//return;
-			}
 			system("cls");
-			if (Lista.m_size() < 5)
-			{
-				cykl = Lista.m_size(); //- cykl;
-			}
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+			std::cout << "\t\t\t\t" << "No people!" << "\n";
+			Sleep(1500);
+			m_edit_tree();
+			//Sleep(2000);
+			//return;
+		}
+	}
+	else
+	{
+		Lista.m_close();
+		Lista = m_add_to_operation(true, Lista);
+		b_where = true;
+	}
+	if (Lista.m_size() == 0)
+	{
+		system("cls");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+		std::cout << "\t\t\t\t" <<"No trees!" << "\n";
+		Sleep(1500);
+		m_main_menu();
+		//return;
+	}
+	system("cls");
+	int ptr = 0, p = 0, i;
+	int cykl = 0, pentla = 0;
+	//for (i = 0; i < 100; i++)
+	//	std::cout << "*";
+	//std::cout << '\n';
+	if (Lista.m_size() < 5)
+	{
+		cykl = Lista.m_size(); //- cykl;
+	}
+	else
+	{
+		cykl = 5;
+	}
+	while (true)
+	{
+		system("cls");
+		m_create_logo();
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
+
+		if (ptr > 2) {
+			if (cykl + 1 <= Lista.m_size())
+				cykl += 1;
 			else
 			{
-				cykl = 5;
-			}
-			while (true)
-			{
-				system("cls");
-				m_create_logo();
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
-
-				if (ptr > 2) {
-					if (cykl + 1 <= Lista.m_size())
-						cykl += 1;
-					else
-					{
-						cykl = Lista.m_size(); //- cykl;
-					}
-				}
-				for (i = pentla; i < cykl; ++i)
-				{
-
-					if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
-					{
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-						cout << "\t\t\t\t" << i + 1 << "\t" << Lista[i] << endl;
-					}
-					else                // niewybrane opcje sa biale
-					{
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-						cout << "\t\t\t\t" << i + 1 << "\t" << Lista[i] << endl;
-					}
-				}
-				while (true)
-				{
-					Sleep(150);
-					if (GetAsyncKeyState(VK_SPACE) != 0) return M_menu_glowne;
-					if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
-					{
-						ptr -= 1;
-						//cykl -= 2;
-						if (ptr < 0)      // gdy wykracza wraca na koniec
-						{
-							cykl = Lista.m_size();
-							if (Lista.m_size() > 5)
-								pentla = Lista.m_size() - 5;
-							else
-								pentla = 0;
-							ptr = Lista.m_size();
-							continue;
-						}
-						if (pentla > 0 && ptr < Lista.m_size() - 3)
-						{
-							pentla--;
-						}
-						if (cykl > 5 && ptr < Lista.m_size() - 3)
-						{
-							if (cykl > 6)
-								cykl -= 2;
-							else
-								cykl -= 1;
-						}
-						break;
-					}
-					else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
-					{
-						ptr += 1;
-						if (ptr > 2 && ptr < Lista.m_size() - 2)
-							pentla++;
-						if (ptr > Lista.m_size() - 1)       // gdy wykracza poza menu, znow wraca na poczatek
-						{
-							pentla = 0;
-							if (Lista.m_size() > 5)
-								cykl = 5;
-							else
-								cykl = Lista.m_size();
-							ptr = 0;
-						}
-						break;
-					}
-					else if (GetAsyncKeyState(VK_RETURN) != 0)
-					{
-						//przejscie do edycji danych
-						Sleep(150);//prawdziwe dla ladowania listy drzew
-						N_striing s_data = name_user_profile;
-						s_data += "\\"; s_data += op_name_catalog; s_data += "\\"; //poprawa mam nadzieje ze na lepsze
-						s_data += Lista[ptr];
-						m_get_index_value_tree(s_data);
-						return M_load_tree;
-					}
-				}
+				cykl = Lista.m_size(); //- cykl;
 			}
 		}
-		case L_human:
+		for (i = pentla; i < cykl; ++i)
 		{
-			int r;
-			m_load_lista(); //bagi z nadpisywaniem sie listy - chyba naprawione
-			if (Lista.m_size() == 0)
+			
+			if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
 			{
-				system("cls");
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-				std::cout << "\t\t\t\t" << "No people!" << "\n";
-				Sleep(1500);
-				return M_edit_tree;
+				cout << "\t\t\t\t" << i+1 << "\t" << Lista[i] << endl;
 			}
-			system("cls");
-			if (Lista.m_size() < 5)
+			else                // niewybrane opcje sa biale
 			{
-				cykl = Lista.m_size(); //- cykl;
-			}
-			else
-			{
-				cykl = 5;
-			}
-			while (true)
-			{
-				system("cls");
-				m_create_logo();
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				std::cout << "\t\t\tClick Spacebar to return the menu\n\n";
-				if (ptr > 2) {
-					if (cykl + 1 <= Lista.m_size())
-						cykl += 1;
+				cout << "\t\t\t\t" << i+1 << "\t" << Lista[i] << endl;
+			}
+		}
+		while (true)
+		{
+			//if (Lista.m_size() > 1) {
+			    if (GetAsyncKeyState(VK_SPACE) != 0) m_main_menu();
+				if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
+				{
+					ptr -= 1;
+					//cykl -= 2;
+					if (ptr < 0)      // gdy wykracza wraca na koniec
+					{
+						cykl = Lista.m_size();
+						if (Lista.m_size() > 5)
+							pentla = Lista.m_size() - 5;
+						else
+							pentla = 0;
+						ptr = Lista.m_size();
+						continue;
+					}
+					if (pentla > 0 && ptr < Lista.m_size() - 3)
+					{
+						pentla--;
+					}
+					if (cykl > 5 && ptr < Lista.m_size() - 3)
+					{
+						if (cykl > 6)
+							cykl -= 2;
+						else
+							cykl -= 1;
+					}
+
+					//if (pentla>0&&ptr<Lista.m_size() -3)
+
+					break;
+				}
+				else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
+				{
+					ptr += 1;
+					if (ptr > 2 && ptr < Lista.m_size() - 2)
+						pentla++;
+					if (ptr > Lista.m_size() - 1)       // gdy wykracza poza menu, znow wraca na poczatek
+					{
+						pentla = 0;
+						if (Lista.m_size() > 5)
+							cykl = 5;
+						else
+							cykl = Lista.m_size();
+						ptr = 0;
+					}
+					break;
+				}
+			//}
+			else if (GetAsyncKeyState(VK_RETURN) != 0)
+			{
+			//	m_create_human(V_ID[ptr]);
+			//	break;
+				//przejscie do edycji danych
+				Sleep(150);
+				if (b_where) { //prawdziwe dla ladowania listy drzew
+					N_striing s_data = name_user_profile;
+					s_data += "\\"; s_data += op_name_catalog; s_data += "\\"; //poprawa mam nadzieje ze na lepsze
+					s_data += Lista[ptr];
+					m_get_index_value_tree(s_data);
+				}
+				else
+				{
+					C_human human, Human;
+				//	m_create_human()
+					human=m_menu_edit_human(V_goverment_personaly[ptr].m_set_contens(),ptr);
+					if (human == Human)
+					{
+						m_menu_tree();
+						return;
+					}
 					else
 					{
-						cykl = Lista.m_size(); //- cykl;
+						//do tad dziala dobrze dalej trzeba cos wymyslec
+						//zajme sie tym jutro w poniedzialek
+						m_new_human(human);
+						m_menu_tree();
+						return;
 					}
+					
 				}
-				for (i = pentla; i < cykl; ++i)
-				{
-					if (i == ptr)       // podswietla dana opcje na niebiesko, dopisuje strzalke
-					{
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-						cout << "\t\t\t\t" << i + 1 << "\t" << Lista[i] << endl;
-					}
-					else                // niewybrane opcje sa biale
-					{
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-						cout << "\t\t\t\t" << i + 1 << "\t" << Lista[i] << endl;
-					}
-				}
-				while (true)
-				{
-					Sleep(150);
-					if (GetAsyncKeyState(VK_SPACE) != 0) return M_menu_glowne;
-					if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
-					{
-						ptr -= 1;
-						//cykl -= 2;
-						if (ptr < 0)      // gdy wykracza wraca na koniec
-						{
-							cykl = Lista.m_size();
-							if (Lista.m_size() > 5)
-								pentla = Lista.m_size() - 5;
-							else
-								pentla = 0;
-							ptr = Lista.m_size();
-							continue;
-						}
-						if (pentla > 0 && ptr < Lista.m_size() - 3)
-						{
-							pentla--;
-						}
-						if (cykl > 5 && ptr < Lista.m_size() - 3)
-						{
-							if (cykl > 6)
-								cykl -= 2;
-							else
-								cykl -= 1;
-						}
-						break;
-					}
-					else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
-					{
-						ptr += 1;
-						if (ptr > 2 && ptr < Lista.m_size() - 2)
-							pentla++;
-						if (ptr > Lista.m_size() - 1)       // gdy wykracza poza menu, znow wraca na poczatek
-						{
-							pentla = 0;
-							if (Lista.m_size() > 5)
-								cykl = 5;
-							else
-								cykl = Lista.m_size();
-							ptr = 0;
-						}
-						break;
-					}
-					else if (GetAsyncKeyState(VK_RETURN) != 0)
-					{
-						C_human human, Human;
-						int result;
-						result = m_menu_edit_human(V_goverment_personaly[ptr].m_set_contens(), ptr, human);
-						if (result == M_edit_tree)
-						{
-							m_update_human(human);
-							m_save_files(true);
-							return M_edit_tree;
-						}
-						else if (result == M_menu_glowne)
-						{
-							return M_menu_glowne;
-						}
-					}
+			//	Lista.m_close();
+				m_menu_tree();
+				return;
+				
+			}
 
 				}
 				break;
@@ -2334,7 +2281,7 @@ int C_aplication_txt::m_lista(int what_this) { //do naprawy bedzie switch!!!
 		}
 		//	return false;
 }
-int C_aplication_txt::m_menu_name_tree() {
+void C_aplication_txt::m_menu_name_tree() {
 	//Lista.m_close();
 	//Lista = m_add_to_operation(true, Lista);
 	
@@ -2512,7 +2459,7 @@ int C_aplication_txt::m_menu_name_tree() {
 
 				else if (ptr == 1 && GetAsyncKeyState(VK_SPACE) != 0)
 				{
-					return M_menu_glowne;
+					m_main_menu();
 				}
 
 
@@ -2561,7 +2508,7 @@ int C_aplication_txt::m_menu_name_tree() {
 //void C_aplication_txt::m_menu_edit_human() {
 
 //}
-int C_aplication_txt::m_menu_tree() {
+void C_aplication_txt::m_menu_tree() {
 	
 	N_striing Menu[4] = { "1. Display", "2. Edit Tree","3. Export", "4. Back" };
 	N_striing SubMenu[4] = { "[Display Tree]", "[Edit your tree content]","[Export your tree]", "[Back To Menu]" };
@@ -2630,26 +2577,33 @@ int C_aplication_txt::m_menu_tree() {
 			{
 				switch (ptr)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
 				{
-					case 0:
-					{
-						Sleep(1500); 
-						return M_lista + 3;
-					} break;
-					case 1:
-					{
-						Sleep(1500);
-						return M_edit_tree;
-					}
-					case 2:
-					{
-						Sleep(1500);
-						return M_export_tree;
-					}
-					case 3:
-					{
-						Sleep(1500);
-						return M_menu_glowne;
-					}
+
+				case 0:
+				{
+					Sleep(1500); 
+				//	Lista.m_close();// sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
+					m_lista(true);
+				} break;
+
+				case 1:
+				{
+					Sleep(1500);
+					m_edit_tree();
+					//return;
+				} break;
+
+				case 2:
+				{
+					//eksportuj
+					// jakas metoda do zapisywania drzewa potrzebna!!!
+					//return;
+				} break;
+				case 3:
+				{
+					Sleep(1500);
+					m_main_menu();
+				}
+
 			  }
 			  break;
 			}
@@ -2657,7 +2611,7 @@ int C_aplication_txt::m_menu_tree() {
 		Sleep(150);     // szybkosc poruszania sie po menu
 	}
 }
-int C_aplication_txt::m_menu_relation(int where) 
+void C_aplication_txt::m_menu_relation() 
 {
 	m_load_lista(); //bagi z nadpisywaniem sie listy
 	if (Lista.m_size() < 2)		// gdy nie ma choc 2 osob nie zbuduje relacji
@@ -2667,7 +2621,7 @@ int C_aplication_txt::m_menu_relation(int where)
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		std::cout << "\t\t\t\t" << "Cannot add relationship!" << "\n";
 		Sleep(1500);
-		return M_edit_tree;
+		m_edit_tree();
 		//Sleep(2000);
 		//return;
 	}
@@ -2942,9 +2896,15 @@ int C_aplication_txt::m_menu_relation(int where)
 							}
 							return where;
 						}
-					case 8: //exit
+					//case 8:
+					//	{
+					//	m_new_element(Element, true);
+					//	m_save_files(true);
+					//		return;
+					//	}
+					case 8:
 						{
-							return M_menu_glowne;
+							return;
 						}
 					case 9:
 						{
@@ -3184,7 +3144,7 @@ C_element C_aplication_txt::m_menu_wybor_humana_wskaznikowego() { //do doglebneg
 	}
 } 
 //w momecie tworzenia jednego elementu nie musza byc aktualizowane
-int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  //metoda do przerobienia
+C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 {
 	X++;
 	int i;
@@ -3468,7 +3428,9 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 					case 5:
 					{
 						if(GetAsyncKeyState(VK_RETURN) != 0){
-							return M_edit_tree+1;
+							m_edit_tree();
+						//human.m_clear();
+						//return human; //to samo jak nie mozana znalesc humana
 						}
 						
 					}
@@ -3476,7 +3438,7 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 					break;
 				}
 			}
-			Sleep(70);     // szybkosc poruszania sie po menu
+			Sleep(100);     // szybkosc poruszania sie po menu
 		}
 		//return M_edit_tree;
 	}
@@ -3754,232 +3716,34 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 					//system("cls");
 					cls();
 					std::cout << human;
-					N_vektor<C_date> v_date = human.m_set_Vdate();
-					if (v_date.m_size() > 1) {
-						dd = v_date[1].m_set_day().m_day_set();
-						mm = v_date[1].m_set_month().m_month_set();
-						yy = v_date[1].m_set_year().m_year_set();
-					}
-					//system("cls");
-					while (true)
-					{
-						data = dd;
-						data += " - ";
-						data += mm;
-						data += " - ";
-						data += yy;
-						N_striing Menu2[6] = { "1. Name", "2. Surname", "3. Gender", "4. Date of death ","5. Save", "6. Return" };
-						N_striing SubMenu2[6] = { first_name, sure_name, gender, data,"[Save Human]", "[Back To Previous Menu]" };
-						system("cls");
-						//m_create_logo();
-						std::cout << "\tYou can change your personal data. Don't forget to save your changes!\n\n";
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+					//kolejne opcje z menu i mozliwoscia edytowania humana
+					return human;
+				}
+				i++;
+			}
+		}
+	}
+}
 
-						for (int i = 0; i < 6; ++i)
-						{
-							if (i == pt)       // podswietla dana opcje na niebiesko, dopisuje strzalke
-							{
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-								cout << "\t\t\t\t" << "--> " << Menu2[i] << " \n\t\t\t " << SubMenu2[i] << endl;
-							}
-							else                // niewybrane opcje sa biale
-							{
-								SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-								cout << "\t\t\t\t" << Menu2[i] << endl;
-							}
-						}
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-						cout << "\n\n\n\n Use the arrows to navigate the menu ";
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-						cout << char(24) << " " << char(25);        // kody ASCII strzalek
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-						cout << ". Confirm your choice with ";
+C_human C_aplication_txt::m_menu_edit_relations()
+{
+	C_human human;
+	// do rozbudowy
+	return human;
 
 						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 
-						cout << "ENTER.";
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-						cout << "\n Click ";
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-						cout << "SPACEBAR";
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-						cout << " if you want back to main menu.";
 
 
-						while (true)
-						{
-							Sleep(150);
-							if (GetAsyncKeyState(VK_SPACE)) return M_menu_glowne;
-							if (GetAsyncKeyState(VK_UP) != 0)   // strzalka do gory przesuwa wyzej po menu
-							{
-								pt -= 1;
-								if (pt < 0)      // gdy wykracza wraca na koniec
-								{
-									pt = 5;
-								}
-								break;
-							}
-							else if (GetAsyncKeyState(VK_DOWN) != 0)    // strzalka na dol przesuwa nizej po menu
-							{
-								pt += 1;
-								if (pt >= 6)       // gdy wykracza poza menu, znow wraca na poczatek
-								{
-									pt = 0;
-								}
-								break;
-							}
-							else
-							{
-								switch (pt)        // po wybraniu opcji w case'ach beda instrukcje do wykonania
-								{
-								case 0:
-								{
-									Sleep(150);    // sleepy musza byc, by uniknac "podwojnego" ENTERA!!!
-												   //edycja dotyczaca imienia
-									if (GetAsyncKeyState(VK_BACK) != 0)
-									{
-										//Sleep(150);
-										first_name.m_pop_back();
-										break;
-									}
-									C = m_get_key();
-									if (C != '\0') {
-										first_name.m_push_back(C);
-										human.m_set_first_name();
-									}
-									break;
-								}
-								case 1:
-								{
-									Sleep(150);
-									if (GetAsyncKeyState(VK_BACK) != 0)
-									{
-										//Sleep(150);
-										sure_name.m_pop_back();
-										break;
-									}
-									C = m_get_key();
-									if (C != '\0') {
-										sure_name.m_push_back(C);
-									}
-									break;
-								}
-								case 2:
-								{
-									Sleep(150);
-									if (GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										if (gender == "Woman")
-										{
-											gender = "Man";
-											//Sleep(150);
-											break;
-										}
-										else
-										{
-											gender = "Woman";
-											//Sleep(150);
-											break;
-										}
-									}
-									break;
-								}
-								case 3:
-								{
-									if (GetAsyncKeyState(VK_BACK) != 0 && v_date.m_size()>1)
-									{
-										if (yy.m_size() > 0)
-										{
-											yy.m_pop_back();
-											//Sleep(150);
-											break;
-										}
-										else
-										{
-											if (mm.m_size() > 0)
-											{
-												mm.m_pop_back();
-												//Sleep(150);
-												break;
-											}
-											else
-											{
-												if (dd.m_size() > 0)
-												{
-													dd.m_pop_back();
-													//Sleep(150);
-													break;
-												}
-												//Sleep(150);
-												break;
-											}
-										}
-										Sleep(150);
-										break;
-									}
-									else
-									{
-										if (dd.m_size() < 2) {
-											C = m_get_key();
-											if (C != '\0') {
-												dd.m_push_back(C);
-												break;
-											}
-										}
-										else
-										{
-											if (mm.m_size() < 2) {
-												C = m_get_key();
-												if (C != '\0') {
-													mm.m_push_back(C);
-													break;
-												}
-											}
-											else
-											{
-												if (yy.m_size() < 4) {
-													C = m_get_key();
-													if (C != '\0') {
-														yy.m_push_back(C);
-														break;
-													}
-												}
+}
 
-												break;
-											}
-										}
-										break;
-									}
-									//edycja dotyczaca daty
-								}
-								case 4:
-								{
-									if (GetAsyncKeyState(VK_RETURN) != 0)
-									{
-										C_first_name First(first_name);
-										C_last_name Last(sure_name);
-										if (gender == "Men")
-											human.m_get_gender(true);
-										else
-											human.m_get_gender(false);
-										C_date date;
-										date.m_get_day(dd);
-										date.m_get_month(mm);
-										date.m_get_year(yy);
-										if (v_date.m_size() > 1)
-											human.m_update_date(1, date);
-										else
-											human.m_get_date(date);
-										human.m_get_first_name(First);
-										human.m_update_last_name(0, Last);
-										return M_edit_tree; //skok102
-									}
-								}
-								case 5:
-								{
-									if (GetAsyncKeyState(VK_RETURN) != 0) {
-										return M_edit_tree + 1;
-									}
+
+
+void C_aplication_txt::m_export_tree()
+{
+
+	// do rozbudowy
+
 
 								}
 								}//koniec switcha
@@ -3996,108 +3760,6 @@ int C_aplication_txt::m_menu_edit_human(N_striing Data, int X, C_human &human)  
 }
 void C_aplication_txt::m_export_tree() {
 
-}
-C_element C_aplication_txt::m_menu_edit_relations(){
-	C_element A;
-	return A;
-}
-void C_aplication_txt::m_look_at(C_id id) {
-	C_tree Tree(m_create_tree(id));
-	
-}
-void C_aplication_txt::m_menu() {
-	int Value=0;
-	while (true)
-	{
-		switch (Value)
-		{
-			case M_exit:
-			{
-				return;
-			}
-			case M_menu_glowne:
-			{
-				Value = m_main_menu();
-				break;
-			}
-			case M_new_tree:
-			{
-				Value = m_sub_1();
-				break;
-			}
-			case M_load_tree:
-			{
-				Value = m_sub_menu_2();
-				break;
-			}
-			case M_creating_new_tree:
-			{
-				Value = m_menu_name_tree();
-				break;
-			}
-			case M_import_tree:
-			{
-				Value = m_sub_menu_2();
-				break;
-			}
-			case M_dysplay_tree:
-			{
-				Value = m_display_tree();
-				break;
-			}
-			case M_edit_tree:
-			{
-				Value = m_edit_tree();
-				break;
-			}
-			case M_szukanie:
-			{
-				Value = m_search_tree();
-				break;
-			}
-			case M_menu_tree:
-			{
-				Value = m_menu_tree();
-				break;
-			}
-			case (M_add_human+1):
-			{
-				Value = m_menu_add_human(M_edit_tree);
-					break;
-			}
-			case (M_add_human+2):
-			{
-				Value = m_menu_add_human(M_creating_new_tree);
-				break;
-			}
-			case M_menu_relation:
-			{
-				Value = m_menu_relation(M_edit_tree);
-				break;
-			}
-			case M_edit_relation:
-			{
-				m_menu_edit_relations(); //dokonczyc rozbudowe i rozbudowac funkcje
-				Value = M_edit_tree;
-				break;
-			}
-			case (M_lista+1): //wyswietla liste drzew
-			{
-				Value = m_lista(L_tree);
-				break;
-			}
-			case (M_lista + 2): //wyswietla liste humana
-			{
-				Value = m_lista(L_human);
-				break;
-			}
-			case (M_lista +3): //wyswietla drzewo
-			{
-				Value = m_lista(L_dysplay);
-				break;
-			}
 
-		}
-	}
-	//delete Value;
+
 }
