@@ -2128,7 +2128,8 @@ void C_aplication_txt::m_lista(bool b_pointer) {
 					{
 						//do tad dziala dobrze dalej trzeba cos wymyslec
 						//zajme sie tym jutro w poniedzialek
-						m_new_human(human);
+						m_update_human(human);
+						m_save_files(true);
 						m_menu_tree();
 						return;
 					}
@@ -3335,28 +3336,4 @@ C_human C_aplication_txt::m_menu_edit_human(N_striing Data, int X)
 			}
 		}
 	}
-}
-
-C_human C_aplication_txt::m_menu_edit_relations()
-{
-	C_human human;
-	// do rozbudowy
-	return human;
-
-
-
-
-}
-
-
-
-void C_aplication_txt::m_export_tree()
-{
-
-	// do rozbudowy
-
-
-
-
-
 }
